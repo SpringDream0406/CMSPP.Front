@@ -1,0 +1,40 @@
+.signup-background {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-box {
+  height: 30rem;
+  width: 50rem;
+  /* border: 1px solid black; */
+}
+
+.signup-message {
+  height: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+}
+
+.signup-icons {
+  display: flex;
+  justify-content: center;
+}
+
+.signup-icons-box {
+  width: 10rem;
+}
+
+.signup-icons-icon {
+  width: 7rem;
+  margin: 2rem;
+}
+
+.signup-icons-icon:hover {
+  border: 1px solid black;
+}
