@@ -6,7 +6,7 @@ const Signup = () => {
   const signupIcons = signupIconsData.map((icons) => {
     return (
       <div className="signup-icons-box" key={icons}>
-        <Link to={`http://localhost:3009/signup/${icons}`}>
+        <Link to={`${process.env.REACT_APP_SOCIAL_LOGIN_URL}/${icons}`}>
           <img
             src={`/images/icons/${icons}.png`}
             alt={icons}
@@ -21,7 +21,6 @@ const Signup = () => {
   return (
     <div className="signup-background">
       <div className="signup-box">
-        <div className="signup-message">회원가입</div>
         <div className="signup-icons">{signupIcons}</div>
       </div>
     </div>

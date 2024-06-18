@@ -1,0 +1,39 @@
+.main-background {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-title {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-title-txt {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-left: 1rem;
+}
+
+.main-actions {
+  height: 5%;
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+}
+
+.main-actions-bts {
+  margin-right: 1rem;
+}
+
+.main-outlet {
+  height: 80%;
+}
+
+.main-info {
+  height: 5%;
+}
