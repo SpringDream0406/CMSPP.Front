@@ -11,12 +11,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.main-title-txt {
   font-size: 3rem;
   font-weight: bold;
-  margin-left: 1rem;
 }
 
 .main-actions {
@@ -32,6 +28,7 @@
 
 .main-outlet {
   height: 80%;
+  width: 80%;
 }
 
 .main-info {

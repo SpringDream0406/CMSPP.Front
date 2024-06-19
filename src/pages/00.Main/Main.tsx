@@ -1,40 +1,29 @@
 import "./Main.css";
-import { Outlet, NavLink } from "react-router-dom";
-import { Utils } from "../../utils/utils";
+import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { actionData } from "./data.main";
+import { actionData, titleText } from "./data.main";
+import { BackApiUtils } from "../../utils/backApi.utils";
+import { Utils } from "../../utils/utils";
 
 const Main = () => {
-  const dispatch = useDispatch();
-  const accessToken = useSelector(
-    (state: RootState) => state.reducer.accessToken
-  );
-  const [titleText, setTitleText] = useState<string>("CM Solar Power Plant");
+  const [logined, setLogined] = useState<boolean>(
+    Utils.checkAccessTokenFromLocalStorage()
+  ); // 로그인 상태에 따라 버튼들 바뀜
+  const { pathname } = useLocation(); // 현재 경로로 타이틀 변경
 
-  // 리프레시토큰 있으면 엑세스토큰 받아다가 redux에 저장
+  // 리프레시토큰 있으면 엑세스토큰 받아다가 localStorage에 저장
   useEffect(() => {
-    Utils.saveAccessToken(dispatch);
-  }, [dispatch]);
-
-  // 이미지랑 제목
-  const mainTitle = (
-    <>
-      <img src="spp3.png" alt="icon" />
-      <div className="main-title-txt">{titleText}</div>
-    </>
-  );
+    BackApiUtils.saveAccessToken(setLogined);
+  }, []);
 
   // 페이지 이동 버튼들
-  const actionsData = actionData(dispatch, accessToken);
+  const actionsData = actionData(logined);
   const actions = (
     <>
       {actionsData.map((items) => (
         <NavLink
           to={items.to}
           onClick={() => {
-            setTitleText(items.titleText);
             if (items.onClick) items.onClick();
           }}
           className={"main-actions-bts"}
@@ -49,7 +38,9 @@ const Main = () => {
   // 본문
   return (
     <div className="main-background">
-      <div className="main-title">{mainTitle}</div>
+      <div className="main-title">
+        {titleText[pathname] || "CM Solar Power Plant"}
+      </div>
       <div className="main-actions">{actions}</div>
       <div className="main-outlet">
         <Outlet />

@@ -1,11 +1,10 @@
 .signup-background {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+  justify-content: center;
   align-items: center;
-  margin-top: 3rem;
 }
 
 .signup-box {

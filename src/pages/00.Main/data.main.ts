@@ -1,45 +1,44 @@
-import { Dispatch } from "redux";
+import { BackApiUtils } from "../../utils/backApi.utils";
 import { Utils } from "../../utils/utils";
 
 interface ActionData {
   to: string;
-  titleText: string;
   name: string;
   onClick?: () => void;
 }
 
-export const actionData = (dispatch: Dispatch, accessToken: string) => {
-  const actionsData1: ActionData[] = [
+export const titleText: { [key: string]: string } = {
+  "/signup": "회원가입/로그인",
+  "/withdrawal": "회원탈퇴",
+};
+
+export const actionData = (logined: boolean): ActionData[] => {
+  const actionsData1 = [
     {
       to: "/",
-      titleText: "CM Solar Power Plant",
       name: "홈",
     },
     {
       to: "/",
-      titleText: "CM Solar Power Plant",
       name: "로그아웃",
-      onClick: () => Utils.logOut(dispatch),
+      onClick: () => Utils.logOut(),
     },
     {
       to: "withdrawal",
-      titleText: "회원탈퇴",
       name: "회원탈퇴",
     },
   ];
 
-  const actionsData2: ActionData[] = [
+  const actionsData2 = [
     {
       to: "/",
-      titleText: "CM Solar Power Plant",
       name: "홈",
     },
     {
       to: "signup",
-      titleText: "회원가입/로그인",
       name: "회원가입/로그인",
     },
   ];
 
-  return accessToken ? actionsData1 : actionsData2;
+  return logined ? actionsData1 : actionsData2;
 };

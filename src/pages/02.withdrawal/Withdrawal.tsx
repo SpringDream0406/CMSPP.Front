@@ -1,17 +1,14 @@
-import { useSelector } from "react-redux";
 import "./Withdrawal.css";
-import { RootState } from "../../redux/store";
-import { Utils } from "../../utils/utils";
+import { BackApiUtils } from "../../utils/backApi.utils";
+import { useEffect } from "react";
 
 const Withdrawal = () => {
-  const accessToken = useSelector(
-    (state: RootState) => state.reducer.accessToken
-  );
-
   // 본문
+  useEffect(() => {});
   return (
-    <div>
-      <button onClick={() => Utils.withdrawal(accessToken)}>탈퇴</button>
+    <div className="withdrawal-background">
+      <div>asdfasfa</div>
+      <button onClick={() => BackApiUtils.withdrawal()}>탈퇴</button>
     </div>
   );
 };
