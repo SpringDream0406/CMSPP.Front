@@ -91,6 +91,7 @@ export class BackApiService {
           console.log(error);
         }
       }
+      console.log(error);
     }
   }
 }

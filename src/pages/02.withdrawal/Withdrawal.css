@@ -1,9 +1,26 @@
 .withdrawal-background {
-  height: 100%;
+  height: 90%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: pink;
+}
+
+.withdrawal-notice {
+  font-size: 1.5rem;
+}
+
+.withdrawal-box {
+  display: flex;
+}
+
+.withdrawal-input {
+  height: 2rem;
+  width: 20rem;
+  font-size: 1.5rem;
+}
+
+.withdrawal-btn {
+  font-size: 1.5rem;
 }
