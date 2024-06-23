@@ -6,9 +6,9 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 /* Hide the arrows in Firefox */
-input[type="number"] {
+/* input[type="number"] {
   -moz-appearance: textfield;
-}
+} */
 
 .spp-background {
   height: 100%;
