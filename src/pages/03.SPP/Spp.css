@@ -67,6 +67,7 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .spp-solar-year {
@@ -107,6 +108,11 @@ input[type="number"]::-webkit-inner-spin-button {
 .spp-solar-total {
   width: 15%;
   /* background-color: pink; */
+}
+
+/* total-box */
+.spp-solar-total-box {
+  background-color: pink;
 }
 
 /* input-box */
