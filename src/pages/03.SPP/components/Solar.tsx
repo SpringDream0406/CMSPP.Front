@@ -1,4 +1,19 @@
+import { useRef } from "react";
+
 const Solar = () => {
+  const inputDateRef = useRef<HTMLInputElement>(null);
+  const inputGenerationRef = useRef<HTMLInputElement>(null);
+  const inputSMPRef = useRef<HTMLInputElement>(null);
+  const inputSupplyPriceRef = useRef<HTMLInputElement>(null);
+
+  const sendData = () => {
+    console.log(inputDateRef?.current?.value);
+    console.log(inputGenerationRef?.current?.value);
+    console.log(inputSMPRef?.current?.value);
+    console.log(inputSupplyPriceRef?.current?.value);
+  };
+
+  //
   const title = (
     <div className="spp-solar-box-items-title">
       <div className="spp-solar-year">년</div>
@@ -12,6 +27,7 @@ const Solar = () => {
     </div>
   );
 
+  //
   const items = (
     <div className="spp-solar-box-items-box">
       <div className="spp-solar-box-items">
@@ -27,29 +43,41 @@ const Solar = () => {
     </div>
   );
 
+  //
   const total = (
     <div className="spp-solar-total-box">
       <div>total</div>
     </div>
   );
 
+  //
   const inputs = (
     <div className="spp-solar-input-box">
-      <input className="spp-solar-input-year" type="month" />
+      <input className="spp-solar-input-year" type="month" ref={inputDateRef} />
       <input
         className="spp-solar-input-generation"
         type="number"
         placeholder="발전량"
+        ref={inputGenerationRef}
       />
-      <input className="spp-solar-input-smp" type="number" placeholder="SMP" />
+      <input
+        className="spp-solar-input-smp"
+        type="number"
+        placeholder="SMP"
+        ref={inputSMPRef}
+      />
       <input
         className="spp-solar-input-supplyPrice"
         type="number"
         placeholder="공급가액"
+        ref={inputSupplyPriceRef}
       />
-      <button className="spp-solar-input-btn">추가하기</button>
+      <button className="spp-solar-input-btn" onClick={() => sendData}>
+        추가하기
+      </button>
     </div>
   );
+
   // 본문
   return (
     <div className="spp-solar">
