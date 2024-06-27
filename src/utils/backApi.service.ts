@@ -10,6 +10,7 @@ interface IAxiosPost {
 interface IAxiosPostWithAccessToken extends Omit<IAxiosPost, "config"> {}
 
 export class BackApiService {
+  //
   // 기본 post 통신
   async axiosPost({
     url,
@@ -59,7 +60,7 @@ export class BackApiService {
         Utils.logOut();
         return;
       }
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -88,10 +89,13 @@ export class BackApiService {
           const response = await this.axiosBackPost({ url, data, config });
           return response;
         } catch (error) {
-          console.log(error);
+          // 리프래시 토큰 만료 코드 필요
+          // console.error(error);
         }
       }
-      console.log(error);
+      throw error;
     }
   }
+
+  // 태양광 ? 어떻게 나눌꺼냐
 }

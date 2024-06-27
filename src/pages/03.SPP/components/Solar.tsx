@@ -1,16 +1,51 @@
-import { useRef } from "react";
+import React, { RefObject, useRef } from "react";
+import { BackApiUtils } from "../../../utils/backApi.utils";
 
 const Solar = () => {
-  const inputDateRef = useRef<HTMLInputElement>(null);
+  const inputYearAndMonthRef = useRef<HTMLInputElement>(null);
   const inputGenerationRef = useRef<HTMLInputElement>(null);
   const inputSMPRef = useRef<HTMLInputElement>(null);
   const inputSupplyPriceRef = useRef<HTMLInputElement>(null);
 
+  // 서버로 태양광 데이터 보내기
   const sendData = () => {
-    console.log(inputDateRef?.current?.value);
-    console.log(inputGenerationRef?.current?.value);
-    console.log(inputSMPRef?.current?.value);
-    console.log(inputSupplyPriceRef?.current?.value);
+    const inputs: { ref: RefObject<HTMLInputElement>; name: string }[] = [
+      { ref: inputYearAndMonthRef, name: "년-월" },
+      { ref: inputGenerationRef, name: "발전량" },
+      { ref: inputSMPRef, name: "SMP" },
+      { ref: inputSupplyPriceRef, name: "공급가액" },
+    ];
+
+    let isOk = true; // 빈칸 없음
+
+    // 빈값 체크하고 알림
+    for (let input of inputs) {
+      if (!input.ref.current || !input.ref.current.value) {
+        alert(`${input.name}을(를) 입력해주세요.`);
+        isOk = false;
+        break;
+      }
+    }
+
+    // 빈칸 없으면
+    if (isOk) {
+      // 상수 할당
+      const [yearAndMonth, generation, smp, supplyPrice] = inputs.map(
+        (input) => {
+          return input.ref.current!.value;
+        }
+      );
+
+      const solarData = {
+        // 형 변형
+        yearAndMonth: String(yearAndMonth),
+        generation: Number(generation),
+        smp: Number(smp),
+        supplyPrice: Number(supplyPrice),
+      };
+
+      BackApiUtils.addSolarData(solarData);
+    }
   };
 
   //
@@ -53,7 +88,11 @@ const Solar = () => {
   //
   const inputs = (
     <div className="spp-solar-input-box">
-      <input className="spp-solar-input-year" type="month" ref={inputDateRef} />
+      <input
+        className="spp-solar-input-yearAndMonth"
+        type="month"
+        ref={inputYearAndMonthRef}
+      />
       <input
         className="spp-solar-input-generation"
         type="number"
@@ -72,7 +111,7 @@ const Solar = () => {
         placeholder="공급가액"
         ref={inputSupplyPriceRef}
       />
-      <button className="spp-solar-input-btn" onClick={() => sendData}>
+      <button className="spp-solar-input-btn" onClick={sendData}>
         추가하기
       </button>
     </div>
