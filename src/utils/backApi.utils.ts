@@ -1,8 +1,16 @@
 import { Dispatch, SetStateAction } from "react";
-import { BackApiService } from "./backApi.service";
+import { BackApiService } from "./services/backApi.service";
 import { Utils } from "./utils";
+import {
+  IDeleteOneSolarData,
+  ISolarData,
+  ISolarDataFromBack,
+  ISppData,
+} from "./interfaces/api.interface";
+import { SppApiService } from "./services/sppApi.service";
 
 const backApiService = new BackApiService();
+const sppApiService = new SppApiService();
 
 export class BackApiUtils {
   //
@@ -27,21 +35,34 @@ export class BackApiUtils {
     }
   }
 
-  // 태양광 데이터 전송
-  static async addSolarData(solarData: ISolarData) {
-    const response = await backApiService.backPostWithAccessToken({
-      url: "/addSolar",
-      data: solarData,
-    });
-    if (response?.status) {
-      console.log(response);
+  // 내발전소 데이터 가져오기
+  static async fetchSppData(): Promise<ISppData> {
+    // : Promise<ISppData>
+    const response = await sppApiService.fetchSppData();
+    if (!response?.status && !response?.data) console.log("aaa");
+    return response?.data;
+  }
+
+  // 태양광 데이터 추가
+  static async addSolarData(
+    solarData: ISolarData,
+    setSolarData2: Dispatch<SetStateAction<ISolarDataFromBack[] | undefined>>
+  ) {
+    const response = await sppApiService.addSolarData(solarData);
+    if (response?.status && response?.data) {
+      setSolarData2(response?.data);
+      return true;
     }
   }
-}
 
-interface ISolarData {
-  yearAndMonth: string;
-  generation: number;
-  smp: number;
-  supplyPrice: number;
+  // 태양광 데이터 삭제
+  static async deleteSolarData(
+    deleteOneSolarData: IDeleteOneSolarData,
+    setSolarData2: Dispatch<SetStateAction<ISolarDataFromBack[] | undefined>>
+  ) {
+    const response = await sppApiService.deleteSolarData(deleteOneSolarData);
+    if (response?.status && response?.data) {
+      setSolarData2(response?.data);
+    }
+  }
 }

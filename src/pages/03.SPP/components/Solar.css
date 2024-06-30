@@ -1,0 +1,185 @@
+/* ========== 태양광 ========== */
+.spp-solar {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* background-color: pink; */
+  padding: 0.5rem;
+}
+
+.spp-solar-title {
+  height: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.spp-solar-title-selet {
+  display: flex;
+  margin-left: 1rem;
+  font-size: 1.5rem;
+}
+
+.spp-solar-box {
+  height: 90%;
+}
+
+.spp-solar-box-items-title {
+  display: flex;
+  padding: 0.3rem;
+  /* background-color: blue; */
+  font-size: 1.1rem;
+  font-weight: bold;
+  height: 5%;
+  overflow-y: scroll;
+}
+
+.spp-solar-box-items-box {
+  height: 85%;
+  overflow-y: scroll;
+}
+
+.spp-solar-box-items {
+  display: flex;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.spp-solar-box-items div,
+.spp-solar-box-items-title div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.spp-solar-deleteBtn {
+  width: 4%;
+  background-color: gray;
+}
+
+.spp-solar-year {
+  width: 8%;
+  background-color: red;
+}
+
+.spp-solar-month {
+  width: 5%;
+  background-color: orange;
+}
+
+.spp-solar-generation {
+  width: 10%;
+  background-color: yellow;
+}
+
+.spp-solar-smp {
+  width: 10%;
+  background-color: green;
+}
+
+.spp-solar-calcul {
+  width: 19%;
+  background-color: blue;
+}
+
+.spp-solar-supplyPrice {
+  width: 15%;
+  background-color: navy;
+}
+
+.spp-solar-vat {
+  width: 14%;
+  background-color: purple;
+}
+
+.spp-solar-total {
+  width: 15%;
+  background-color: pink;
+}
+
+/* total-box */
+.spp-solar-total-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.spp-solar-total-title-box {
+  display: flex;
+}
+
+.spp-solar-total-item-box {
+  display: flex;
+}
+
+.spp-solar-total-title-box span,
+.spp-solar-total-item-box span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.spp-solar-total-text {
+  width: 6%;
+  background-color: red;
+}
+
+.spp-solar-total-generation {
+  width: 12%;
+  background-color: yellow;
+}
+
+.spp-solar-total-smp {
+  width: 12%;
+  background-color: green;
+}
+
+.spp-solar-total-calcul {
+  width: 20%;
+  background-color: blue;
+}
+
+.spp-solar-total-supplyPrice {
+  width: 15%;
+  /* background-color: navy; */
+}
+
+.spp-solar-total-vat {
+  width: 15%;
+  background-color: purple;
+}
+
+.spp-solar-total-total {
+  width: 20%;
+  background-color: pink;
+}
+
+/* input-box */
+.spp-solar-input-box {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+
+.spp-solar-input-yearAndMonth {
+  width: 25%;
+}
+
+.spp-solar-input-generation {
+  width: 15%;
+}
+
+.spp-solar-input-smp {
+  width: 15%;
+}
+
+.spp-solar-input-supplyPrice {
+  width: 20%;
+}
+
+.spp-solar-input-btn {
+  width: 15%;
+}

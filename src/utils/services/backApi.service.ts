@@ -1,5 +1,12 @@
 import axios, { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
-import { Utils } from "./utils";
+import { Utils } from "../utils";
+
+interface IAxiosGet {
+  url: string;
+  config?: AxiosRequestConfig;
+}
+
+interface IAxiosGetWithAccessToken extends Omit<IAxiosGet, "config"> {}
 
 interface IAxiosPost {
   url: string;
@@ -30,6 +37,16 @@ export class BackApiService {
     baseURL: process.env.REACT_APP_BACK_URL,
     timeout: 5000,
   });
+
+  // 백엔드와 get 통신
+  async axiosBackGet({ url, config }: IAxiosGet): Promise<AxiosResponse<any>> {
+    try {
+      const response = await this.backAxios.get(url, config);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   // 백엔드와 post 통신
   async axiosBackPost({
@@ -64,8 +81,45 @@ export class BackApiService {
     }
   }
 
-  // 엑세스토큰 헤더에 담은 통신
-  async backPostWithAccessToken({ url, data }: IAxiosPostWithAccessToken) {
+  // 엑세스토큰 헤더에 담은 get 통신
+  async backGetWithAccessToken({
+    url,
+  }: IAxiosGetWithAccessToken): Promise<AxiosResponse<any>> {
+    let config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Utils.getAccessTokenFromLocalStorage()}`,
+      },
+    };
+    try {
+      const response = await this.axiosBackGet({ url, config });
+      // console.log(response);
+      return response;
+    } catch (error) {
+      if (isAxiosError(error) && error.response?.status === 401) {
+        try {
+          await this.getAccessToken();
+          config = {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${Utils.getAccessTokenFromLocalStorage()}`,
+            },
+          };
+          const response = await this.axiosBackGet({ url, config });
+          return response;
+        } catch (error) {
+          throw error;
+        }
+      }
+      throw error;
+    }
+  }
+
+  // 엑세스토큰 헤더에 담은 post 통신
+  async backPostWithAccessToken({
+    url,
+    data,
+  }: IAxiosPostWithAccessToken): Promise<AxiosResponse<any>> {
     let config = {
       headers: {
         "Content-Type": "application/json",
@@ -89,13 +143,10 @@ export class BackApiService {
           const response = await this.axiosBackPost({ url, data, config });
           return response;
         } catch (error) {
-          // 리프래시 토큰 만료 코드 필요
-          // console.error(error);
+          throw error;
         }
       }
       throw error;
     }
   }
-
-  // 태양광 ? 어떻게 나눌꺼냐
 }
