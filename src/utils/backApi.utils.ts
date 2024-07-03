@@ -6,7 +6,7 @@ import {
   ISolarData,
   ISolarDataFromBack,
   ISppData,
-} from "./interfaces/api.interface";
+} from "../interfaces/api.interface";
 import { SppApiService } from "./services/sppApi.service";
 
 const backApiService = new BackApiService();
@@ -37,8 +37,9 @@ export class BackApiUtils {
 
   // 내발전소 데이터 가져오기
   static async fetchSppData(): Promise<ISppData> {
-    // : Promise<ISppData>
     const response = await sppApiService.fetchSppData();
+    console.log(response);
+
     if (!response?.status && !response?.data) console.log("aaa");
     return response?.data;
   }

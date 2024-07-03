@@ -1,6 +1,9 @@
 import { isAxiosError } from "axios";
 import { BackApiService } from "./backApi.service";
-import { IDeleteOneSolarData, ISolarData } from "../interfaces/api.interface";
+import {
+  IDeleteOneSolarData,
+  ISolarData,
+} from "../../interfaces/api.interface";
 
 const backApiService = new BackApiService();
 

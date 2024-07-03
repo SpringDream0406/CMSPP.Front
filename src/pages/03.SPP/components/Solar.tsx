@@ -4,8 +4,9 @@ import { BackApiUtils } from "../../../utils/backApi.utils";
 import {
   IDeleteOneSolarData,
   ISolarDataFromBack,
-} from "../../../utils/interfaces/api.interface";
+} from "../../../interfaces/api.interface";
 import { Utils } from "../../../utils/utils";
+import SppTitle from "./compoenets/SppTitle";
 
 const Solar = ({
   solarData,
@@ -97,27 +98,6 @@ const Solar = ({
     if (result) BackApiUtils.deleteSolarData(deleteOneSolarData, setSolarData2);
   };
 
-  // 타이틀
-  const title = (
-    <>
-      <div>태양광</div>
-      {solarData2 ? (
-        <select
-          className="spp-solar-title-selet"
-          onChange={(e) => setSeletedYear(e.target.value)}
-        >
-          {Utils.selectYears(solarData2).map((year, index) => (
-            <option className="" key={index} value={year}>
-              {year}
-            </option>
-          ))}
-        </select>
-      ) : (
-        <div></div>
-      )}{" "}
-    </>
-  );
-
   // 아이템 타이틀
   const itemsTitle = (
     <div className="spp-solar-box-items-title">
@@ -181,7 +161,6 @@ const Solar = ({
   );
 
   const totals = Utils.solarTotal(filteredSolarData);
-  console.log(totals);
 
   // 합계&평균
   const total = (
@@ -195,8 +174,8 @@ const Solar = ({
         <span className="spp-solar-total-vat">vat</span>
         <span className="spp-solar-total-total">총액</span>
       </div>
-      {totals.map((data) => (
-        <div className="spp-solar-total-item-box">
+      {totals.map((data, index) => (
+        <div className="spp-solar-total-item-box" key={index}>
           <span className="spp-solar-total-text">{data.name}</span>
           <span
             className="spp-solar-total-generation"
@@ -274,7 +253,13 @@ const Solar = ({
   // 본문
   return (
     <div className="spp-solar">
-      <div className="spp-solar-title">{title}</div>
+      <div className="spp-solar-title">
+        <SppTitle
+          name="태양광"
+          data={solarData2}
+          setSeletedYear={setSeletedYear}
+        />
+      </div>
       <div className="spp-solar-box">
         {itemsTitle}
         {items}

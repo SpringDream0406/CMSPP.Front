@@ -8,20 +8,6 @@
   padding: 0.5rem;
 }
 
-.spp-solar-title {
-  height: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-}
-
-.spp-solar-title-selet {
-  display: flex;
-  margin-left: 1rem;
-  font-size: 1.5rem;
-}
-
 .spp-solar-box {
   height: 90%;
 }
@@ -57,7 +43,7 @@
 
 .spp-solar-deleteBtn {
   width: 4%;
-  background-color: gray;
+  /* background-color: gray; */
 }
 
 .spp-solar-year {

@@ -1,5 +1,7 @@
 import Cookies from "js-cookie";
-import { ISolarDataFromBack } from "./interfaces/api.interface";
+import { ISolarDataFromBack } from "../interfaces/api.interface";
+import { ISolarTotal } from "../interfaces/utils.interface";
+import { ISppDataFromBack } from "../interfaces/components.interface";
 
 export class Utils {
   // 로컬스토리지에 엑세스토큰 있나 체크
@@ -41,7 +43,7 @@ export class Utils {
   }
 
   // 선택 년도들
-  static selectYears(data: any) {
+  static selectYears(data: ISppDataFromBack) {
     const selectYears = data?.map((data: any) => data.year) ?? [];
     const uniqueYears = Array.from(new Set(selectYears)).map((year) =>
       String(year)
@@ -58,8 +60,8 @@ export class Utils {
     return data.filter((data: any) => data.year === selectedYear);
   }
 
-  // 태양광 데이터 총합
-  static solarTotal(data?: any) {
+  // 태양광 데이터 평균, 총합
+  static solarTotal(data?: any): ISolarTotal[] {
     let sums = {
       generation: 0,
       smp: 0,
@@ -82,12 +84,12 @@ export class Utils {
 
     const sumCount = sums.count;
     const avers = {
-      generation: Math.floor(sums.generation / sumCount),
-      smp: Math.floor(sums.smp / sumCount),
-      calcul: Math.floor(sums.calcul / sumCount),
-      supplyPrice: Math.floor(sums.supplyPrice / sumCount),
-      vat: Math.floor(sums.vat / sumCount),
-      total: Math.floor(sums.total / sumCount),
+      generation: Math.floor(sums.generation / sumCount) | 0,
+      smp: Math.floor((sums.smp / sumCount) | 0),
+      calcul: Math.floor((sums.calcul / sumCount) | 0),
+      supplyPrice: Math.floor((sums.supplyPrice / sumCount) | 0),
+      vat: Math.floor((sums.vat / sumCount) | 0),
+      total: Math.floor((sums.total / sumCount) | 0),
       count: sums.count,
     };
 
@@ -97,15 +99,4 @@ export class Utils {
     ];
     return returnData;
   }
-}
-
-interface ISolarTotal {
-  name: string;
-  generation: number;
-  smp: number;
-  calcul: number;
-  supplyPrice: number;
-  vat: number;
-  total: number;
-  count: number;
 }
