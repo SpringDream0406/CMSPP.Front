@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { IRecDataFromBack } from "../../../interfaces/api.interface";
+import { IRecDataFromBack } from "../../../../interfaces/api.interface";
 import "./Rec.css";
-import SppTitle from "./compoenets/SppTitle";
+import SppTitle from "../compoenets/SppTitle";
 
 const Rec = ({ recData }: { recData: IRecDataFromBack[] | undefined }) => {
   const [seletedYear, setSeletedYear] = useState<string>(); // selet에서 선택된 년
@@ -24,7 +24,7 @@ const Rec = ({ recData }: { recData: IRecDataFromBack[] | undefined }) => {
   // 입력
   const inputs = (
     <div className="spp-solar-input-box">
-      <input className="spp-solar-input-yearAndMonth" type="month" />
+      <input className="spp-solar-input-yearAndMonth" type="date" />
       <input
         className="spp-solar-input-generation"
         type="number"
@@ -40,6 +40,7 @@ const Rec = ({ recData }: { recData: IRecDataFromBack[] | undefined }) => {
     </div>
   );
 
+  // 본문
   return (
     <div className="spp-rec">
       <div className="spp-rec-title">

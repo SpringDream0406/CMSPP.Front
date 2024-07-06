@@ -8,8 +8,13 @@
   padding: 0.5rem;
 }
 
-.spp-solar-box {
-  height: 90%;
+.spp-solar-box1 {
+  height: 70%;
+  /* background-color: pink; */
+}
+
+.spp-solar-box2 {
+  height: 30%;
 }
 
 .spp-solar-box-items-title {
@@ -19,7 +24,7 @@
   font-size: 1.1rem;
   font-weight: bold;
   height: 5%;
-  overflow-y: scroll;
+  overflow-y: scroll; /* 안넣어주면 데이터랑 줄 안맞음 */
 }
 
 .spp-solar-box-items-box {

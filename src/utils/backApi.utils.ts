@@ -50,6 +50,7 @@ export class BackApiUtils {
     setSolarData2: Dispatch<SetStateAction<ISolarDataFromBack[] | undefined>>
   ) {
     const response = await sppApiService.addSolarData(solarData);
+    console.log(response);
     if (response?.status && response?.data) {
       setSolarData2(response?.data);
       return true;

@@ -1,12 +1,12 @@
 import "./Solar.css";
 import { RefObject, useEffect, useRef, useState } from "react";
-import { BackApiUtils } from "../../../utils/backApi.utils";
+import { BackApiUtils } from "../../../../utils/backApi.utils";
 import {
   IDeleteOneSolarData,
   ISolarDataFromBack,
-} from "../../../interfaces/api.interface";
-import { Utils } from "../../../utils/utils";
-import SppTitle from "./compoenets/SppTitle";
+} from "../../../../interfaces/api.interface";
+import { Utils } from "../../../../utils/utils";
+import SppTitle from "../compoenets/SppTitle";
 
 const Solar = ({
   solarData,
@@ -253,16 +253,16 @@ const Solar = ({
   // 본문
   return (
     <div className="spp-solar">
-      <div className="spp-solar-title">
-        <SppTitle
-          name="태양광"
-          data={solarData2}
-          setSeletedYear={setSeletedYear}
-        />
-      </div>
-      <div className="spp-solar-box">
+      <SppTitle
+        name="태양광"
+        data={solarData2}
+        setSeletedYear={setSeletedYear}
+      />
+      <div className="spp-solar-box1">
         {itemsTitle}
         {items}
+      </div>
+      <div className="spp-solar-box2">
         {total}
         {inputs}
       </div>
