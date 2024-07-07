@@ -1,4 +1,4 @@
-import { Utils } from "../../utils/utils";
+import { UserUtils } from "../../utils/user.utils";
 
 interface ActionData {
   to: string;
@@ -13,7 +13,7 @@ export const titleText: { [key: string]: string } = {
   "/otherSpp": "다른발전소",
 };
 
-export const actionData = (logined: boolean): ActionData[] => {
+export const btnData = (logined: boolean): ActionData[] => {
   // 로그인 상태
   const actionsData1 = [
     {
@@ -32,7 +32,7 @@ export const actionData = (logined: boolean): ActionData[] => {
     {
       to: "/",
       name: "로그아웃",
-      onClick: () => Utils.logOut(),
+      onClick: () => UserUtils.logOut(),
     },
     {
       to: "withdrawal",

@@ -28,8 +28,8 @@ export interface IRecDataFromBack extends Omit<IRecData, "yearAndMonth"> {
 }
 
 export interface ISppData {
-  solar: ISolarDataFromBack[];
-  rec: IRecDataFromBack[];
+  solarData: ISolarDataFromBack[];
+  recData: IRecDataFromBack[];
 }
 
 export interface IDeleteOneSolarData

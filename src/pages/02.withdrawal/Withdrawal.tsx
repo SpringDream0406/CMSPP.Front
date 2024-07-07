@@ -1,6 +1,6 @@
 import "./Withdrawal.css";
-import { BackApiUtils } from "../../utils/backApi.utils";
 import { useState } from "react";
+import { UserUtils } from "../../utils/user.utils";
 
 const Withdrawal = () => {
   const [inputValue, setInputValue] = useState("");
@@ -40,7 +40,7 @@ const Withdrawal = () => {
         />
         <button
           className="withdrawal-btn"
-          onClick={() => BackApiUtils.withdrawal()}
+          onClick={() => UserUtils.withdrawal()}
           disabled={isBtnDisabled}
         >
           확인

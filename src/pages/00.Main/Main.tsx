@@ -1,26 +1,23 @@
 import "./Main.css";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { actionData, titleText } from "./data.main";
-import { BackApiUtils } from "../../utils/backApi.utils";
-import { Utils } from "../../utils/utils";
+import { btnData, titleText } from "./data.main";
+import { UserUtils } from "../../utils/user.utils";
 
 const Main = () => {
-  const [logined, setLogined] = useState<boolean>(
-    Utils.checkAccessTokenFromLocalStorage()
-  ); // 로그인 상태에 따라 버튼들 바뀜
+  const [logined, setLogined] = useState<boolean>(false); // 로그인 상태에 따라 버튼들 바뀜
   const { pathname } = useLocation(); // 현재 경로로 타이틀 변경
 
-  // 리프레시토큰 있으면 엑세스토큰 받아다가 localStorage에 저장
+  // 리프레시토큰 있으면 엑세스토큰 받아다가 localStorage에 저장 = 로그인
   useEffect(() => {
-    BackApiUtils.saveAccessToken(setLogined);
+    UserUtils.saveAccessToken(setLogined);
   }, []);
 
   // 페이지 이동 버튼들
-  const actionsData = actionData(logined);
-  const actions = (
+  const mainBtnData = btnData(logined);
+  const mainBtns = (
     <>
-      {actionsData.map((items) => (
+      {mainBtnData.map((items) => (
         <NavLink
           to={items.to}
           onClick={() => {
@@ -41,7 +38,7 @@ const Main = () => {
       <div className="main-title">
         {titleText[pathname] || "CM Solar Power Plant"}
       </div>
-      <div className="main-actions">{actions}</div>
+      <div className="main-actions">{mainBtns}</div>
       <div className="main-outlet">
         <Outlet />
       </div>

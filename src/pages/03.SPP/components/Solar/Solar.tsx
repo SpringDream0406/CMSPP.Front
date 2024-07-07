@@ -1,45 +1,19 @@
 import "./Solar.css";
-import { RefObject, useEffect, useRef, useState } from "react";
-import { BackApiUtils } from "../../../../utils/backApi.utils";
-import {
-  IDeleteOneSolarData,
-  ISolarDataFromBack,
-} from "../../../../interfaces/api.interface";
-import { Utils } from "../../../../utils/utils";
-import SppTitle from "../compoenets/SppTitle";
+import { RefObject, useRef } from "react";
+import { IDeleteOneSolarData } from "../../../../interfaces/api.interface";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../../redux/store";
+import { SppUtils } from "../../../../utils/spp.utils";
 
-const Solar = ({
-  solarData,
-}: {
-  solarData: ISolarDataFromBack[] | undefined;
-}) => {
+const Solar = () => {
+  const dispatch = useDispatch();
+  const filteredSolarData = useSelector(
+    (state: RootState) => state.sppReducer.filteredSolarData
+  ); // 선택된 년도의 태양광 데이터
   const inputYearAndMonthRef = useRef<HTMLInputElement>(null); // 년-월 입력
   const inputGenerationRef = useRef<HTMLInputElement>(null); // 발전량 입력
   const inputSMPRef = useRef<HTMLInputElement>(null); // SMP 입력
   const inputSupplyPriceRef = useRef<HTMLInputElement>(null); // 공급가액 입력
-  const [seletedYear, setSeletedYear] = useState<string>(); // selet에서 선택된 년
-  const [solarData2, setSolarData2] = useState<
-    ISolarDataFromBack[] | undefined
-  >();
-  const [filteredSolarData, setFilteredSolarData] = useState<
-    ISolarDataFromBack[] | undefined
-  >();
-
-  // 초기값으로 Spp에서 넘겨준 solar 데이터 넣기, 초기 선택 년 넣어주기
-  useEffect(() => {
-    setSolarData2(solarData);
-    const years = Utils.selectYears(solarData);
-    setSeletedYear(years[0]);
-  }, [solarData]);
-
-  // 보여줄 데이터 필터링
-  useEffect(() => {
-    const filteredSolarData = Utils.filteringData(
-      Number(seletedYear),
-      solarData2
-    );
-    setFilteredSolarData(filteredSolarData);
-  }, [solarData2, seletedYear]);
 
   // 서버로 태양광 데이터 보내기
   const sendData = async () => {
@@ -78,7 +52,7 @@ const Solar = ({
         supplyPrice: Number(supplyPrice),
       };
 
-      const isAdded = await BackApiUtils.addSolarData(solarData, setSolarData2);
+      const isAdded = await SppUtils.addSolarData(solarData, dispatch);
       // 입력창 내용 리셋
       if (isAdded) {
         inputs.forEach((input) => {
@@ -95,7 +69,7 @@ const Solar = ({
       `${year}년 ${month}월 태양광 데이터를 삭제 하시겠습니까?`
     );
     const deleteOneSolarData = { year, month };
-    if (result) BackApiUtils.deleteSolarData(deleteOneSolarData, setSolarData2);
+    if (result) SppUtils.deleteSolarData(deleteOneSolarData, dispatch);
   };
 
   // 아이템 타이틀
@@ -160,7 +134,7 @@ const Solar = ({
     </div>
   );
 
-  const totals = Utils.solarTotal(filteredSolarData);
+  const totals = SppUtils.solarTotal(filteredSolarData);
 
   // 합계&평균
   const total = (
@@ -253,11 +227,11 @@ const Solar = ({
   // 본문
   return (
     <div className="spp-solar">
-      <SppTitle
+      {/* <SppTitle
         name="태양광"
         data={solarData2}
         setSeletedYear={setSeletedYear}
-      />
+      /> */}
       <div className="spp-solar-box1">
         {itemsTitle}
         {items}

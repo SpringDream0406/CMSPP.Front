@@ -1,11 +1,6 @@
-import { useState } from "react";
-import { IRecDataFromBack } from "../../../../interfaces/api.interface";
 import "./Rec.css";
-import SppTitle from "../compoenets/SppTitle";
 
-const Rec = ({ recData }: { recData: IRecDataFromBack[] | undefined }) => {
-  const [seletedYear, setSeletedYear] = useState<string>(); // selet에서 선택된 년
-
+const Rec = () => {
   // 아이템 타이틀
   const itemsTitle = (
     <div className="spp-solar-box-items-title">
@@ -44,7 +39,7 @@ const Rec = ({ recData }: { recData: IRecDataFromBack[] | undefined }) => {
   return (
     <div className="spp-rec">
       <div className="spp-rec-title">
-        <SppTitle name="REC" data={recData} setSeletedYear={setSeletedYear} />
+        {/* <SppTitle name="REC" data={recData} setSeletedYear={setSeletedYear} /> */}
       </div>
       <div className="spp-rec-box">
         {itemsTitle}

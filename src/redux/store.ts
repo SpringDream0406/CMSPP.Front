@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import reducer from "./reducer";
+import sppReducer from "./sppReducer";
 
 const store = configureStore({
   reducer: {
     reducer: reducer,
+    sppReducer: sppReducer,
   },
 });
 

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
-import { Utils } from "../utils";
+import { UserUtils } from "../user.utils";
 
 interface IAxiosGet {
   url: string;
@@ -70,11 +70,11 @@ export class BackApiService {
     };
     try {
       const response = await this.axiosBackPost({ url, config });
-      Utils.setAccessTokenToLocalStorage(response.data);
+      UserUtils.setAccessTokenToLocalStorage(response.data);
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         alert("로그인이 만료 되었습니다. 다시 로그인 해주세요.");
-        Utils.logOut();
+        UserUtils.logOut();
         return;
       }
       console.error(error);
@@ -88,7 +88,7 @@ export class BackApiService {
     let config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${Utils.getAccessTokenFromLocalStorage()}`,
+        Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
       },
     };
     try {
@@ -102,7 +102,7 @@ export class BackApiService {
           config = {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${Utils.getAccessTokenFromLocalStorage()}`,
+              Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
             },
           };
           const response = await this.axiosBackGet({ url, config });
@@ -123,7 +123,7 @@ export class BackApiService {
     let config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${Utils.getAccessTokenFromLocalStorage()}`,
+        Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
       },
     };
     try {
@@ -137,7 +137,7 @@ export class BackApiService {
           config = {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${Utils.getAccessTokenFromLocalStorage()}`,
+              Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
             },
           };
           const response = await this.axiosBackPost({ url, data, config });
