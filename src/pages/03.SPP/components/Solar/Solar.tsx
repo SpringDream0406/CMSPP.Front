@@ -74,7 +74,7 @@ const Solar = () => {
 
   // 아이템 타이틀
   const itemsTitle = (
-    <div className="spp-solar-box-items-title">
+    <div className="spp-box-items-title">
       <div className="spp-solar-deleteBtn"></div>
       <div className="spp-solar-year">년</div>
       <div className="spp-solar-month">월</div>
@@ -89,7 +89,7 @@ const Solar = () => {
 
   // 아이템들
   const items = (
-    <div className="spp-solar-box-items-box">
+    <div className="spp-box-items-box">
       {filteredSolarData?.map((solar, index) => {
         const createdAt = `작성일: ${new Date(solar.createdAt).toLocaleString(
           "ko-KR"
@@ -101,12 +101,12 @@ const Solar = () => {
         const vat = Math.floor(solar.supplyPrice / 10);
         const total = solar.supplyPrice + vat;
         return (
-          <span className="spp-solar-box-items" key={index} title={createdAt}>
+          <span className="spp-box-items" key={index} title={createdAt}>
             <button
               className="spp-solar-deleteBtn"
               onClick={() => deleteOneData({ year, month })}
             >
-              -
+              ㅡ
             </button>
             <div className="spp-solar-year">{solar.year}</div>
             <div className="spp-solar-month">{solar.month}</div>
@@ -227,11 +227,7 @@ const Solar = () => {
   // 본문
   return (
     <div className="spp-solar">
-      {/* <SppTitle
-        name="태양광"
-        data={solarData2}
-        setSeletedYear={setSeletedYear}
-      /> */}
+      <div className="spp-items-title">태양광</div>
       <div className="spp-solar-box1">
         {itemsTitle}
         {items}

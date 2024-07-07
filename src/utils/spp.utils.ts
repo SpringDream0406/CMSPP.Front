@@ -4,7 +4,11 @@ import {
   ISolarDataFromBack,
   ISppData,
 } from "../interfaces/api.interface";
-import { ISolarTotal } from "../interfaces/utils.interface";
+import {
+  IIRecData,
+  IIRecTotal,
+  ISolarTotal,
+} from "../interfaces/utils.interface";
 import { sppActions } from "../redux/sppReducer";
 import { AppDispatch } from "../redux/store";
 import { SppApiService } from "./services/sppApi.service";
@@ -54,8 +58,16 @@ export class SppUtils {
     }
   }
 
+  // 평균 데이터 반환 함수
+  static getAversData(sums: any, sumCount: number): any {
+    return Object.entries(sums).reduce((acc, [key, value]) => {
+      acc[key] = Math.floor((value as any) / sumCount);
+      return acc;
+    }, {} as any);
+  }
+
   // 태양광 데이터 평균, 총합
-  static solarTotal(data?: any): ISolarTotal[] {
+  static solarTotal(SolarData: ISolarDataFromBack[]): ISolarTotal[] {
     let sums = {
       generation: 0,
       smp: 0,
@@ -63,34 +75,80 @@ export class SppUtils {
       supplyPrice: 0,
       vat: 0,
       total: 0,
-      count: 0,
     };
 
-    data?.forEach((item: ISolarDataFromBack) => {
+    SolarData?.forEach((item: ISolarDataFromBack) => {
       sums.generation += item.generation;
       sums.smp += Number(item.smp);
       sums.calcul += Math.floor(item.generation * Number(item.smp));
       sums.supplyPrice += item.supplyPrice;
       sums.vat += Math.floor(item.supplyPrice / 10);
       sums.total += item.supplyPrice + Math.floor(item.supplyPrice / 10);
-      sums.count += 1;
     });
 
-    const sumCount = sums.count;
-    const avers = {
-      generation: Math.floor(sums.generation / sumCount) | 0,
-      smp: Math.floor((sums.smp / sumCount) | 0),
-      calcul: Math.floor((sums.calcul / sumCount) | 0),
-      supplyPrice: Math.floor((sums.supplyPrice / sumCount) | 0),
-      vat: Math.floor((sums.vat / sumCount) | 0),
-      total: Math.floor((sums.total / sumCount) | 0),
-      count: sums.count,
-    };
+    const sumCount = SolarData.length;
+    const avers = this.getAversData(sums, sumCount);
 
-    const returnData = [
+    return [
       { name: "평균", ...avers },
       { name: "총합", ...sums },
     ];
-    return returnData;
+  }
+
+  // iRec 데이터 생성
+  static createIRecData(filteredSolarData: ISolarDataFromBack[]) {
+    let remain = 0;
+
+    const iRecData: IIRecData[] = filteredSolarData.map(
+      (solarData: ISolarDataFromBack) => {
+        const createdAt = solarData.createdAt;
+        const generationInKwh = solarData.generation / 1000;
+        remain += generationInKwh % 1;
+
+        let issuance;
+        let fee;
+
+        if (remain > 1) {
+          issuance = Math.floor(generationInKwh) + 1;
+          remain -= 1;
+        } else {
+          issuance = Math.floor(generationInKwh);
+        }
+
+        fee = issuance * 55;
+
+        return {
+          issuance,
+          fee,
+          remain,
+          createdAt,
+        };
+      }
+    );
+    return iRecData;
+  }
+
+  // iRec 데이터 평균, 총합
+  static iRecTotal(iRecData: IIRecData[]): IIRecTotal[] {
+    let sums = {
+      issuance: 0,
+      fee: 0,
+      remain: 0,
+    };
+
+    iRecData?.forEach((item: IIRecData) => {
+      sums.issuance += item.issuance;
+      sums.fee += item.fee;
+      sums.remain += item.remain;
+    });
+
+    const sumCount = iRecData.length;
+    const avers = this.getAversData(sums, sumCount);
+    avers["remain"] = (sums.remain / sumCount).toFixed(3);
+
+    return [
+      { name: "평균", ...avers },
+      { name: "총합", ...sums },
+    ];
   }
 }

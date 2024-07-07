@@ -1,6 +1,6 @@
 import "./Rec.css";
 
-const Rec = () => {
+const SRec = () => {
   // 아이템 타이틀
   const itemsTitle = (
     <div className="spp-solar-box-items-title">
@@ -37,8 +37,8 @@ const Rec = () => {
 
   // 본문
   return (
-    <div className="spp-rec">
-      <div className="spp-rec-title">
+    <div className="spp-sRec">
+      <div className="spp-sRec-title">
         {/* <SppTitle name="REC" data={recData} setSeletedYear={setSeletedYear} /> */}
       </div>
       <div className="spp-rec-box">
@@ -49,4 +49,4 @@ const Rec = () => {
   );
 };
 
-export default Rec;
+export default SRec;

@@ -6,5 +6,15 @@ export interface ISolarTotal {
   supplyPrice: number;
   vat: number;
   total: number;
-  count: number;
+}
+
+export interface IIRecData {
+  issuance: number;
+  fee: number;
+  remain: number;
+  createdAt: string;
+}
+
+export interface IIRecTotal extends Omit<IIRecData, "createdAt"> {
+  name: string;
 }

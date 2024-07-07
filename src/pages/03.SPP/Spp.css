@@ -36,6 +36,44 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
 }
 
+.spp-items-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10%;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.spp-box-items-title {
+  display: flex;
+  padding: 0.3rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  height: 5%;
+  overflow-y: scroll; /* 안넣어주면 데이터랑 줄 안맞음 */
+  background-color: lightyellow;
+}
+
+.spp-box-items-box {
+  height: 85%;
+  overflow-y: scroll;
+}
+
+.spp-box-items {
+  display: flex;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.spp-box-items div,
+.spp-box-items-title div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
 /* ========== 컴포넌트 ========== */
 
 /* SppSelectYears */

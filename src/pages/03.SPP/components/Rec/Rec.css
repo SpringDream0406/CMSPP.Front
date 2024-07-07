@@ -1,11 +1,74 @@
-/* ========== REC ========== */
-.spp-rec {
-  width: 60%;
+/* ========== IREC ========== */
+.spp-iRec {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+/* box */
+.spp-iRec-box1 {
+  height: 70%;
+}
+.spp-iRec-box2 {
+  height: 20%;
+}
+
+/* items */
+.spp-iRec-issuance {
+  width: 20%;
+}
+.spp-iRec-fee {
+  width: 40%;
+}
+.spp-iRec-remain {
+  width: 40%;
+}
+
+/* total-box */
+.spp-iRec-total-box {
+  display: flex;
+  flex-direction: column;
+}
+.spp-iRec-total-title-box,
+.spp-iRec-total-item-box {
+  display: flex;
+}
+.spp-iRec-total-title-box span,
+.spp-iRec-total-item-box span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.spp-iRec-total-title-box {
+  background-color: lightyellow;
+  font-weight: bold;
+}
+.spp-iRec-total-text {
+  width: 10%;
+  background-color: lightyellow;
+  font-weight: bold;
+}
+.spp-iRec-total-issuance {
+  width: 20%;
+}
+.spp-iRec-total-fee {
+  width: 35%;
+}
+.spp-iRec-total-remain {
+  width: 35%;
+}
+
+/* ========== SREC ========== */
+.spp-sRec {
+  width: 40%;
   background-color: lightcyan;
   padding: 0.5rem;
 }
 
-.spp-rec-title {
+.spp-sRec-title {
   display: flex;
   justify-content: center;
   font-size: 2rem;
