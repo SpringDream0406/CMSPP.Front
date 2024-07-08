@@ -4,23 +4,19 @@ import Solar from "./components/Solar/Solar";
 import SRec from "./components/Rec/SRec";
 import Expense from "./components/Expense";
 import { useDispatch } from "react-redux";
-import { sppActions } from "../../redux/sppReducer";
 import { SppUtils } from "../../utils/spp.utils";
 import SppSelectYears from "./components/SppSelectYears";
 import IRec from "./components/Rec/IRec";
+import { useNavigate } from "react-router-dom";
 
 const Spp = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // 내 발전소 초기 데이터 받아다 각각 넣어주기
   useEffect(() => {
-    const fetchSppData = async () => {
-      const { solarData, recData } = await SppUtils.fetchSppData();
-      dispatch(sppActions.setSolarData(solarData));
-      dispatch(sppActions.setRecData(recData));
-    };
-    fetchSppData();
-  }, [dispatch]);
+    SppUtils.dispatchSppData(dispatch, navigate);
+  }, [dispatch, navigate]);
 
   // 본문
   return (

@@ -3,6 +3,7 @@ import Main from "./pages/00.Main/Main";
 import SignUp from "./pages/01.SignUp/SignUp";
 import Withdrawal from "./pages/02.withdrawal/Withdrawal";
 import Spp from "./pages/03.SPP/Spp";
+import MyInfo from "./pages/04.MyInfo/MyInfo";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route path="signup" element={<SignUp />} />
             <Route path="withdrawal" element={<Withdrawal />} />
             <Route path="mySpp" element={<Spp />} />
+            <Route path="myInfo" element={<MyInfo />} />
           </Route>
         </Routes>
       </BrowserRouter>

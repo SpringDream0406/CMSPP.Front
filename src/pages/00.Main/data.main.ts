@@ -11,6 +11,7 @@ export const titleText: { [key: string]: string } = {
   "/withdrawal": "회원탈퇴",
   "/mySpp": "내발전소",
   "/otherSpp": "다른발전소",
+  "/myInfo": "정보수정",
 };
 
 export const btnData = (logined: boolean): ActionData[] => {
@@ -28,6 +29,10 @@ export const btnData = (logined: boolean): ActionData[] => {
       // to: "/otherSpp",
       to: "#",
       name: "다른발전소",
+    },
+    {
+      to: "/myInfo",
+      name: "정보수정",
     },
     {
       to: "/",

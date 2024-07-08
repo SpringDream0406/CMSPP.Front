@@ -8,8 +8,9 @@
 }
 
 /* box */
+/* 타이틀이 10% */
 .spp-solar-box1 {
-  height: 70%;
+  height: 80%;
 }
 .spp-solar-box2 {
   height: 20%;
@@ -47,6 +48,7 @@
 
 /* total-box */
 .spp-solar-total-box {
+  height: 70%;
   display: flex;
   flex-direction: column;
 }
@@ -91,27 +93,22 @@
 
 /* input-box */
 .spp-solar-input-box {
+  height: 25%;
   display: flex;
   justify-content: space-around;
-  margin-top: 1rem;
 }
-
 .spp-solar-input-yearAndMonth {
   width: 25%;
 }
-
 .spp-solar-input-generation {
   width: 15%;
 }
-
 .spp-solar-input-smp {
   width: 15%;
 }
-
 .spp-solar-input-supplyPrice {
   width: 20%;
 }
-
 .spp-solar-input-btn {
   width: 15%;
 }

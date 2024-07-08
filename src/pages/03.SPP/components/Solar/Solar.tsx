@@ -1,9 +1,9 @@
 import "./Solar.css";
 import { RefObject, useRef } from "react";
-import { IDeleteOneSolarData } from "../../../../interfaces/api.interface";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import { SppUtils } from "../../../../utils/spp.utils";
+import { Utils } from "../../../../utils/utils";
 
 const Solar = () => {
   const dispatch = useDispatch();
@@ -15,8 +15,9 @@ const Solar = () => {
   const inputSMPRef = useRef<HTMLInputElement>(null); // SMP 입력
   const inputSupplyPriceRef = useRef<HTMLInputElement>(null); // 공급가액 입력
 
+  //
   // 서버로 태양광 데이터 보내기
-  const sendData = async () => {
+  const sendSolarData = async () => {
     const inputs: { ref: RefObject<HTMLInputElement>; name: string }[] = [
       { ref: inputYearAndMonthRef, name: "년-월" },
       { ref: inputGenerationRef, name: "발전량" },
@@ -24,27 +25,20 @@ const Solar = () => {
       { ref: inputSupplyPriceRef, name: "공급가액" },
     ];
 
-    let isOk = true; // 빈칸 없음
+    let isNotNull = true; // 빈값 없음
 
     // 빈값 체크하고 알림
-    for (let input of inputs) {
-      if (!input.ref.current || !input.ref.current.value) {
-        alert(`${input.name}을(를) 입력해주세요.`);
-        isOk = false;
-        break;
-      }
-    }
+    Utils.sendDataCheckIsNotNull(inputs, isNotNull);
 
-    // 빈칸 없으면
-    if (isOk) {
-      // 상수 할당
+    if (isNotNull) {
+      // 각 상수에 값 할당
       const [yearAndMonth, generation, smp, supplyPrice] = inputs.map(
         (input) => {
           return input.ref.current!.value;
         }
       );
 
-      const solarData = {
+      const solarInputData = {
         // 형 변형
         yearAndMonth: String(yearAndMonth),
         generation: Number(generation),
@@ -52,24 +46,10 @@ const Solar = () => {
         supplyPrice: Number(supplyPrice),
       };
 
-      const isAdded = await SppUtils.addSolarData(solarData, dispatch);
+      const isAdded = await SppUtils.addSolarData(solarInputData, dispatch);
       // 입력창 내용 리셋
-      if (isAdded) {
-        inputs.forEach((input) => {
-          if (input.ref && input.ref.current) input.ref.current.value = "";
-        });
-      }
+      Utils.clearInputs(inputs, isAdded);
     }
-  };
-
-  // 태양광 데이터 한 개 삭제하기
-  const deleteOneData = ({ year, month }: IDeleteOneSolarData) => {
-    // eslint-disable-next-line no-restricted-globals
-    const result = confirm(
-      `${year}년 ${month}월 태양광 데이터를 삭제 하시겠습니까?`
-    );
-    const deleteOneSolarData = { year, month };
-    if (result) SppUtils.deleteSolarData(deleteOneSolarData, dispatch);
   };
 
   // 아이템 타이틀
@@ -94,22 +74,26 @@ const Solar = () => {
         const createdAt = `작성일: ${new Date(solar.createdAt).toLocaleString(
           "ko-KR"
         )}`;
-        const year = solar.year;
-        const month = solar.month;
-        const calcul = Math.floor(solar.generation * solar.smp);
-        const comparison = calcul === solar.supplyPrice;
-        const vat = Math.floor(solar.supplyPrice / 10);
-        const total = solar.supplyPrice + vat;
+        const { solarNumber, year, month, generation, supplyPrice } = solar;
+        const calcul = Math.floor(generation * solar.smp);
+        const comparison = calcul === supplyPrice;
+        const vat = Math.floor(supplyPrice / 10);
+        const total = supplyPrice + vat;
         return (
           <span className="spp-box-items" key={index} title={createdAt}>
             <button
               className="spp-solar-deleteBtn"
-              onClick={() => deleteOneData({ year, month })}
+              onClick={() => {
+                SppUtils.deleteOneSolarData(
+                  { solarNumber, year, month },
+                  dispatch
+                );
+              }}
             >
               ㅡ
             </button>
-            <div className="spp-solar-year">{solar.year}</div>
-            <div className="spp-solar-month">{solar.month}</div>
+            <div className="spp-solar-year">{year}</div>
+            <div className="spp-solar-month">{month}</div>
             <div className="spp-solar-generation">
               {solar.generation.toLocaleString()}
             </div>
@@ -218,7 +202,7 @@ const Solar = () => {
         placeholder="공급가액"
         ref={inputSupplyPriceRef}
       />
-      <button className="spp-solar-input-btn" onClick={sendData}>
+      <button className="spp-solar-input-btn" onClick={sendSolarData}>
         추가하기
       </button>
     </div>

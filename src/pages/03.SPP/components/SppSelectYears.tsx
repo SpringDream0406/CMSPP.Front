@@ -3,40 +3,54 @@ import { sppActions } from "../../../redux/sppReducer";
 import { RootState } from "../../../redux/store";
 import { useEffect, useState } from "react";
 import { SppUtils } from "../../../utils/spp.utils";
+import { IIRecData } from "../../../interfaces/utils.interface";
 
 const SppSelectYears = () => {
   const dispatch = useDispatch();
   const [years, setYears] = useState<number[]>(); // 데이터들에서 추린 년도들
   const [selectedYear, setSelectedYear] = useState<number | null>(null); // 선택된 년도
+  const [iRecData, setIRecData] = useState<IIRecData[]>([]);
   const solarData = useSelector(
     (state: RootState) => state.sppReducer.solarData
   ); // 태양광 데이터
-  const recData = useSelector((state: RootState) => state.sppReducer.recData); // rec 데이터
+  const sRecData = useSelector((state: RootState) => state.sppReducer.sRecData); // rec 데이터
 
+  //
+  // iRec데이터 만들기
+  useEffect(() => {
+    setIRecData(SppUtils.createIRecData(solarData));
+  }, [solarData]);
+
+  // ============ 데이터들 추가되어야함 ============ //
   // 데이터들에서 년도 추출해서 년도들 세팅하고, 그 중 최근값을 선택된 년도 초기값으로 설정
   useEffect(() => {
-    const years = SppUtils.filteringYears({ solarData, recData });
+    const years = SppUtils.filteringYears({ solarData, sRecData });
     setYears(years);
     setSelectedYear(years[0]);
-  }, [solarData, recData]);
+  }, [solarData, sRecData]);
 
-  // 태양광 데이터 선택된 년도로 필터링
+  // 태양광, iRec 데이터 선택된 년도로 필터링
   useEffect(() => {
     dispatch(
       sppActions.setFilteredSolarData(
         SppUtils.filteringData(selectedYear, solarData)
       )
     );
-  }, [dispatch, selectedYear, solarData]);
-
-  // rec 데이터 선택된 년도로 필터링
-  useEffect(() => {
     dispatch(
-      sppActions.setFilteredRecData(
-        SppUtils.filteringData(selectedYear, recData)
+      sppActions.setFilteredIRecData(
+        SppUtils.filteringData(selectedYear, iRecData)
       )
     );
-  }, [dispatch, selectedYear, recData]);
+  }, [dispatch, selectedYear, solarData, iRecData]);
+
+  // sRec 데이터 선택된 년도로 필터링
+  useEffect(() => {
+    dispatch(
+      sppActions.setFilteredSRecData(
+        SppUtils.filteringData(selectedYear, sRecData)
+      )
+    );
+  }, [dispatch, selectedYear, sRecData]);
 
   //
   // 본문

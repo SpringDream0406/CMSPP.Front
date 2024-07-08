@@ -1,36 +1,45 @@
-export interface ISolarData {
+import { IDeleteOneSRecData, IDeleteOneSolarData } from "./utils.interface";
+
+export interface ISolarInputData {
   yearAndMonth: string;
   generation: number;
   smp: number;
   supplyPrice: number;
 }
 
-export interface ISolarDataFromBack extends Omit<ISolarData, "yearAndMonth"> {
+export interface ISolarDataFromBack
+  extends Omit<ISolarInputData, "yearAndMonth"> {
+  solarNumber: number;
   year: number;
   month: number;
   userUid: string;
   createdAt: string;
 }
 
-export interface IRecData {
-  yearAndMonth: string;
-  fee: number;
-  issusRec: number;
-  salsesVolume: number;
-  salsesPrice: number;
+export interface ISRecInputData {
+  date: string;
+  sVolume: number;
+  sPrice: number;
 }
 
-export interface IRecDataFromBack extends Omit<IRecData, "yearAndMonth"> {
+export interface ISRecDataFromBack extends Omit<ISRecInputData, "date"> {
+  sRecNumber: number;
   year: number;
   month: number;
+  day: number;
   userUid: string;
   createdAt: string;
 }
 
 export interface ISppData {
   solarData: ISolarDataFromBack[];
-  recData: IRecDataFromBack[];
+  sRecData: ISRecDataFromBack[];
+  kWh?: number;
+  recWeight?: number;
 }
 
-export interface IDeleteOneSolarData
-  extends Pick<ISolarDataFromBack, "year" | "month"> {}
+export interface ISppApiServiceDeleteOneSolarData
+  extends Pick<IDeleteOneSolarData, "solarNumber"> {}
+
+export interface ISppApiServiceDeleteOneSRecData
+  extends Pick<IDeleteOneSRecData, "sRecNumber"> {}

@@ -1,20 +1,12 @@
 import "./Rec.css";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
-import { useEffect, useState } from "react";
 import { SppUtils } from "../../../../utils/spp.utils";
-import { IIRecData } from "../../../../interfaces/utils.interface";
 
 const IRec = () => {
-  const filteredSolarData = useSelector(
-    (state: RootState) => state.sppReducer.filteredSolarData
+  const filteredIRecData = useSelector(
+    (state: RootState) => state.sppReducer.filteredIRecData
   );
-  const [iRecData, setIRecData] = useState<IIRecData[]>([]);
-
-  // iRec 데이터 만들기
-  useEffect(() => {
-    setIRecData(SppUtils.createIRecData(filteredSolarData));
-  }, [filteredSolarData]);
 
   // 아이템 타이틀
   const itemsTitle = (
@@ -28,7 +20,7 @@ const IRec = () => {
   // 아이템들
   const items = (
     <div className="spp-box-items-box">
-      {iRecData?.map((iRec, index) => {
+      {filteredIRecData?.map((iRec, index) => {
         const craetedAt = `작성일: ${new Date(iRec.createdAt).toLocaleString(
           "ko-KR"
         )}`;
@@ -47,8 +39,7 @@ const IRec = () => {
     </div>
   );
 
-  const totals = SppUtils.iRecTotal(iRecData);
-  console.log(totals);
+  const totals = SppUtils.iRecTotal(filteredIRecData);
 
   // 합계&평균
   const total = (

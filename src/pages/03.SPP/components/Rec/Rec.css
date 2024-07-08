@@ -8,6 +8,7 @@
 }
 
 /* box */
+/* 타이틀이 10% */
 .spp-iRec-box1 {
   height: 70%;
 }
@@ -61,15 +62,76 @@
   width: 35%;
 }
 
+/* ========================== */
 /* ========== SREC ========== */
 .spp-sRec {
   width: 40%;
-  background-color: lightcyan;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   padding: 0.5rem;
 }
 
-.spp-sRec-title {
+/* box */
+/* 타이틀이 10% */
+.spp-sRec-box1 {
+  height: 70%;
+}
+.spp-sRec-box2 {
+  height: 20%;
+}
+
+/* items */
+.spp-sRec-deletedBtn {
+  background-color: red;
+}
+.spp-sRec-year {
+  background-color: orange;
+}
+.spp-sRec-month {
+  background-color: yellow;
+}
+.spp-sRec-day {
+  background-color: green;
+}
+.spp-sRec-sVolume {
+  background-color: skyblue;
+}
+.spp-sRec-sPrice {
+  background-color: blue;
+}
+.spp-sRec-calcul {
+  background-color: purple;
+}
+.spp-sRec-vat {
+  background-color: grey;
+}
+.spp-sRec-total {
+  background-color: pink;
+}
+
+/* total-box */
+.spp-sRec-total-box {
+  height: 70%;
   display: flex;
-  justify-content: center;
-  font-size: 2rem;
+  flex-direction: column;
+}
+
+/* input-box */
+.spp-sRec-input-box {
+  height: 25%;
+  display: flex;
+  justify-content: space-around;
+}
+.spp-sRec-input-date {
+  width: 30%;
+}
+.spp-sRec-input-sVolume {
+  width: 20%;
+}
+.spp-sRec-input-sPrice {
+  width: 20%;
+}
+.spp-sRec-input-btn {
+  width: 20%;
 }

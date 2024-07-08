@@ -1,8 +1,11 @@
 import Cookies from "js-cookie";
 import { Dispatch, SetStateAction } from "react";
 import { BackApiService } from "./services/backApi.service";
+import { UserApiService } from "./services/userApi.service";
+import { IKWhAndrecWeightData } from "../interfaces/utils.interface";
 
 const backApiService = new BackApiService();
+const userApiService = new UserApiService();
 
 export class UserUtils {
   //
@@ -56,6 +59,18 @@ export class UserUtils {
 
   // 회원탈퇴
   static async withdrawal() {
-    await UserUtils.withdrawal();
+    await userApiService.withdrawal();
+  }
+
+  // kWh, REC 가중치 등록하기
+  static async updatekWhAndRecWeight(
+    kWhAndRecWeightData: IKWhAndrecWeightData
+  ) {
+    const response = await userApiService.updatekWhAndRecWeight(
+      kWhAndRecWeightData
+    );
+    if (response?.status) {
+      alert("발전설비와 REC 가중치를 등록했습니다.");
+    }
   }
 }

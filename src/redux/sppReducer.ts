@@ -1,21 +1,24 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
-  IRecDataFromBack,
+  ISRecDataFromBack,
   ISolarDataFromBack,
 } from "../interfaces/api.interface";
+import { IIRecData } from "../interfaces/utils.interface";
 
 interface IReducerState {
   solarData: ISolarDataFromBack[];
   filteredSolarData: ISolarDataFromBack[];
-  recData: IRecDataFromBack[];
-  filteredRecData: IRecDataFromBack[];
+  filteredIRecData: IIRecData[];
+  sRecData: ISRecDataFromBack[];
+  filteredSRecData: ISRecDataFromBack[];
 }
 
 const initialState: IReducerState = {
   solarData: [],
   filteredSolarData: [],
-  recData: [],
-  filteredRecData: [],
+  filteredIRecData: [],
+  sRecData: [],
+  filteredSRecData: [],
 };
 
 const sppSlice = createSlice({
@@ -28,11 +31,14 @@ const sppSlice = createSlice({
     setFilteredSolarData(state, action: PayloadAction<ISolarDataFromBack[]>) {
       state.filteredSolarData = action.payload;
     },
-    setRecData(state, action: PayloadAction<IRecDataFromBack[]>) {
-      state.recData = action.payload;
+    setFilteredIRecData(state, action: PayloadAction<IIRecData[]>) {
+      state.filteredIRecData = action.payload;
     },
-    setFilteredRecData(state, action: PayloadAction<IRecDataFromBack[]>) {
-      state.filteredRecData = action.payload;
+    setSRecData(state, action: PayloadAction<ISRecDataFromBack[]>) {
+      state.sRecData = action.payload;
+    },
+    setFilteredSRecData(state, action: PayloadAction<ISRecDataFromBack[]>) {
+      state.filteredSRecData = action.payload;
     },
   },
 });

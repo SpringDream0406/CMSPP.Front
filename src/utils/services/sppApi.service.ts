@@ -1,8 +1,10 @@
 import { isAxiosError } from "axios";
 import { BackApiService } from "./backApi.service";
 import {
-  IDeleteOneSolarData,
-  ISolarData,
+  ISRecInputData,
+  ISolarInputData,
+  ISppApiServiceDeleteOneSRecData,
+  ISppApiServiceDeleteOneSolarData,
 } from "../../interfaces/api.interface";
 
 const backApiService = new BackApiService();
@@ -36,13 +38,12 @@ export class SppApiService {
   // }
 
   // 태양광 데이터 추가
-  async addSolarData(solarData: ISolarData) {
+  async addSolarData(solarInputData: ISolarInputData) {
     try {
       const response = await backApiService.backPostWithAccessToken({
         url: process.env.REACT_APP_BACK_ADD_SOLARDATA_PATH!,
-        data: solarData,
+        data: solarInputData,
       });
-      // console.log(response);
       return response;
     } catch (error) {
       if (isAxiosError(error) && error.response?.data.message === "중복")
@@ -52,8 +53,22 @@ export class SppApiService {
     }
   }
 
+  // sRec 데이터 추가
+  async addSRecData(sRecInputData: ISRecInputData) {
+    try {
+      const response = await backApiService.backPostWithAccessToken({
+        url: process.env.REACT_APP_BACK_ADD_SRECDATA_PATH!,
+        data: sRecInputData,
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+      alert("REC 판매 데이터 추가에 실패했습니다.");
+    }
+  }
+
   // 태양광 데이터 삭제
-  async deleteSolarData(deleteOneSolarData: IDeleteOneSolarData) {
+  async deleteSolarData(deleteOneSolarData: ISppApiServiceDeleteOneSolarData) {
     try {
       const response = await backApiService.backPostWithAccessToken({
         url: process.env.REACT_APP_BACK_DELETE_SOLARDATA_PATH!,
@@ -63,6 +78,20 @@ export class SppApiService {
     } catch (error) {
       console.error(error);
       alert("태양광 데이터 삭제에 실패했습니다.");
+    }
+  }
+
+  // sREc 데이터 삭제
+  async deleteSRecData(deleteOneSRecData: ISppApiServiceDeleteOneSRecData) {
+    try {
+      const response = await backApiService.backPostWithAccessToken({
+        url: process.env.REACT_APP_BACK_DELETE_SRECDATA_PATH!,
+        data: deleteOneSRecData,
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+      alert("REC 판매 데이터 삭제에 실패했습니다.");
     }
   }
 }
