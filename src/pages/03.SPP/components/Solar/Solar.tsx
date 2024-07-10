@@ -25,31 +25,26 @@ const Solar = () => {
       { ref: inputSupplyPriceRef, name: "공급가액" },
     ];
 
-    let isNotNull = true; // 빈값 없음
+    // 빈값 체크
+    const isNotNull = Utils.sendDataCheckIsNotNull(inputs);
+    if (!isNotNull) return;
 
-    // 빈값 체크하고 알림
-    Utils.sendDataCheckIsNotNull(inputs, isNotNull);
+    // 각 상수에 값 할당
+    const [yearAndMonth, generation, smp, supplyPrice] = inputs.map((input) => {
+      return input.ref.current!.value;
+    });
 
-    if (isNotNull) {
-      // 각 상수에 값 할당
-      const [yearAndMonth, generation, smp, supplyPrice] = inputs.map(
-        (input) => {
-          return input.ref.current!.value;
-        }
-      );
+    const solarInputData = {
+      // 형 변형
+      yearAndMonth: String(yearAndMonth),
+      generation: Number(generation),
+      smp: Number(smp),
+      supplyPrice: Number(supplyPrice),
+    };
 
-      const solarInputData = {
-        // 형 변형
-        yearAndMonth: String(yearAndMonth),
-        generation: Number(generation),
-        smp: Number(smp),
-        supplyPrice: Number(supplyPrice),
-      };
-
-      const isAdded = await SppUtils.addSolarData(solarInputData, dispatch);
-      // 입력창 내용 리셋
-      Utils.clearInputs(inputs, isAdded);
-    }
+    const isAdded = await SppUtils.addSolarData(solarInputData, dispatch);
+    // 입력창 내용 리셋
+    Utils.clearInputs(inputs, isAdded);
   };
 
   // 아이템 타이틀

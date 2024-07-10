@@ -25,8 +25,7 @@ const initialState: IReducerState = {
     kWh: null,
     recWeight: null,
     businessNumber: null,
-    address1: "",
-    address2: "",
+    address: "",
   },
 };
 

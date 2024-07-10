@@ -1,6 +1,18 @@
 .myInfo-background {
-  background-color: pink;
+  background-color: gray;
   height: 100%;
   width: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.myInfo-items {
+  background-color: lightyellow;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
 }

@@ -68,16 +68,33 @@ export class UserUtils {
   static async updateMyInfo(myInfoData: IMyInfoData, dispatch: AppDispatch) {
     const response = await userApiService.updateMyInfo(myInfoData);
     if (response?.status && response?.data) {
-      alert("내 정보를 등록/업데이트 했습니다.");
+      alert("내 정보를 업데이트 했습니다.");
       dispatch(sppActions.setMyInfoData({ ...response.data }));
     }
   }
 
   // myInfo 가져오기
-  static async fetchMyInfo(dispatch: AppDispatch) {
+  static async fetchMyInfo(
+    dispatch: AppDispatch,
+    setAddress: Dispatch<SetStateAction<string>>
+  ) {
     const response = await userApiService.fetchMyInfo();
     if (response?.status && response?.data) {
       dispatch(sppActions.setMyInfoData({ ...response.data }));
+      setAddress(response.data.address);
     }
+  }
+
+  // 사업자 등록번호 검증조회
+  static async checkBusinessNumber(businessNumber: number): Promise<Boolean> {
+    const response = await backApiService.checkBusinessNumber(businessNumber);
+    console.log(response);
+    if (!response?.status || !(response?.data.data.length > 0)) return false;
+    const result = response.data.data[0].tax_type;
+    if (result === "국세청에 등록되지 않은 사업자등록번호입니다.") {
+      alert(result);
+      return false;
+    }
+    return true;
   }
 }

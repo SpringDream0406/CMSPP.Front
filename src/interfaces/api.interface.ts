@@ -35,8 +35,7 @@ export interface IMyInfoData {
   kWh: number | null;
   recWeight: number | null;
   businessNumber: number | null;
-  address1: string;
-  address2: string;
+  address: string;
 }
 
 export interface ISppData {

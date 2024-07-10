@@ -23,28 +23,25 @@ const SRec = () => {
       { ref: inputSPriceRef, name: "판매가" },
     ];
 
-    let isNotNull = true; // 빈값 없음
+    // 빈값 체크
+    const isNotNull = Utils.sendDataCheckIsNotNull(inputs);
+    if (!isNotNull) return;
 
-    // 빈값 체크하고 알림
-    Utils.sendDataCheckIsNotNull(inputs, isNotNull);
+    // 각 상수에 값 할당
+    const [date, sVolume, sPrice] = inputs.map((input) => {
+      return input.ref.current!.value;
+    });
 
-    if (isNotNull) {
-      // 각 상수에 값 할당
-      const [date, sVolume, sPrice] = inputs.map((input) => {
-        return input.ref.current!.value;
-      });
+    const sRecData = {
+      // 형변형
+      date: String(date),
+      sVolume: Number(sVolume),
+      sPrice: Number(sPrice),
+    };
 
-      const sRecData = {
-        // 형변형
-        date: String(date),
-        sVolume: Number(sVolume),
-        sPrice: Number(sPrice),
-      };
-
-      const isAdded = await SppUtils.addSRecData(sRecData, dispatch);
-      // 입력창 내용 리셋
-      Utils.clearInputs(inputs, isAdded);
-    }
+    const isAdded = await SppUtils.addSRecData(sRecData, dispatch);
+    // 입력창 내용 리셋
+    Utils.clearInputs(inputs, isAdded);
   };
 
   // 아이템 타이틀

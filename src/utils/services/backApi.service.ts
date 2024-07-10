@@ -149,4 +149,19 @@ export class BackApiService {
       throw error;
     }
   }
+
+  // data 포털의 사업자 등록정보 상태 조회 서비스
+  // 사업자 등록 정보 체크
+  async checkBusinessNumber(businessNumber: number) {
+    try {
+      const response = await this.axiosPost({
+        url: `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=${process.env.REACT_APP_DATA_ENCODING_KEY}`,
+        data: { b_no: [String(businessNumber)] },
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+      alert("사업자 등록 정보를 조회하는데 실패했습니다.");
+    }
+  }
 }
