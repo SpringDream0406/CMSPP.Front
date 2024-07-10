@@ -2,7 +2,9 @@ import Cookies from "js-cookie";
 import { Dispatch, SetStateAction } from "react";
 import { BackApiService } from "./services/backApi.service";
 import { UserApiService } from "./services/userApi.service";
-import { IKWhAndrecWeightData } from "../interfaces/utils.interface";
+import { AppDispatch } from "../redux/store";
+import { sppActions } from "../redux/sppReducer";
+import { IMyInfoData } from "../interfaces/api.interface";
 
 const backApiService = new BackApiService();
 const userApiService = new UserApiService();
@@ -62,15 +64,20 @@ export class UserUtils {
     await userApiService.withdrawal();
   }
 
-  // kWh, REC 가중치 등록하기
-  static async updatekWhAndRecWeight(
-    kWhAndRecWeightData: IKWhAndrecWeightData
-  ) {
-    const response = await userApiService.updatekWhAndRecWeight(
-      kWhAndRecWeightData
-    );
-    if (response?.status) {
-      alert("발전설비와 REC 가중치를 등록했습니다.");
+  // myInfo 등록하기
+  static async updateMyInfo(myInfoData: IMyInfoData, dispatch: AppDispatch) {
+    const response = await userApiService.updateMyInfo(myInfoData);
+    if (response?.status && response?.data) {
+      alert("내 정보를 등록/업데이트 했습니다.");
+      dispatch(sppActions.setMyInfoData({ ...response.data }));
+    }
+  }
+
+  // myInfo 가져오기
+  static async fetchMyInfo(dispatch: AppDispatch) {
+    const response = await userApiService.fetchMyInfo();
+    if (response?.status && response?.data) {
+      dispatch(sppActions.setMyInfoData({ ...response.data }));
     }
   }
 }

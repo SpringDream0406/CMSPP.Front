@@ -1,4 +1,4 @@
-import { IKWhAndrecWeightData } from "../../interfaces/utils.interface";
+import { IMyInfoData } from "../../interfaces/api.interface";
 import { UserUtils } from "../user.utils";
 import { BackApiService } from "./backApi.service";
 
@@ -22,17 +22,30 @@ export class UserApiService {
     }
   }
 
-  // kWh, REC 가중치 등록하기
-  async updatekWhAndRecWeight(kWhAndRecWeightData: IKWhAndrecWeightData) {
+  // myInfo 업데이트
+  async updateMyInfo(myInfoData: IMyInfoData) {
     try {
       const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_UPDATEKWHANDRECWEIGHT!,
-        data: kWhAndRecWeightData,
+        url: process.env.REACT_APP_BACK_UPDATEMYINFO!,
+        data: myInfoData,
       });
       return response;
     } catch (error) {
       console.error(error);
-      alert("발전설비와 REC 가중치를 등록하는데 실패했습니다.");
+      alert("내 정보를 등록/업데이트 하는데 실패했습니다.");
+    }
+  }
+
+  // myInfo 가져오기
+  async fetchMyInfo() {
+    try {
+      const response = await backApiService.backGetWithAccessToken({
+        url: process.env.REACT_APP_BACK_FETCH_MYINFODATA_PATH!,
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+      alert("내 정보를 가져오는데 실패했습니다.");
     }
   }
 }

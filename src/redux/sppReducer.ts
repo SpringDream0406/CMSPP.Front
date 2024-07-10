@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
+  IMyInfoData,
   ISRecDataFromBack,
   ISolarDataFromBack,
 } from "../interfaces/api.interface";
@@ -11,6 +12,7 @@ interface IReducerState {
   filteredIRecData: IIRecData[];
   sRecData: ISRecDataFromBack[];
   filteredSRecData: ISRecDataFromBack[];
+  myInfoData: IMyInfoData;
 }
 
 const initialState: IReducerState = {
@@ -19,6 +21,13 @@ const initialState: IReducerState = {
   filteredIRecData: [],
   sRecData: [],
   filteredSRecData: [],
+  myInfoData: {
+    kWh: null,
+    recWeight: null,
+    businessNumber: null,
+    address1: "",
+    address2: "",
+  },
 };
 
 const sppSlice = createSlice({
@@ -39,6 +48,9 @@ const sppSlice = createSlice({
     },
     setFilteredSRecData(state, action: PayloadAction<ISRecDataFromBack[]>) {
       state.filteredSRecData = action.payload;
+    },
+    setMyInfoData(state, action: PayloadAction<IMyInfoData>) {
+      state.myInfoData = action.payload;
     },
   },
 });

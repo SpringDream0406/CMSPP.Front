@@ -31,11 +31,19 @@ export interface ISRecDataFromBack extends Omit<ISRecInputData, "date"> {
   createdAt: string;
 }
 
+export interface IMyInfoData {
+  kWh: number | null;
+  recWeight: number | null;
+  businessNumber: number | null;
+  address1: string;
+  address2: string;
+}
+
 export interface ISppData {
   solarData: ISolarDataFromBack[];
   sRecData: ISRecDataFromBack[];
-  kWh?: number;
-  recWeight?: number;
+  kWh: number;
+  recWeight: number;
 }
 
 export interface ISppApiServiceDeleteOneSolarData

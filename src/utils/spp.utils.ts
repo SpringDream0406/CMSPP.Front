@@ -9,6 +9,7 @@ import {
   IConfirmDelete,
   IDeleteOneSRecData,
   IDeleteOneSolarData,
+  IFilteringYears,
   IIRecData,
   IIRecTotal,
   ISolarTotal,
@@ -40,13 +41,13 @@ export class SppUtils {
     if (!kWh || !recWeight) {
       // eslint-disable-next-line no-restricted-globals
       const confirmResult = confirm(
-        "발전설비 정보 or REC 가중치 정보가 없습니다. 등록하시겠습니까?"
+        "내발전소 정보가 없습니다. 등록하시겠습니까?"
       );
       if (confirmResult) {
         return navigate("/myInfo");
       } else {
         return alert(
-          "정확한 계산을 위하여 발전설비 정보와 REC 가중치가 없으면 이용하실 수 없습니다."
+          "정확한 계산을 위하여 내 발전소 정보가 없으면 이용하실 수 없습니다."
         );
       }
     }
@@ -55,7 +56,7 @@ export class SppUtils {
   }
 
   // 년도 필터링
-  static filteringYears({ solarData, sRecData }: ISppData): number[] {
+  static filteringYears({ solarData, sRecData }: IFilteringYears): number[] {
     const sppData = [...solarData, ...sRecData];
     const years = [...new Set(sppData.map((item) => item.year))].sort(
       (a, b) => b - a

@@ -2,6 +2,7 @@ import { RefObject } from "react";
 import {
   ISRecDataFromBack,
   ISolarDataFromBack,
+  ISolarInputData,
   ISppData,
 } from "./api.interface";
 
@@ -19,19 +20,20 @@ export interface IIRecData {
   createdAt: string;
 }
 
-export interface ISolarTotal {
+export interface ISolarTotal extends Omit<ISolarInputData, "yearAndMonth"> {
   name: string;
-  generation: number;
-  smp: number;
   calcul: number;
-  supplyPrice: number;
   vat: number;
   total: number;
 }
 
-export interface IIRecTotal extends Omit<IIRecData, "createdAt"> {
+export interface IIRecTotal
+  extends Omit<IIRecData, "year" | "month" | "createdAt"> {
   name: string;
 }
+
+export interface IFilteringYears
+  extends Pick<ISppData, "solarData" | "sRecData"> {}
 
 export interface IConfirmDelete {
   dataName: string;
@@ -45,6 +47,3 @@ export interface IDeleteOneSolarData
 
 export interface IDeleteOneSRecData
   extends Pick<ISRecDataFromBack, "sRecNumber" | "year" | "month" | "day"> {}
-
-export interface IKWhAndrecWeightData
-  extends Pick<ISppData, "kWh" | "recWeight"> {}
