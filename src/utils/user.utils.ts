@@ -4,7 +4,7 @@ import { BackApiService } from "./services/backApi.service";
 import { UserApiService } from "./services/userApi.service";
 import { AppDispatch } from "../redux/store";
 import { sppActions } from "../redux/sppReducer";
-import { IMyInfoData } from "../interfaces/api.interface";
+import { IMyInfo } from "../interfaces/api.interface";
 
 const backApiService = new BackApiService();
 const userApiService = new UserApiService();
@@ -65,11 +65,11 @@ export class UserUtils {
   }
 
   // myInfo 등록하기
-  static async updateMyInfo(myInfoData: IMyInfoData, dispatch: AppDispatch) {
-    const response = await userApiService.updateMyInfo(myInfoData);
+  static async updateMyInfo(myInfo: IMyInfo, dispatch: AppDispatch) {
+    const response = await userApiService.updateMyInfo(myInfo);
     if (response?.status && response?.data) {
       alert("내 정보를 업데이트 했습니다.");
-      dispatch(sppActions.setMyInfoData({ ...response.data }));
+      dispatch(sppActions.setMyInfo({ ...response.data }));
     }
   }
 
@@ -80,7 +80,7 @@ export class UserUtils {
   ) {
     const response = await userApiService.fetchMyInfo();
     if (response?.status && response?.data) {
-      dispatch(sppActions.setMyInfoData({ ...response.data }));
+      dispatch(sppActions.setMyInfo({ ...response.data }));
       setAddress(response.data.address);
     }
   }
@@ -88,7 +88,6 @@ export class UserUtils {
   // 사업자 등록번호 검증조회
   static async checkBusinessNumber(businessNumber: number): Promise<Boolean> {
     const response = await backApiService.checkBusinessNumber(businessNumber);
-    console.log(response);
     if (!response?.status || !(response?.data.data.length > 0)) return false;
     const result = response.data.data[0].tax_type;
     if (result === "국세청에 등록되지 않은 사업자등록번호입니다.") {

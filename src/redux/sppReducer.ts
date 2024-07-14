@@ -1,27 +1,37 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
-  IMyInfoData,
-  ISRecDataFromBack,
-  ISolarDataFromBack,
+  IExpenseFromBack,
+  IFixedExpenseFromBack,
+  IMyInfo,
+  ISRecFromBack,
+  ISolarFromBack,
 } from "../interfaces/api.interface";
-import { IIRecData } from "../interfaces/utils.interface";
+import { IIRec } from "../interfaces/utils.interface";
 
 interface IReducerState {
-  solarData: ISolarDataFromBack[];
-  filteredSolarData: ISolarDataFromBack[];
-  filteredIRecData: IIRecData[];
-  sRecData: ISRecDataFromBack[];
-  filteredSRecData: ISRecDataFromBack[];
-  myInfoData: IMyInfoData;
+  solar: ISolarFromBack[];
+  filteredSolar: ISolarFromBack[];
+  iRec: IIRec[];
+  filteredIRec: IIRec[];
+  sRec: ISRecFromBack[];
+  filteredSRec: ISRecFromBack[];
+  expense: IExpenseFromBack[];
+  filteredExpense: IExpenseFromBack[];
+  fixedExpense: IFixedExpenseFromBack[];
+  myInfo: IMyInfo;
 }
 
 const initialState: IReducerState = {
-  solarData: [],
-  filteredSolarData: [],
-  filteredIRecData: [],
-  sRecData: [],
-  filteredSRecData: [],
-  myInfoData: {
+  solar: [],
+  filteredSolar: [],
+  iRec: [],
+  filteredIRec: [],
+  sRec: [],
+  filteredSRec: [],
+  expense: [],
+  filteredExpense: [],
+  fixedExpense: [],
+  myInfo: {
     kWh: null,
     recWeight: null,
     businessNumber: null,
@@ -33,23 +43,35 @@ const sppSlice = createSlice({
   name: "reducer",
   initialState: initialState,
   reducers: {
-    setSolarData(state, action: PayloadAction<ISolarDataFromBack[]>) {
-      state.solarData = action.payload;
+    setSolar(state, action: PayloadAction<ISolarFromBack[]>) {
+      state.solar = action.payload;
     },
-    setFilteredSolarData(state, action: PayloadAction<ISolarDataFromBack[]>) {
-      state.filteredSolarData = action.payload;
+    setFilteredSolar(state, action: PayloadAction<ISolarFromBack[]>) {
+      state.filteredSolar = action.payload;
     },
-    setFilteredIRecData(state, action: PayloadAction<IIRecData[]>) {
-      state.filteredIRecData = action.payload;
+    setIRec(state, action: PayloadAction<IIRec[]>) {
+      state.iRec = action.payload;
     },
-    setSRecData(state, action: PayloadAction<ISRecDataFromBack[]>) {
-      state.sRecData = action.payload;
+    setFilteredIRec(state, action: PayloadAction<IIRec[]>) {
+      state.filteredIRec = action.payload;
     },
-    setFilteredSRecData(state, action: PayloadAction<ISRecDataFromBack[]>) {
-      state.filteredSRecData = action.payload;
+    setSRec(state, action: PayloadAction<ISRecFromBack[]>) {
+      state.sRec = action.payload;
     },
-    setMyInfoData(state, action: PayloadAction<IMyInfoData>) {
-      state.myInfoData = action.payload;
+    setFilteredSRec(state, action: PayloadAction<ISRecFromBack[]>) {
+      state.filteredSRec = action.payload;
+    },
+    setExpense(state, action: PayloadAction<IExpenseFromBack[]>) {
+      state.expense = action.payload;
+    },
+    setFilteredExpense(state, action: PayloadAction<IExpenseFromBack[]>) {
+      state.filteredExpense = action.payload;
+    },
+    setFixedExpense(state, action: PayloadAction<IFixedExpenseFromBack[]>) {
+      state.fixedExpense = action.payload;
+    },
+    setMyInfo(state, action: PayloadAction<IMyInfo>) {
+      state.myInfo = action.payload;
     },
   },
 });

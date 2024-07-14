@@ -16,11 +16,9 @@ export class Utils {
   }
 
   // refInput 값 초기화
-  static clearInputs(inputs: ISendDataRefInputs[], isAdded: boolean) {
-    if (isAdded) {
-      inputs.forEach((input) => {
-        if (input.ref && input.ref.current) input.ref.current.value = "";
-      });
-    }
+  static clearInputs(inputs: ISendDataRefInputs[]) {
+    inputs.forEach((input) => {
+      if (input.ref && input.ref.current) input.ref.current.value = "";
+    });
   }
 }

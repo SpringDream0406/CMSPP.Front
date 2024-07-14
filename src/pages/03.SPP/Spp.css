@@ -29,13 +29,31 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 70%;
   display: flex;
 }
-
 .spp-box2 {
   margin-top: 1rem;
-  height: 70%;
+  height: 50%;
   display: flex;
 }
+/* ========== box1 ========== */
+.spp-solar {
+  width: 42%;
+}
+.spp-iRec {
+  width: 16%;
+}
+.spp-sRec {
+  width: 42%;
+}
+.spp-solar,
+.spp-iRec,
+.spp-sRec {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
 
+/* 각 컴포넌트의 제목 ex) 태양광, REC 발급, REC 판매 */
 .spp-items-title {
   display: flex;
   align-items: center;
@@ -44,8 +62,20 @@ input[type="number"]::-webkit-inner-spin-button {
   font-size: 2rem;
   font-weight: bold;
 }
+.spp-items-title-count {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+}
+/* 각 컴포넌트의 내부 상,하 박스 */
+.spp-box1-box1 {
+  height: 70%;
+}
+.spp-box1-box2 {
+  height: 20%;
+}
 
-.spp-box-items-title {
+/* box1-box1의 데이터들 타이들 */
+.spp-box1-box1-items-title {
   display: flex;
   padding: 0.3rem;
   font-size: 1.1rem;
@@ -55,28 +85,56 @@ input[type="number"]::-webkit-inner-spin-button {
   background-color: lightyellow;
 }
 
-.spp-box-items-box {
+/* box1-box1의 데이터 랜더링 되는 데이터 박스 */
+.spp-box1-box1-items-box {
   height: 85%;
   overflow-y: scroll;
 }
-
-.spp-box-items {
+/* 박스 안의 내용들 */
+.spp-box1-box1-items {
   display: flex;
   padding: 0.3rem;
   font-size: 0.9rem;
 }
 
-.spp-box-items div,
-.spp-box-items-title div {
+.spp-box1-box1-items-title div,
+.spp-box1-box1-items div {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-/* ========== 컴포넌트 ========== */
+/* box1-box1의 total box */
+.spp-box1-box1-total-box {
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+}
+.spp-box1-box1-total-title-box {
+  background-color: lightyellow;
+  font-weight: bold;
+}
+.spp-box1-box1-total-title-box,
+.spp-box1-box1-total-item-box {
+  display: flex;
+}
+.spp-box1-box1-total-title-box span,
+.spp-box1-box1-total-item-box span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-/* SppSelectYears */
+/* box1-box1의 input box */
+.spp-box1-box1-input-box {
+  height: 25%;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* ========== SppSelectYears ========== */
 .spp-select-selectYears {
   display: flex;
   justify-content: center;

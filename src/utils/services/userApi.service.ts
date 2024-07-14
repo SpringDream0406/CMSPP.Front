@@ -1,4 +1,5 @@
-import { IMyInfoData } from "../../interfaces/api.interface";
+import { isAxiosError } from "axios";
+import { IMyInfo } from "../../interfaces/api.interface";
 import { UserUtils } from "../user.utils";
 import { BackApiService } from "./backApi.service";
 
@@ -23,14 +24,16 @@ export class UserApiService {
   }
 
   // myInfo 업데이트
-  async updateMyInfo(myInfoData: IMyInfoData) {
+  async updateMyInfo(myInfo: IMyInfo) {
     try {
       const response = await backApiService.backPostWithAccessToken({
         url: process.env.REACT_APP_BACK_UPDATEMYINFO!,
-        data: myInfoData,
+        data: myInfo,
       });
       return response;
     } catch (error) {
+      if (isAxiosError(error) && error.response?.data.message === "중복")
+        return alert("등록된 사업자 번호 입니다.");
       console.error(error);
       alert("내 정보를 등록/업데이트 하는데 실패했습니다.");
     }
@@ -40,7 +43,7 @@ export class UserApiService {
   async fetchMyInfo() {
     try {
       const response = await backApiService.backGetWithAccessToken({
-        url: process.env.REACT_APP_BACK_FETCH_MYINFODATA_PATH!,
+        url: process.env.REACT_APP_BACK_FETCH_MYINFO_PATH!,
       });
       return response;
     } catch (error) {

@@ -7,13 +7,11 @@ import { RootState } from "../../redux/store";
 
 const MyInfo = () => {
   const dispatch = useDispatch();
-  const myInfoData = useSelector(
-    (state: RootState) => state.sppReducer.myInfoData
-  );
+  const myInfo = useSelector((state: RootState) => state.sppReducer.myInfo);
   const kWhInputRef = useRef<HTMLInputElement>(null);
   const recWeightInputRef = useRef<HTMLInputElement>(null);
   const businessNumberInputRef = useRef<HTMLInputElement>(null);
-  const [address, setAddress] = useState<string>(myInfoData.address || "지역");
+  const [address, setAddress] = useState<string>(myInfo.address || "지역");
 
   //
   // 내 정보 가져오기
@@ -21,8 +19,8 @@ const MyInfo = () => {
     UserUtils.fetchMyInfo(dispatch, setAddress);
   }, [dispatch]);
 
-  // myInfoData 보내기
-  const sendMyInfoData = async () => {
+  // myInfo 보내기
+  const sendMyInfo = async () => {
     const inputs: { ref: RefObject<HTMLInputElement>; name: string }[] = [
       { ref: kWhInputRef, name: "발전 설비(kWh)" },
       { ref: recWeightInputRef, name: "REC 가중치" },
@@ -42,7 +40,7 @@ const MyInfo = () => {
     const result = await UserUtils.checkBusinessNumber(businessNumber);
     if (!result) return;
 
-    const myInfoData = {
+    const myInfo = {
       kWh,
       recWeight,
       businessNumber,
@@ -50,39 +48,39 @@ const MyInfo = () => {
     };
 
     // 지역 체크
-    const checkAddress = selectOptionData.includes(address);
-    if (!checkAddress) return alert("지역 다름");
+    const checkAddress = selectOption.includes(address);
+    if (!checkAddress) return alert("지역이 올바르지 않습니다.");
 
-    await UserUtils.updateMyInfo(myInfoData, dispatch);
+    await UserUtils.updateMyInfo(myInfo, dispatch);
   };
 
   //
-  const inputHTMLData = [
+  const inputHTML = [
     {
       name: "발전 설비(kWh)",
       title: "",
       type: "number",
-      defaultValue: myInfoData.kWh,
+      defaultValue: myInfo.kWh || "",
       ref: kWhInputRef,
     },
     {
       name: "REC 가중치",
       title: "",
       type: "number",
-      defaultValue: myInfoData.recWeight,
+      defaultValue: myInfo.recWeight || "",
       ref: recWeightInputRef,
     },
     {
-      name: "사업자 번호",
+      name: "사업자 번호 (숫자만 입력하세요.)",
       title: "",
       type: "number",
-      defaultValue: myInfoData.businessNumber,
+      defaultValue: myInfo.businessNumber,
       ref: businessNumberInputRef,
     },
   ];
 
   //
-  const selectOptionData = [
+  const selectOption = [
     "서울특별시",
     "부산광역시",
     "대구광역시",
@@ -105,27 +103,33 @@ const MyInfo = () => {
   // 본문
   return (
     <div className="myInfo-background">
-      {inputHTMLData.map((data, index) => (
+      {inputHTML.map((data, index) => (
         <div className="myInfo-items" key={index}>
           <span>{data.name}</span>
           <input
+            className="myInfo-inputs"
             type={data.type}
             placeholder={data.name}
-            defaultValue={data.defaultValue || ""}
+            defaultValue={data.defaultValue!}
             ref={data.ref}
           />
         </div>
       ))}
-      <div>{myInfoData.address || address}</div>
-      <select name="" id="" onChange={(e) => setAddress(e.target.value)}>
+      <div className="myInfo-address">{address || "지역을 선택하세요."}</div>
+      <select
+        className="myInfo-select"
+        onChange={(e) => setAddress(e.target.value)}
+      >
         <option value="">지역을 선택하세요.</option>
-        {selectOptionData.map((data) => (
+        {selectOption.map((data) => (
           <option value={data} key={data}>
             {data}
           </option>
         ))}
       </select>
-      <button onClick={sendMyInfoData}>업데이트</button>
+      <button className="myInfo-updateBtn" onClick={sendMyInfo}>
+        업데이트
+      </button>
     </div>
   );
 };

@@ -1,55 +1,18 @@
 import "./Solar.css";
-import { RefObject, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../redux/store";
-import { SppUtils } from "../../../../utils/spp.utils";
-import { Utils } from "../../../../utils/utils";
+import { RootState } from "../../../redux/store";
+import { SppUtils } from "../../../utils/spp.utils";
+import InputSolar from "./InputSolar";
 
 const Solar = () => {
   const dispatch = useDispatch();
-  const filteredSolarData = useSelector(
-    (state: RootState) => state.sppReducer.filteredSolarData
+  const filteredSolar = useSelector(
+    (state: RootState) => state.sppReducer.filteredSolar
   ); // 선택된 년도의 태양광 데이터
-  const inputYearAndMonthRef = useRef<HTMLInputElement>(null); // 년-월 입력
-  const inputGenerationRef = useRef<HTMLInputElement>(null); // 발전량 입력
-  const inputSMPRef = useRef<HTMLInputElement>(null); // SMP 입력
-  const inputSupplyPriceRef = useRef<HTMLInputElement>(null); // 공급가액 입력
-
-  //
-  // 서버로 태양광 데이터 보내기
-  const sendSolarData = async () => {
-    const inputs: { ref: RefObject<HTMLInputElement>; name: string }[] = [
-      { ref: inputYearAndMonthRef, name: "년-월" },
-      { ref: inputGenerationRef, name: "발전량" },
-      { ref: inputSMPRef, name: "SMP" },
-      { ref: inputSupplyPriceRef, name: "공급가액" },
-    ];
-
-    // 빈값 체크
-    const isNotNull = Utils.sendDataCheckIsNotNull(inputs);
-    if (!isNotNull) return;
-
-    // 각 상수에 값 할당
-    const [yearAndMonth, generation, smp, supplyPrice] = inputs.map((input) => {
-      return input.ref.current!.value;
-    });
-
-    const solarInputData = {
-      // 형 변형
-      yearAndMonth: String(yearAndMonth),
-      generation: Number(generation),
-      smp: Number(smp),
-      supplyPrice: Number(supplyPrice),
-    };
-
-    const isAdded = await SppUtils.addSolarData(solarInputData, dispatch);
-    // 입력창 내용 리셋
-    Utils.clearInputs(inputs, isAdded);
-  };
 
   // 아이템 타이틀
   const itemsTitle = (
-    <div className="spp-box-items-title">
+    <div className="spp-box1-box1-items-title">
       <div className="spp-solar-deleteBtn"></div>
       <div className="spp-solar-year">년</div>
       <div className="spp-solar-month">월</div>
@@ -64,8 +27,8 @@ const Solar = () => {
 
   // 아이템들
   const items = (
-    <div className="spp-box-items-box">
-      {filteredSolarData?.map((solar, index) => {
+    <div className="spp-box1-box1-items-box">
+      {filteredSolar?.map((solar, index) => {
         const createdAt = `작성일: ${new Date(solar.createdAt).toLocaleString(
           "ko-KR"
         )}`;
@@ -75,14 +38,11 @@ const Solar = () => {
         const vat = Math.floor(supplyPrice / 10);
         const total = supplyPrice + vat;
         return (
-          <span className="spp-box-items" key={index} title={createdAt}>
+          <span className="spp-box1-box1-items" key={index} title={createdAt}>
             <button
               className="spp-solar-deleteBtn"
               onClick={() => {
-                SppUtils.deleteOneSolarData(
-                  { solarNumber, year, month },
-                  dispatch
-                );
+                SppUtils.deleteOneSolar({ solarNumber, year, month }, dispatch);
               }}
             >
               ㅡ
@@ -113,12 +73,11 @@ const Solar = () => {
     </div>
   );
 
-  const totals = SppUtils.solarTotal(filteredSolarData);
-
   // 합계&평균
+  const totals = SppUtils.solarTotal(filteredSolar);
   const total = (
-    <div className="spp-solar-total-box">
-      <div className="spp-solar-total-title-box">
+    <div className="spp-box1-box1-total-box">
+      <div className="spp-box1-box1-total-title-box">
         <span className="spp-solar-total-text"></span>
         <span className="spp-solar-total-generation">발전량</span>
         <span className="spp-solar-total-smp">SMP</span>
@@ -128,7 +87,7 @@ const Solar = () => {
         <span className="spp-solar-total-total">총액</span>
       </div>
       {totals.map((data, index) => (
-        <div className="spp-solar-total-item-box" key={index}>
+        <div className="spp-box1-box1-total-item-box" key={index}>
           <span className="spp-solar-total-text">{data.name}</span>
           <span
             className="spp-solar-total-generation"
@@ -171,49 +130,22 @@ const Solar = () => {
     </div>
   );
 
-  // 입력
-  const inputs = (
-    <div className="spp-solar-input-box">
-      <input
-        className="spp-solar-input-yearAndMonth"
-        type="month"
-        ref={inputYearAndMonthRef}
-      />
-      <input
-        className="spp-solar-input-generation"
-        type="number"
-        placeholder="발전량"
-        ref={inputGenerationRef}
-      />
-      <input
-        className="spp-solar-input-smp"
-        type="number"
-        placeholder="SMP"
-        ref={inputSMPRef}
-      />
-      <input
-        className="spp-solar-input-supplyPrice"
-        type="number"
-        placeholder="공급가액"
-        ref={inputSupplyPriceRef}
-      />
-      <button className="spp-solar-input-btn" onClick={sendSolarData}>
-        추가하기
-      </button>
-    </div>
-  );
-
   // 본문
   return (
     <div className="spp-solar">
-      <div className="spp-items-title">태양광</div>
-      <div className="spp-solar-box1">
+      <div className="spp-items-title">
+        태양광
+        <span className="spp-items-title-count">
+          {filteredSolar ? `${filteredSolar.length}건` : ""}
+        </span>
+      </div>
+      <div className="spp-box1-box1">
         {itemsTitle}
         {items}
       </div>
-      <div className="spp-solar-box2">
+      <div className="spp-box1-box2">
         {total}
-        {inputs}
+        <InputSolar />
       </div>
     </div>
   );

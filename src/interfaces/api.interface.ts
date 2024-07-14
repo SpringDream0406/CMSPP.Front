@@ -1,52 +1,75 @@
-import { IDeleteOneSRecData, IDeleteOneSolarData } from "./utils.interface";
+import { IDeleteOneSRec, IDeleteOneSolar } from "./utils.interface";
 
-export interface ISolarInputData {
-  yearAndMonth: string;
+export interface ISolarInput {
+  date: string;
   generation: number;
   smp: number;
   supplyPrice: number;
 }
 
-export interface ISolarDataFromBack
-  extends Omit<ISolarInputData, "yearAndMonth"> {
+export interface ISolarFromBack extends Omit<ISolarInput, "date"> {
   solarNumber: number;
   year: number;
   month: number;
-  userUid: string;
   createdAt: string;
 }
 
-export interface ISRecInputData {
+export interface ISRecInput {
   date: string;
   sVolume: number;
   sPrice: number;
 }
 
-export interface ISRecDataFromBack extends Omit<ISRecInputData, "date"> {
+export interface ISRecFromBack extends Omit<ISRecInput, "date"> {
   sRecNumber: number;
   year: number;
   month: number;
   day: number;
-  userUid: string;
   createdAt: string;
 }
 
-export interface IMyInfoData {
+export interface IExpenseInput {
+  date: string;
+  eName: string;
+  ePrice: number;
+}
+
+export interface IExpenseFromBack extends Omit<IExpenseInput, "date"> {
+  eNumber: number;
+  year: number;
+  month: number;
+  day: number;
+  createdAt: string;
+}
+
+export interface IFixedExpenseInput {
+  feName: string;
+  fePrice: number;
+}
+
+export interface IFixedExpenseFromBack extends IFixedExpenseInput {
+  feNumber: number;
+  createdAt: string;
+}
+
+export interface IMyInfo {
   kWh: number | null;
   recWeight: number | null;
   businessNumber: number | null;
   address: string;
 }
 
-export interface ISppData {
-  solarData: ISolarDataFromBack[];
-  sRecData: ISRecDataFromBack[];
+export interface ISpp {
+  solar: ISolarFromBack[];
+  sRec: ISRecFromBack[];
   kWh: number;
   recWeight: number;
+  businessNumber: number;
+  address: string;
 }
 
-export interface ISppApiServiceDeleteOneSolarData
-  extends Pick<IDeleteOneSolarData, "solarNumber"> {}
+export interface ISppApiServiceDeleteOneSolar
+  extends Pick<IDeleteOneSolar, "solarNumber"> {}
 
-export interface ISppApiServiceDeleteOneSRecData
-  extends Pick<IDeleteOneSRecData, "sRecNumber"> {}
+export interface ISppApiServiceDeleteOneSRec
+  extends Pick<IDeleteOneSRec, "sRecNumber"> {}

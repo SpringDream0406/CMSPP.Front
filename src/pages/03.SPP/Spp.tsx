@@ -1,23 +1,13 @@
-import { useEffect } from "react";
 import "./Spp.css";
-import Solar from "./components/Solar/Solar";
-import SRec from "./components/Rec/SRec";
-import Expense from "./components/Expense";
-import { useDispatch } from "react-redux";
-import { SppUtils } from "../../utils/spp.utils";
-import SppSelectYears from "./components/SppSelectYears";
-import IRec from "./components/Rec/IRec";
-import { useNavigate } from "react-router-dom";
+import Solar from "./03-01.Solar/Solar";
+import SRec from "./03-02.Rec/SRec";
+import Expense from "./03-03.Expense/Expense";
+import SppSelectYears from "./SppSelectYears";
+import IRec from "./03-02.Rec/IRec";
+import Tax from "./03-04.Tax/Tax";
+import FixedExpense from "./03-03.Expense/FixedExpense";
 
 const Spp = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  // 내 발전소 초기 데이터 받아다 각각 넣어주기
-  useEffect(() => {
-    SppUtils.dispatchSppData(dispatch, navigate);
-  }, [dispatch, navigate]);
-
   // 본문
   return (
     <div className="spp-background">
@@ -31,6 +21,8 @@ const Spp = () => {
       </div>
       <div className="spp-box2">
         <Expense />
+        <FixedExpense />
+        <Tax />
       </div>
     </div>
   );

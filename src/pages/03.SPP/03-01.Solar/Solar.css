@@ -1,21 +1,4 @@
 /* ========== 태양광 ========== */
-.spp-solar {
-  width: 40%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 0.5rem;
-}
-
-/* box */
-/* 타이틀이 10% */
-.spp-solar-box1 {
-  height: 80%;
-}
-.spp-solar-box2 {
-  height: 20%;
-}
-
 /* items */
 .spp-solar-deleteBtn {
   width: 4%;
@@ -47,29 +30,8 @@
 }
 
 /* total-box */
-.spp-solar-total-box {
-  height: 70%;
-  display: flex;
-  flex-direction: column;
-}
-.spp-solar-total-title-box,
-.spp-solar-total-item-box {
-  display: flex;
-}
-.spp-solar-total-title-box span,
-.spp-solar-total-item-box span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.spp-solar-total-title-box {
-  background-color: lightyellow;
-  font-weight: bold;
-}
 .spp-solar-total-text {
   width: 6%;
-  background-color: lightyellow;
   font-weight: bold;
 }
 .spp-solar-total-generation {
@@ -92,12 +54,7 @@
 }
 
 /* input-box */
-.spp-solar-input-box {
-  height: 25%;
-  display: flex;
-  justify-content: space-around;
-}
-.spp-solar-input-yearAndMonth {
+.spp-solar-input-date {
   width: 25%;
 }
 .spp-solar-input-generation {

@@ -1,9 +1,10 @@
 import { RefObject } from "react";
 import {
-  ISRecDataFromBack,
-  ISolarDataFromBack,
-  ISolarInputData,
-  ISppData,
+  ISRecFromBack,
+  ISRecInput,
+  ISolarFromBack,
+  ISolarInput,
+  ISpp,
 } from "./api.interface";
 
 export interface ISendDataRefInputs {
@@ -11,7 +12,7 @@ export interface ISendDataRefInputs {
   name: string;
 }
 
-export interface IIRecData {
+export interface IIRec {
   year: number;
   month: number;
   issuance: number;
@@ -20,7 +21,7 @@ export interface IIRecData {
   createdAt: string;
 }
 
-export interface ISolarTotal extends Omit<ISolarInputData, "yearAndMonth"> {
+export interface ISolarTotal extends Omit<ISolarInput, "yearAndMonth"> {
   name: string;
   calcul: number;
   vat: number;
@@ -28,22 +29,28 @@ export interface ISolarTotal extends Omit<ISolarInputData, "yearAndMonth"> {
 }
 
 export interface IIRecTotal
-  extends Omit<IIRecData, "year" | "month" | "createdAt"> {
+  extends Omit<IIRec, "year" | "month" | "createdAt"> {
   name: string;
 }
 
-export interface IFilteringYears
-  extends Pick<ISppData, "solarData" | "sRecData"> {}
+export interface ISRecTotal extends Omit<ISRecInput, "date"> {
+  name: string;
+  calcul: number;
+  vat: number;
+  total: number;
+}
+
+export interface IFilteringYears extends Pick<ISpp, "solar" | "sRec"> {}
 
 export interface IConfirmDelete {
-  dataName: string;
+  name: string;
   year: number;
   month: number;
   day?: number;
 }
 
-export interface IDeleteOneSolarData
-  extends Pick<ISolarDataFromBack, "solarNumber" | "year" | "month"> {}
+export interface IDeleteOneSolar
+  extends Pick<ISolarFromBack, "solarNumber" | "year" | "month"> {}
 
-export interface IDeleteOneSRecData
-  extends Pick<ISRecDataFromBack, "sRecNumber" | "year" | "month" | "day"> {}
+export interface IDeleteOneSRec
+  extends Pick<ISRecFromBack, "sRecNumber" | "year" | "month" | "day"> {}

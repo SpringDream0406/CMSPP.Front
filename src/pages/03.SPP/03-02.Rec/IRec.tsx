@@ -1,16 +1,17 @@
 import "./Rec.css";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../redux/store";
-import { SppUtils } from "../../../../utils/spp.utils";
+import { RootState } from "../../../redux/store";
+import { SppUtils } from "../../../utils/spp.utils";
+import RestRec from "./RestRec";
 
 const IRec = () => {
-  const filteredIRecData = useSelector(
-    (state: RootState) => state.sppReducer.filteredIRecData
+  const filteredIRec = useSelector(
+    (state: RootState) => state.sppReducer.filteredIRec
   );
 
   // 아이템 타이틀
   const itemsTitle = (
-    <div className="spp-box-items-title">
+    <div className="spp-box1-box1-items-title">
       <div className="spp-iRec-issuance">발급량</div>
       <div className="spp-iRec-fee">발급수수료</div>
       <div className="spp-iRec-remain">차기이월분</div>
@@ -19,13 +20,13 @@ const IRec = () => {
 
   // 아이템들
   const items = (
-    <div className="spp-box-items-box">
-      {filteredIRecData?.map((iRec, index) => {
+    <div className="spp-box1-box1-items-box">
+      {filteredIRec?.map((iRec, index) => {
         const craetedAt = `작성일: ${new Date(iRec.createdAt).toLocaleString(
           "ko-KR"
         )}`;
         return (
-          <span className="spp-box-items" key={index} title={craetedAt}>
+          <span className="spp-box1-box1-items" key={index} title={craetedAt}>
             <div className="spp-iRec-issuance">
               {iRec.issuance.toLocaleString()}
             </div>
@@ -39,19 +40,17 @@ const IRec = () => {
     </div>
   );
 
-  const totals = SppUtils.iRecTotal(filteredIRecData);
-
   // 합계&평균
+  const totals = SppUtils.iRecTotal(filteredIRec);
   const total = (
-    <div className="spp-iRec-total-box">
-      <div className="spp-iRec-total-title-box">
+    <div className="spp-box1-box1-total-box">
+      <div className="spp-box1-box1-total-title-box">
         <span className="spp-iRec-total-text"></span>
         <span className="spp-iRec-total-issuance">발급량</span>
         <span className="spp-iRec-total-fee">발급수수료</span>
-        <span className="spp-iRec-total-remain">차기이월분</span>
       </div>
       {totals.map((data, index) => (
-        <div className="spp-iRec-total-item-box" key={index}>
+        <div className="spp-box1-box1-total-item-box" key={index}>
           <span className="spp-iRec-total-text">{data.name}</span>
           <span
             className="spp-iRec-total-issuance"
@@ -65,12 +64,6 @@ const IRec = () => {
           >
             {data.fee.toLocaleString()}
           </span>
-          <span
-            className="spp-iRec-total-remain"
-            title={data.remain.toLocaleString()}
-          >
-            {data.remain.toLocaleString()}
-          </span>
         </div>
       ))}
     </div>
@@ -80,11 +73,14 @@ const IRec = () => {
   return (
     <div className="spp-iRec">
       <div className="spp-items-title">REC 발급</div>
-      <div className="spp-iRec-box1">
+      <div className="spp-box1-box1">
         {itemsTitle}
         {items}
       </div>
-      <div className="spp-iRec-box2">{total}</div>
+      <div className="spp-box1-box2">
+        {total}
+        <RestRec />
+      </div>
     </div>
   );
 };

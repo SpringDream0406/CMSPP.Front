@@ -1,0 +1,110 @@
+/* ========== IREC ========== */
+/* items */
+.spp-iRec-issuance {
+  width: 20%;
+}
+.spp-iRec-fee {
+  width: 40%;
+}
+.spp-iRec-remain {
+  width: 40%;
+}
+
+/* total-box */
+.spp-iRec-total-text {
+  width: 15%;
+  font-weight: bold;
+}
+.spp-iRec-total-issuance {
+  width: 40%;
+}
+.spp-iRec-total-fee {
+  width: 45%;
+}
+
+/* ========================== */
+/* ========== SREC ========== */
+/* items */
+.spp-sRec-deleteBtn {
+  width: 4%;
+  font-size: 0.5rem;
+}
+.spp-sRec-year {
+  width: 8%;
+}
+.spp-sRec-month {
+  width: 5%;
+}
+.spp-sRec-day {
+  width: 5%;
+}
+.spp-sRec-sVolume {
+  width: 10%;
+}
+.spp-sRec-sPrice {
+  width: 13%;
+}
+.spp-sRec-calcul {
+  width: 20%;
+}
+.spp-sRec-vat {
+  width: 15%;
+}
+.spp-sRec-total {
+  width: 20%;
+}
+
+/* total-box */
+.spp-sRec-total-text {
+  width: 6%;
+  font-weight: bold;
+}
+.spp-sRec-total-sVolume {
+  width: 10%;
+}
+.spp-sRec-total-sPrice {
+  width: 17%;
+}
+.spp-sRec-total-calcul {
+  width: 22%;
+}
+.spp-sRec-total-vat {
+  width: 15%;
+}
+.spp-sRec-total-total {
+  width: 30%;
+}
+
+/* input-box */
+.spp-sRec-input-date {
+  width: 30%;
+}
+.spp-sRec-input-sVolume {
+  width: 20%;
+}
+.spp-sRec-input-sPrice {
+  width: 20%;
+}
+.spp-sRec-input-btn {
+  width: 20%;
+}
+
+/* =========================== */
+/* ========= RestRec ========= */
+.spp-restRec-box {
+  height: 25%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+}
+.spp-restRec-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.spp-restRec-calcul {
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}

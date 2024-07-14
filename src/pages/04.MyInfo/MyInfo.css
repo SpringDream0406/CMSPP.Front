@@ -1,11 +1,10 @@
 .myInfo-background {
-  background-color: gray;
   height: 100%;
   width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   font-size: 2rem;
 }
@@ -15,4 +14,22 @@
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
+}
+
+.myInfo-inputs {
+  font-size: 1.5rem;
+}
+
+.myInfo-address {
+  background-color: lightyellow;
+  margin-top: 1rem;
+}
+
+.myInfo-select {
+  font-size: 1rem;
+}
+
+.myInfo-updateBtn {
+  margin-top: 1rem;
+  font-size: 1rem;
 }

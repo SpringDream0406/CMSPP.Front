@@ -155,7 +155,7 @@ export class BackApiService {
   async checkBusinessNumber(businessNumber: number) {
     try {
       const response = await this.axiosPost({
-        url: `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=${process.env.REACT_APP_DATA_ENCODING_KEY}`,
+        url: `https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=${process.env.REACT_APP_DATAGOKR_ENCODING_KEY}`,
         data: { b_no: [String(businessNumber)] },
       });
       return response;
