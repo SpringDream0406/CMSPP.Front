@@ -62,6 +62,8 @@ export interface IMyInfo {
 export interface ISpp {
   solar: ISolarFromBack[];
   sRec: ISRecFromBack[];
+  expense: IExpenseFromBack[];
+  fixedExpense: IFixedExpenseFromBack[];
   kWh: number;
   recWeight: number;
   businessNumber: number;

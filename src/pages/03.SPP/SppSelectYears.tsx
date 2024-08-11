@@ -14,6 +14,7 @@ const SppSelectYears = () => {
   const solar = useSelector((state: RootState) => state.sppReducer.solar); // 태양광 데이터
   const iRec = useSelector((state: RootState) => state.sppReducer.iRec); // iRec 데이터
   const sRec = useSelector((state: RootState) => state.sppReducer.sRec); // sRec 데이터
+  const expense = useSelector((state: RootState) => state.sppReducer.expense); // expense 데이터
   const myInfo = useSelector((state: RootState) => state.sppReducer.myInfo); // myInfo 데이터
 
   //
@@ -28,15 +29,15 @@ const SppSelectYears = () => {
     SppUtils.createIRec(solar, myInfo, dispatch);
   }, [solar, myInfo, dispatch]);
 
-  // ============ 데이터들 추가되어야함 ============ //
+  // ============ 로직 변경 생각해보기 ============ //
   // 데이터들에서 년도 추출해서 년도들 세팅하고, 그 중 최근값을 선택된 년도 초기값으로 설정
   useEffect(() => {
     const years = SppUtils.filteringYears({ solar, sRec });
     setYears(years);
     setSelectedYear(years[0]);
-  }, [solar, sRec]);
+  }, [solar, sRec, expense]);
 
-  // 태양광, iRec 데이터 선택된 년도로 필터링
+  // 데이터들 선택된 년도로 필터링
   useEffect(() => {
     dispatch(
       sppActions.setFilteredSolar(SppUtils.filteringData(selectedYear, solar))
@@ -44,14 +45,15 @@ const SppSelectYears = () => {
     dispatch(
       sppActions.setFilteredIRec(SppUtils.filteringData(selectedYear, iRec))
     );
-  }, [dispatch, selectedYear, solar, iRec]);
-
-  // sRec 데이터 선택된 년도로 필터링
-  useEffect(() => {
     dispatch(
       sppActions.setFilteredSRec(SppUtils.filteringData(selectedYear, sRec))
     );
-  }, [dispatch, selectedYear, sRec]);
+    dispatch(
+      sppActions.setFilteredExpense(
+        SppUtils.filteringData(selectedYear, expense)
+      )
+    );
+  }, [dispatch, selectedYear, solar, iRec, sRec, expense]);
 
   //
   // 본문

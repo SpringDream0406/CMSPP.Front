@@ -76,8 +76,8 @@ const Solar = () => {
   // 합계&평균
   const totals = SppUtils.solarTotal(filteredSolar);
   const total = (
-    <div className="spp-box1-box1-total-box">
-      <div className="spp-box1-box1-total-title-box">
+    <div className="spp-box1-box2-total-box">
+      <div className="spp-box1-box2-total-title-box">
         <span className="spp-solar-total-text"></span>
         <span className="spp-solar-total-generation">발전량</span>
         <span className="spp-solar-total-smp">SMP</span>
@@ -87,7 +87,7 @@ const Solar = () => {
         <span className="spp-solar-total-total">총액</span>
       </div>
       {totals.map((data, index) => (
-        <div className="spp-box1-box1-total-item-box" key={index}>
+        <div className="spp-box1-box2-total-item-box" key={index}>
           <span className="spp-solar-total-text">{data.name}</span>
           <span
             className="spp-solar-total-generation"

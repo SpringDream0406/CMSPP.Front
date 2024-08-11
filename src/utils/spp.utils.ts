@@ -37,7 +37,18 @@ export class SppUtils {
   // 내발전 데이터 뿌리기
   static async dispatchSpp(dispatch: AppDispatch, navigate: NavigateFunction) {
     const response = await this.fetchSpp();
-    const { solar, sRec, kWh, recWeight, businessNumber, address } = response;
+    console.log(response);
+
+    const {
+      solar,
+      sRec,
+      kWh,
+      expense,
+      fixedExpense,
+      recWeight,
+      businessNumber,
+      address,
+    } = response;
     if (!kWh || !recWeight) {
       // eslint-disable-next-line no-restricted-globals
       const confirmResult = confirm(
@@ -53,6 +64,8 @@ export class SppUtils {
     }
     dispatch(sppActions.setSolar(this.dataOrderBy(solar)));
     dispatch(sppActions.setSRec(this.dataOrderBy(sRec)));
+    dispatch(sppActions.setExpense(this.dataOrderBy(expense)));
+    dispatch(sppActions.setFilteredExpense(this.dataOrderBy(fixedExpense)));
     dispatch(sppActions.setMyInfo({ kWh, recWeight, businessNumber, address }));
   }
 
@@ -120,7 +133,7 @@ export class SppUtils {
   }
 
   // 데이터 추가 함수
-  static async addDataToBack<T>(
+  static async addDataToBack(
     apiCall: () => Promise<any>,
     dispatch: AppDispatch,
     setAction: any

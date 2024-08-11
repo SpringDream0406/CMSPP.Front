@@ -1,13 +1,21 @@
 /* ========== 지출 ========== */
-
-.spp-expense {
-  width: 20%;
-  background-color: lightgray;
-  padding: 0.5rem;
+/* items */
+.spp-ex-deleteBtn {
+  width: 5%;
+  font-size: 0.5rem;
 }
-
-.spp-expense-title {
-  display: flex;
-  justify-content: center;
-  font-size: 2rem;
+.spp-ex-year {
+  width: 5%;
+}
+.spp-ex-month {
+  width: 5%;
+}
+.spp-ex-day {
+  width: 5%;
+}
+.spp-ex-name {
+  width: 40%;
+}
+.spp-ex-price {
+  width: 40%;
 }

@@ -39,7 +39,7 @@ const InputSRec = () => {
 
   // 본문
   return (
-    <div className="spp-box1-box1-input-box">
+    <div className="spp-box1-box2-input-box">
       <input className="spp-sRec-input-date" type="date" ref={inputDateRef} />
       <input
         className="spp-sRec-input-sVolume"

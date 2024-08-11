@@ -42,7 +42,7 @@ const InputSolar = () => {
 
   // 본문
   return (
-    <div className="spp-box1-box1-input-box">
+    <div className="spp-box1-box2-input-box">
       <input className="spp-solar-input-date" type="month" ref={inputdateRef} />
       <input
         className="spp-solar-input-generation"

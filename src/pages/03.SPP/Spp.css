@@ -34,6 +34,21 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 50%;
   display: flex;
 }
+
+/* 각 컴포넌트의 제목 ex) 태양광, REC 발급, REC 판매, 지출, 고정 지출 */
+.spp-items-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 10%;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.spp-items-title-count {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+}
+
 /* ========== box1 ========== */
 .spp-solar {
   width: 42%;
@@ -53,19 +68,6 @@ input[type="number"]::-webkit-inner-spin-button {
   padding: 0.5rem;
 }
 
-/* 각 컴포넌트의 제목 ex) 태양광, REC 발급, REC 판매 */
-.spp-items-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 10%;
-  font-size: 2rem;
-  font-weight: bold;
-}
-.spp-items-title-count {
-  margin-left: 1rem;
-  font-size: 1.5rem;
-}
 /* 각 컴포넌트의 내부 상,하 박스 */
 .spp-box1-box1 {
   height: 70%;
@@ -105,30 +107,117 @@ input[type="number"]::-webkit-inner-spin-button {
   overflow: hidden;
 }
 
-/* box1-box1의 total box */
-.spp-box1-box1-total-box {
+/* box1-box2의 total box */
+.spp-box1-box2-total-box {
   height: 70%;
   display: flex;
   flex-direction: column;
 }
-.spp-box1-box1-total-title-box {
+.spp-box1-box2-total-title-box {
   background-color: lightyellow;
   font-weight: bold;
 }
-.spp-box1-box1-total-title-box,
-.spp-box1-box1-total-item-box {
+.spp-box1-box2-total-title-box,
+.spp-box1-box2-total-item-box {
   display: flex;
 }
-.spp-box1-box1-total-title-box span,
-.spp-box1-box1-total-item-box span {
+.spp-box1-box2-total-title-box span,
+.spp-box1-box2-total-item-box span {
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-/* box1-box1의 input box */
-.spp-box1-box1-input-box {
+/* box1-box2의 input box */
+.spp-box1-box2-input-box {
+  height: 25%;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* ========== box2 ========== */
+.spp-expense {
+  width: 40%;
+}
+.spp-iRec {
+  width: 16%;
+}
+.spp-sRec {
+  width: 42%;
+}
+.spp-expense,
+.spp-iRec,
+.spp-sRec {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+/* 각 컴포넌트의 내부 상,하 박스 */
+.spp-box2-box1 {
+  height: 70%;
+}
+.spp-box2-box2 {
+  height: 20%;
+}
+
+/* box2-box1의 데이터들 타이들 */
+.spp-box2-box1-items-title {
+  display: flex;
+  padding: 0.3rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  height: 8%;
+  overflow-y: scroll; /* 안넣어주면 데이터랑 줄 안맞음 */
+  background-color: lightyellow;
+}
+
+/* box2-box1의 데이터 랜더링 되는 데이터 박스 */
+.spp-box2-box1-items-box {
+  height: 82%;
+  overflow-y: scroll;
+}
+/* 박스 안의 내용들 */
+.spp-box2-box1-items {
+  display: flex;
+  padding: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.spp-box2-box1-items-title div,
+.spp-box2-box1-items div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* box2-box1의 total box */
+.spp-box2-box1-total-box {
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+}
+.spp-box2-box1-total-title-box {
+  background-color: lightyellow;
+  font-weight: bold;
+}
+.spp-box2-box1-total-title-box,
+.spp-box2-box1-total-item-box {
+  display: flex;
+}
+.spp-box2-box1-total-title-box span,
+.spp-box2-box1-total-item-box span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* box2-box2의 input box */
+.spp-box2-box2-input-box {
   height: 25%;
   display: flex;
   justify-content: space-around;

@@ -67,8 +67,8 @@ const SRec = () => {
   // 합계&평균
   const totals = SppUtils.sRecTotal(filteredSRec);
   const total = (
-    <div className="spp-box1-box1-total-box">
-      <div className="spp-box1-box1-total-title-box">
+    <div className="spp-box1-box2-total-box">
+      <div className="spp-box1-box2-total-title-box">
         <span className="spp-sRec-total-text"></span>
         <span className="spp-sRec-total-sVolume">판매량</span>
         <span className="spp-sRec-total-sPrice">판매가</span>
@@ -77,7 +77,7 @@ const SRec = () => {
         <span className="spp-sRec-total-total">총 판매 금액</span>
       </div>
       {totals.map((data, index) => (
-        <div className="spp-box1-box1-total-item-box" key={index}>
+        <div className="spp-box1-box2-total-item-box" key={index}>
           <span className="spp-sRec-total-text">{data.name}</span>
           <span
             className="spp-sRec-total-sVolume"

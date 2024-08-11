@@ -43,14 +43,14 @@ const IRec = () => {
   // 합계&평균
   const totals = SppUtils.iRecTotal(filteredIRec);
   const total = (
-    <div className="spp-box1-box1-total-box">
-      <div className="spp-box1-box1-total-title-box">
+    <div className="spp-box1-box2-total-box">
+      <div className="spp-box1-box2-total-title-box">
         <span className="spp-iRec-total-text"></span>
         <span className="spp-iRec-total-issuance">발급량</span>
         <span className="spp-iRec-total-fee">발급수수료</span>
       </div>
       {totals.map((data, index) => (
-        <div className="spp-box1-box1-total-item-box" key={index}>
+        <div className="spp-box1-box2-total-item-box" key={index}>
           <span className="spp-iRec-total-text">{data.name}</span>
           <span
             className="spp-iRec-total-issuance"
