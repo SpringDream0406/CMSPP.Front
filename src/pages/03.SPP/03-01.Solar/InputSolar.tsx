@@ -1,5 +1,4 @@
 import { RefObject, useRef } from "react";
-import { Utils } from "../../../utils/utils";
 import { SppUtils } from "../../../utils/spp.utils";
 import { useDispatch } from "react-redux";
 
@@ -20,29 +19,22 @@ const InputSolar = () => {
       { ref: inputSupplyPriceRef, name: "공급가액" },
     ];
 
-    // 빈값 체크
-    const isNotNull = Utils.sendDataCheckIsNotNull(inputs);
-    if (!isNotNull) return;
-
-    // 각 상수에 값 할당
-    const [date, generation, smp, supplyPrice] = inputs.map((input) => {
-      return input.ref.current!.value;
-    });
-
-    const solarInput = {
-      date: String(date), // 형 변형
-      generation: Number(generation),
-      smp: Number(smp),
-      supplyPrice: Number(supplyPrice),
-    };
-
-    const isAdded = await SppUtils.addSolar(solarInput, dispatch);
-    if (isAdded) Utils.clearInputs(inputs); // 입력창 내용 리셋
+    await SppUtils.sendData(
+      inputs,
+      ([date, generation, smp, supplyPrice]) => ({
+        date: String(date),
+        generation: Number(generation),
+        smp: Number(smp),
+        supplyPrice: Number(supplyPrice),
+      }),
+      SppUtils.addSolar,
+      dispatch
+    );
   };
 
   // 본문
   return (
-    <div className="spp-box1-box2-input-box">
+    <div className="spp-box-box2-input-box">
       <input className="spp-solar-input-date" type="month" ref={inputdateRef} />
       <input
         className="spp-solar-input-generation"

@@ -32,12 +32,12 @@ const SppSelectYears = () => {
   // ============ 로직 변경 생각해보기 ============ //
   // 데이터들에서 년도 추출해서 년도들 세팅하고, 그 중 최근값을 선택된 년도 초기값으로 설정
   useEffect(() => {
-    const years = SppUtils.filteringYears({ solar, sRec });
+    const years = SppUtils.filteringYears({ solar, sRec, expense });
     setYears(years);
     setSelectedYear(years[0]);
   }, [solar, sRec, expense]);
 
-  // 데이터들 선택된 년도로 필터링
+  // 태양광, iRec 데이터 선택된 년도로 필터링
   useEffect(() => {
     dispatch(
       sppActions.setFilteredSolar(SppUtils.filteringData(selectedYear, solar))
@@ -45,15 +45,23 @@ const SppSelectYears = () => {
     dispatch(
       sppActions.setFilteredIRec(SppUtils.filteringData(selectedYear, iRec))
     );
+  }, [dispatch, selectedYear, solar, iRec]);
+
+  // sRec 데이터 선택된 년도로 필터링
+  useEffect(() => {
     dispatch(
       sppActions.setFilteredSRec(SppUtils.filteringData(selectedYear, sRec))
     );
+  }, [dispatch, selectedYear, sRec]);
+
+  // expense 데이터 선택된 년도로 필터링
+  useEffect(() => {
     dispatch(
       sppActions.setFilteredExpense(
         SppUtils.filteringData(selectedYear, expense)
       )
     );
-  }, [dispatch, selectedYear, solar, iRec, sRec, expense]);
+  }, [dispatch, selectedYear, expense]);
 
   //
   // 본문

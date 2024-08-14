@@ -5,6 +5,8 @@ import {
   IFixedExpenseInput,
   ISRecInput,
   ISolarInput,
+  ISppApiServiceDeleteOneExpense,
+  ISppApiServiceDeleteOneFixedExpense,
   ISppApiServiceDeleteOneSRec,
   ISppApiServiceDeleteOneSolar,
 } from "../../interfaces/api.interface";
@@ -109,6 +111,36 @@ export class SppApiService {
     } catch (error) {
       console.error(error);
       alert("REC 판매 데이터 삭제에 실패했습니다.");
+    }
+  }
+
+  // expense 데이터 삭제
+  async deleteExpense(deleteOneExpense: ISppApiServiceDeleteOneExpense) {
+    try {
+      const response = await backApiService.backPostWithAccessToken({
+        url: process.env.REACT_APP_BACK_DELETE_EXPENSE_PATH!,
+        data: deleteOneExpense,
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+      alert("지출 데이터 삭제에 실패했습니다.");
+    }
+  }
+
+  // fixedExpense 데이터 삭제
+  async deleteFixedExpense(
+    deleteOneFixedExpense: ISppApiServiceDeleteOneFixedExpense
+  ) {
+    try {
+      const response = await backApiService.backPostWithAccessToken({
+        url: process.env.REACT_APP_BACK_DELETE_FIXEDEXPENSE_PATH!,
+        data: deleteOneFixedExpense,
+      });
+      return response;
+    } catch (error) {
+      console.error(error);
+      alert("고정 지출 데이터 삭제에 실패했습니다.");
     }
   }
 }

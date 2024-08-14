@@ -1,11 +1,11 @@
-/* ========== 지출 ========== */
+/* ========== Expense ========== */
 /* items */
 .spp-ex-deleteBtn {
-  width: 5%;
+  width: 4%;
   font-size: 0.5rem;
 }
 .spp-ex-year {
-  width: 5%;
+  width: 8%;
 }
 .spp-ex-month {
   width: 5%;
@@ -13,9 +13,74 @@
 .spp-ex-day {
   width: 5%;
 }
-.spp-ex-name {
+.spp-ex-eName {
+  width: 38%;
+}
+.spp-ex-ePrice {
   width: 40%;
 }
-.spp-ex-price {
-  width: 40%;
+
+/* total-box */
+.spp-ex-total-text {
+  width: 10%;
+  font-weight: bold;
+}
+.spp-ex-total-total {
+  width: 90%;
+}
+
+/* input-box */
+.spp-ex-input-date {
+  width: 30%;
+}
+.spp-ex-input-eName {
+  width: 20%;
+}
+.spp-ex-input-ePrice {
+  width: 20%;
+}
+.spp-ex-input-btn {
+  width: 20%;
+}
+
+/* ========== FixedExpense ========== */
+/* items */
+.spp-fe-deleteBtn {
+  width: 5%;
+  font-size: 0.5rem;
+}
+.spp-fe-space {
+  width: 3%;
+}
+.spp-fe-feName {
+  width: 30%;
+}
+.spp-fe-fePrice {
+  width: 30%;
+}
+.spp-fe-fePrice-year {
+  width: 32%;
+}
+
+/* total-box */
+.spp-fe-total-text {
+  width: 10%;
+  font-weight: bold;
+}
+.spp-fe-total-total {
+  width: 45%;
+}
+.spp-fe-total-total-year {
+  width: 45%;
+}
+
+/* input-box */
+.spp-fe-input-feName {
+  width: 35%;
+}
+.spp-fe-input-fePrice {
+  width: 35%;
+}
+.spp-fe-input-btn {
+  width: 20%;
 }

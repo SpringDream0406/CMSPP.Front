@@ -1,6 +1,8 @@
 import { NavigateFunction } from "react-router-dom";
 import {
+  IExpenseFromBack,
   IExpenseInput,
+  IFixedExpenseFromBack,
   IFixedExpenseInput,
   IMyInfo,
   ISRecFromBack,
@@ -11,8 +13,11 @@ import {
 } from "../interfaces/api.interface";
 import {
   IConfirmDelete,
+  IDeleteOneExpense,
+  IDeleteOneFixedExpense,
   IDeleteOneSRec,
   IDeleteOneSolar,
+  IExpenseTotal,
   IFilteringYears,
   IIRec,
   IIRecTotal,
@@ -22,6 +27,8 @@ import {
 import { sppActions } from "../redux/sppReducer";
 import { AppDispatch } from "../redux/store";
 import { SppApiService } from "./services/sppApi.service";
+import { RefObject } from "react";
+import { Utils } from "./utils";
 
 const sppApiService = new SppApiService();
 
@@ -37,7 +44,6 @@ export class SppUtils {
   // 내발전 데이터 뿌리기
   static async dispatchSpp(dispatch: AppDispatch, navigate: NavigateFunction) {
     const response = await this.fetchSpp();
-    console.log(response);
 
     const {
       solar,
@@ -65,7 +71,7 @@ export class SppUtils {
     dispatch(sppActions.setSolar(this.dataOrderBy(solar)));
     dispatch(sppActions.setSRec(this.dataOrderBy(sRec)));
     dispatch(sppActions.setExpense(this.dataOrderBy(expense)));
-    dispatch(sppActions.setFilteredExpense(this.dataOrderBy(fixedExpense)));
+    dispatch(sppActions.setFixedExpense(this.dataOrderBy(fixedExpense)));
     dispatch(sppActions.setMyInfo({ kWh, recWeight, businessNumber, address }));
   }
 
@@ -79,8 +85,8 @@ export class SppUtils {
   }
 
   // 년도 필터링
-  static filteringYears({ solar, sRec }: IFilteringYears): number[] {
-    const spp = [...solar, ...sRec];
+  static filteringYears({ solar, sRec, expense }: IFilteringYears): number[] {
+    const spp = [...solar, ...sRec, ...expense];
     const years = [...new Set(spp.map((item) => item.year))].sort(
       (a, b) => b - a
     );
@@ -132,6 +138,28 @@ export class SppUtils {
     dispatch(sppActions.setIRec(iRec));
   }
 
+  // input 데이터 처리
+  static async sendData(
+    inputs: { ref: RefObject<HTMLInputElement>; name: string }[],
+    dataExtractor: (values: string[]) => any,
+    addFunction: (data: any, dispatch: AppDispatch) => Promise<boolean>,
+    dispatch: AppDispatch
+  ) {
+    // 빈값 체크
+    const isNotNull = Utils.sendDataCheckIsNotNull(inputs);
+    if (!isNotNull) return;
+
+    // 입력 값을 배열로 추출
+    const values = inputs.map((input) => input.ref.current!.value);
+
+    // 데이터 추출
+    const data = dataExtractor(values);
+
+    // 서버로 데이터 전송
+    const isAdded = await addFunction(data, dispatch);
+    if (isAdded) Utils.clearInputs(inputs);
+  }
+
   // 데이터 추가 함수
   static async addDataToBack(
     apiCall: () => Promise<any>,
@@ -148,7 +176,7 @@ export class SppUtils {
 
   // 태양광 데이터 추가
   static async addSolar(solarInput: ISolarInput, dispatch: AppDispatch) {
-    return await this.addDataToBack(
+    return await SppUtils.addDataToBack(
       () => sppApiService.addSolar(solarInput),
       dispatch,
       sppActions.setSolar
@@ -157,7 +185,7 @@ export class SppUtils {
 
   // sRec 데이터 추가
   static async addSRec(sRecInput: ISRecInput, dispatch: AppDispatch) {
-    return await this.addDataToBack(
+    return await SppUtils.addDataToBack(
       () => sppApiService.addSRec(sRecInput),
       dispatch,
       sppActions.setSRec
@@ -166,7 +194,7 @@ export class SppUtils {
 
   // expense 데이터 추가
   static async addExpense(expenseInput: IExpenseInput, dispatch: AppDispatch) {
-    return await this.addDataToBack(
+    return await SppUtils.addDataToBack(
       () => sppApiService.addExpense(expenseInput),
       dispatch,
       sppActions.setExpense
@@ -178,7 +206,7 @@ export class SppUtils {
     fixedExpenseInput: IFixedExpenseInput,
     dispatch: AppDispatch
   ) {
-    return await this.addDataToBack(
+    return await SppUtils.addDataToBack(
       () => sppApiService.addFixedExpense(fixedExpenseInput),
       dispatch,
       sppActions.setFixedExpense
@@ -229,6 +257,44 @@ export class SppUtils {
       });
       if (response?.status && response?.data) {
         dispatch(sppActions.setSRec(response?.data));
+      }
+    }
+  }
+
+  // expense 데이터 한 개 삭제
+  static async deleteOneExpense(
+    deleteOneExpense: IDeleteOneExpense,
+    dispatch: AppDispatch
+  ) {
+    const confirmResult = this.confirmDelete({
+      name: "지출",
+      ...deleteOneExpense,
+    });
+    if (confirmResult) {
+      const response = await sppApiService.deleteExpense({
+        eNumber: deleteOneExpense.eNumber,
+      });
+      if (response?.status && response?.data) {
+        dispatch(sppActions.setExpense(response?.data));
+      }
+    }
+  }
+
+  // fixedExpense 데이터 한 개 삭제
+  static async deleteOneFixedExpense(
+    deleteOneFixedExpense: IDeleteOneFixedExpense,
+    dispatch: AppDispatch
+  ) {
+    // eslint-disable-next-line no-restricted-globals
+    const confirmResult = confirm(
+      `${deleteOneFixedExpense.feName} ${deleteOneFixedExpense.fePrice}원, 고정 지출 데이터를 삭제하겠습니까?`
+    );
+    if (confirmResult) {
+      const response = await sppApiService.deleteFixedExpense({
+        feNumber: deleteOneFixedExpense.feNumber,
+      });
+      if (response?.status && response?.data) {
+        dispatch(sppActions.setFixedExpense(response?.data));
       }
     }
   }
@@ -314,5 +380,30 @@ export class SppUtils {
 
     const sumCount = sRec.length;
     return this.makeTotalReturn(sums, sumCount);
+  }
+
+  // 지출들 평균, 총합 구하는 함수
+  static calculExToal<T>(
+    data: T[],
+    valueExtractor: (item: T) => number
+  ): IExpenseTotal[] {
+    let sums = { total: 0 };
+    data?.forEach((item: T) => {
+      sums.total += valueExtractor(item);
+    });
+    const sumCount = data.length;
+    return this.makeTotalReturn(sums, sumCount);
+  }
+
+  // expense 데이터 평균, 총합
+  static expenseTotal(expense: IExpenseFromBack[]): IExpenseTotal[] {
+    return this.calculExToal(expense, (item) => Number(item.ePrice));
+  }
+
+  // fixedExpense 데이터 평균, 총합
+  static fixedExpenseTotal(
+    fixedExpense: IFixedExpenseFromBack[]
+  ): IExpenseTotal[] {
+    return this.calculExToal(fixedExpense, (item) => Number(item.fePrice));
   }
 }

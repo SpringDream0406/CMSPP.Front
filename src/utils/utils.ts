@@ -21,4 +21,9 @@ export class Utils {
       if (input.ref && input.ref.current) input.ref.current.value = "";
     });
   }
+
+  // 작성일 만들기
+  static makeCreatedAt(createdAt: string) {
+    return `작성일 ${new Date(createdAt).toLocaleString()}`;
+  }
 }

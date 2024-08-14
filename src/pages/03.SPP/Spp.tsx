@@ -14,12 +14,13 @@ const Spp = () => {
       <div className="spp-select">
         <SppSelectYears />
       </div>
-      <div className="spp-box1">
+      <div className="spp-box">
         <Solar />
         <IRec />
         <SRec />
       </div>
-      <div className="spp-box2">
+      <div className="spp-box-space"></div>
+      <div className="spp-box">
         <Expense />
         <FixedExpense />
         <Tax />

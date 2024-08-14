@@ -3,6 +3,7 @@ import { SppUtils } from "../../../utils/spp.utils";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import InputSRec from "./InputSRec";
+import { Utils } from "../../../utils/utils";
 
 const SRec = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const SRec = () => {
   //
   // 아이템 타이틀
   const itemsTitle = (
-    <div className="spp-box1-box1-items-title">
+    <div className="spp-box-box1-items-title">
       <div className="spp-sRec-deleteBtn"></div>
       <div className="spp-sRec-year">년</div>
       <div className="spp-sRec-month">월</div>
@@ -28,17 +29,19 @@ const SRec = () => {
 
   // 아이템들
   const items = (
-    <div className="spp-box1-box1-items-box">
+    <div className="spp-box-box1-items-box">
       {filteredSRec?.map((sRec, index) => {
-        const createdAt = `작성일: ${new Date(
-          sRec.createdAt
-        ).toLocaleString()}`;
-        const { sRecNumber, year, month, day, sVolume, sPrice } = sRec;
+        const { sRecNumber, year, month, day, sVolume, sPrice, createdAt } =
+          sRec;
         const calcul = sVolume * sPrice;
         const vat = Math.floor(calcul / 10);
         const total = calcul + vat;
         return (
-          <span className="spp-box1-box1-items" key={index} title={createdAt}>
+          <span
+            className="spp-box-box1-items"
+            key={index}
+            title={Utils.makeCreatedAt(createdAt)}
+          >
             <button
               className="spp-sRec-deleteBtn"
               onClick={() =>
@@ -67,8 +70,8 @@ const SRec = () => {
   // 합계&평균
   const totals = SppUtils.sRecTotal(filteredSRec);
   const total = (
-    <div className="spp-box1-box2-total-box">
-      <div className="spp-box1-box2-total-title-box">
+    <div className="spp-box-box2-total-box">
+      <div className="spp-box-box2-total-title-box">
         <span className="spp-sRec-total-text"></span>
         <span className="spp-sRec-total-sVolume">판매량</span>
         <span className="spp-sRec-total-sPrice">판매가</span>
@@ -77,7 +80,7 @@ const SRec = () => {
         <span className="spp-sRec-total-total">총 판매 금액</span>
       </div>
       {totals.map((data, index) => (
-        <div className="spp-box1-box2-total-item-box" key={index}>
+        <div className="spp-box-box2-total-item-box" key={index}>
           <span className="spp-sRec-total-text">{data.name}</span>
           <span
             className="spp-sRec-total-sVolume"
@@ -123,11 +126,11 @@ const SRec = () => {
           {filteredSRec ? `${filteredSRec.length}건` : ""}
         </span>
       </div>
-      <div className="spp-box1-box1">
+      <div className="spp-box-box1">
         {itemsTitle}
         {items}
       </div>
-      <div className="spp-box1-box2">
+      <div className="spp-box-box2">
         {total}
         <InputSRec />
       </div>

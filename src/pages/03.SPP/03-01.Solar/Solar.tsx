@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { SppUtils } from "../../../utils/spp.utils";
 import InputSolar from "./InputSolar";
+import { Utils } from "../../../utils/utils";
 
 const Solar = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ const Solar = () => {
 
   // 아이템 타이틀
   const itemsTitle = (
-    <div className="spp-box1-box1-items-title">
+    <div className="spp-box-box1-items-title">
       <div className="spp-solar-deleteBtn"></div>
       <div className="spp-solar-year">년</div>
       <div className="spp-solar-month">월</div>
@@ -27,18 +28,27 @@ const Solar = () => {
 
   // 아이템들
   const items = (
-    <div className="spp-box1-box1-items-box">
+    <div className="spp-box-box1-items-box">
       {filteredSolar?.map((solar, index) => {
-        const createdAt = `작성일: ${new Date(solar.createdAt).toLocaleString(
-          "ko-KR"
-        )}`;
-        const { solarNumber, year, month, generation, supplyPrice } = solar;
+        const {
+          solarNumber,
+          year,
+          month,
+          generation,
+          smp,
+          supplyPrice,
+          createdAt,
+        } = solar;
         const calcul = Math.floor(generation * solar.smp);
         const comparison = calcul === supplyPrice;
         const vat = Math.floor(supplyPrice / 10);
         const total = supplyPrice + vat;
         return (
-          <span className="spp-box1-box1-items" key={index} title={createdAt}>
+          <span
+            className="spp-box-box1-items"
+            key={index}
+            title={Utils.makeCreatedAt(createdAt)}
+          >
             <button
               className="spp-solar-deleteBtn"
               onClick={() => {
@@ -50,9 +60,9 @@ const Solar = () => {
             <div className="spp-solar-year">{year}</div>
             <div className="spp-solar-month">{month}</div>
             <div className="spp-solar-generation">
-              {solar.generation.toLocaleString()}
+              {generation.toLocaleString()}
             </div>
-            <div className="spp-solar-smp">{solar.smp.toLocaleString()}</div>
+            <div className="spp-solar-smp">{smp.toLocaleString()}</div>
             <div
               className="spp-solar-calcul"
               style={{ backgroundColor: comparison ? "" : "red" }}
@@ -63,7 +73,7 @@ const Solar = () => {
               className="spp-solar-supplyPrice"
               style={{ backgroundColor: comparison ? "" : "red" }}
             >
-              {solar.supplyPrice.toLocaleString()}
+              {supplyPrice.toLocaleString()}
             </div>
             <div className="spp-solar-vat">{vat.toLocaleString()}</div>
             <div className="spp-solar-total">{total.toLocaleString()}</div>
@@ -76,8 +86,8 @@ const Solar = () => {
   // 합계&평균
   const totals = SppUtils.solarTotal(filteredSolar);
   const total = (
-    <div className="spp-box1-box2-total-box">
-      <div className="spp-box1-box2-total-title-box">
+    <div className="spp-box-box2-total-box">
+      <div className="spp-box-box2-total-title-box">
         <span className="spp-solar-total-text"></span>
         <span className="spp-solar-total-generation">발전량</span>
         <span className="spp-solar-total-smp">SMP</span>
@@ -87,7 +97,7 @@ const Solar = () => {
         <span className="spp-solar-total-total">총액</span>
       </div>
       {totals.map((data, index) => (
-        <div className="spp-box1-box2-total-item-box" key={index}>
+        <div className="spp-box-box2-total-item-box" key={index}>
           <span className="spp-solar-total-text">{data.name}</span>
           <span
             className="spp-solar-total-generation"
@@ -139,11 +149,11 @@ const Solar = () => {
           {filteredSolar ? `${filteredSolar.length}건` : ""}
         </span>
       </div>
-      <div className="spp-box1-box1">
+      <div className="spp-box-box1">
         {itemsTitle}
         {items}
       </div>
-      <div className="spp-box1-box2">
+      <div className="spp-box-box2">
         {total}
         <InputSolar />
       </div>

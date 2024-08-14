@@ -1,5 +1,7 @@
 import { RefObject } from "react";
 import {
+  IExpenseFromBack,
+  IFixedExpenseFromBack,
   ISRecFromBack,
   ISRecInput,
   ISolarFromBack,
@@ -40,7 +42,12 @@ export interface ISRecTotal extends Omit<ISRecInput, "date"> {
   total: number;
 }
 
-export interface IFilteringYears extends Pick<ISpp, "solar" | "sRec"> {}
+export interface IExpenseTotal {
+  name: string;
+  total: number;
+}
+export interface IFilteringYears
+  extends Pick<ISpp, "solar" | "sRec" | "expense"> {}
 
 export interface IConfirmDelete {
   name: string;
@@ -54,3 +61,9 @@ export interface IDeleteOneSolar
 
 export interface IDeleteOneSRec
   extends Pick<ISRecFromBack, "sRecNumber" | "year" | "month" | "day"> {}
+
+export interface IDeleteOneExpense
+  extends Pick<IExpenseFromBack, "eNumber" | "year" | "month" | "day"> {}
+
+export interface IDeleteOneFixedExpense
+  extends Pick<IFixedExpenseFromBack, "feNumber" | "feName" | "fePrice"> {}

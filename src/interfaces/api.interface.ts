@@ -1,4 +1,9 @@
-import { IDeleteOneSRec, IDeleteOneSolar } from "./utils.interface";
+import {
+  IDeleteOneExpense,
+  IDeleteOneFixedExpense,
+  IDeleteOneSRec,
+  IDeleteOneSolar,
+} from "./utils.interface";
 
 export interface ISolarInput {
   date: string;
@@ -75,3 +80,9 @@ export interface ISppApiServiceDeleteOneSolar
 
 export interface ISppApiServiceDeleteOneSRec
   extends Pick<IDeleteOneSRec, "sRecNumber"> {}
+
+export interface ISppApiServiceDeleteOneExpense
+  extends Pick<IDeleteOneExpense, "eNumber"> {}
+
+export interface ISppApiServiceDeleteOneFixedExpense
+  extends Pick<IDeleteOneFixedExpense, "feNumber"> {}

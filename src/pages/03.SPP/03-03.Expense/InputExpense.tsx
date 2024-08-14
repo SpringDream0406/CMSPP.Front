@@ -1,5 +1,4 @@
 import { RefObject, useRef } from "react";
-import { Utils } from "../../../utils/utils";
 import { SppUtils } from "../../../utils/spp.utils";
 import { useDispatch } from "react-redux";
 
@@ -18,44 +17,35 @@ const InputExpense = () => {
       { ref: inputEPriceRef, name: "지출액" },
     ];
 
-    // 빈값 체크
-    const isNotNull = Utils.sendDataCheckIsNotNull(inputs);
-    if (!isNotNull) return;
-
-    // 각 상수에 값 할당
-    const [date, eName, ePrice] = inputs.map((input) => {
-      return input.ref.current!.value;
-    });
-
-    const expenseInput = {
-      date: String(date), // 형변형
-      eName: String(eName),
-      ePrice: Number(ePrice),
-    };
-
-    const isAdded = await SppUtils.addExpense(expenseInput, dispatch);
+    await SppUtils.sendData(
+      inputs,
+      ([date, eName, ePrice]) => ({
+        date: String(date),
+        eName: String(eName),
+        ePrice: Number(ePrice),
+      }),
+      SppUtils.addExpense,
+      dispatch
+    );
   };
+
   // 본문
   return (
-    <div className="spp-box2-box2-input-box">
+    <div className="spp-box-box2-input-box">
+      <input className="spp-ex-input-date" type="date" ref={inputDateRef} />
       <input
-        className="spp-expense-input-date"
-        type="date"
-        ref={inputDateRef}
-      />
-      <input
-        className="spp-expense-input-eName"
+        className="spp-ex-input-eName"
         type="text"
         placeholder="지출명"
         ref={inputENameRef}
       />
       <input
-        className="spp-expense-input-ePrice"
+        className="spp-ex-input-ePrice"
         type="number"
         placeholder="지출액"
         ref={inputEPriceRef}
       />
-      <button className="spp-expense-input-btn" onClick={sendExpense}>
+      <button className="spp-ex-input-btn" onClick={sendExpense}>
         추가하기
       </button>
     </div>
