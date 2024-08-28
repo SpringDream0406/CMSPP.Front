@@ -16,7 +16,7 @@ const FixedExpense = () => {
   const itemsTitle = (
     <div className="spp-box-box1-items-title spp-box-box1-items-title-ex">
       <div className="spp-fe-deleteBtn"></div>
-      <div className="spp-fe-space"></div>
+      <div className="spp-fe-period">기간</div>
       <div className="spp-fe-feName">지출명</div>
       <div className="spp-fe-fePrice">지출액</div>
       <div className="spp-fe-fePrice-year">지출액(년)</div>
@@ -45,7 +45,7 @@ const FixedExpense = () => {
             >
               ㅡ
             </button>
-            <div className="spp-fe-space"></div>
+            <div className="spp-fe-period">2022.02~2022.12</div>
             <div className="spp-fe-feName">{feName}</div>
             <div className="spp-fe-fePrice">{fePrice.toLocaleString()}</div>
             <div className="spp-fe-fePrice-year">

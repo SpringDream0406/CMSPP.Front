@@ -42,7 +42,7 @@ const Main = () => {
       <div className="main-outlet">
         <Outlet />
       </div>
-      <div className="main-info">연락처: cmspp0406@gmail.com</div>
+      <div className="main-info">cmspp0406@gmail.com</div>
     </div>
   );
 };

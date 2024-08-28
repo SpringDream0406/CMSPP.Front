@@ -48,12 +48,19 @@ export interface IExpenseFromBack extends Omit<IExpenseInput, "date"> {
 }
 
 export interface IFixedExpenseInput {
+  startDate: string;
+  endDate: string;
   feName: string;
   fePrice: number;
 }
 
-export interface IFixedExpenseFromBack extends IFixedExpenseInput {
+export interface IFixedExpenseFromBack
+  extends Pick<IFixedExpenseInput, "feName" | "fePrice"> {
   feNumber: number;
+  startYear: number;
+  startMonth: number;
+  endYear: number;
+  endMonth: number;
   createdAt: string;
 }
 

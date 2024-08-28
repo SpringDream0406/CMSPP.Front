@@ -1,0 +1,37 @@
+.spp-tax {
+  /* background-color: pink; */
+}
+
+.spp-tax-box1 {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.spp-tax-box1-title {
+  height: 25%;
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  background-color: rgb(210, 243, 210);
+}
+.spp-tax-box1-items {
+  height: 25%;
+  display: flex;
+  flex-direction: row;
+}
+.spp-tax-box1-text {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.spp-tax-box1-quarter {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

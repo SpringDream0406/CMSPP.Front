@@ -1,11 +1,11 @@
 /* ========== Expense ========== */
 /* items */
 .spp-ex-deleteBtn {
-  width: 4%;
+  width: 5%;
   font-size: 0.5rem;
 }
 .spp-ex-year {
-  width: 8%;
+  width: 15%;
 }
 .spp-ex-month {
   width: 5%;
@@ -14,10 +14,10 @@
   width: 5%;
 }
 .spp-ex-eName {
-  width: 38%;
+  width: 40%;
 }
 .spp-ex-ePrice {
-  width: 40%;
+  width: 30%;
 }
 
 /* total-box */
@@ -49,17 +49,18 @@
   width: 5%;
   font-size: 0.5rem;
 }
-.spp-fe-space {
-  width: 3%;
+
+.spp-fe-period {
+  width: 25%;
 }
 .spp-fe-feName {
-  width: 30%;
+  width: 35%;
 }
 .spp-fe-fePrice {
-  width: 30%;
+  width: 15%;
 }
 .spp-fe-fePrice-year {
-  width: 32%;
+  width: 20%;
 }
 
 /* total-box */
@@ -75,12 +76,18 @@
 }
 
 /* input-box */
+.spp-fe-input-startDate {
+  width: 25%;
+}
+.spp-fe-input-endDate {
+  width: 25%;
+}
 .spp-fe-input-feName {
   width: 35%;
 }
 .spp-fe-input-fePrice {
-  width: 35%;
+  width: 25%;
 }
 .spp-fe-input-btn {
-  width: 20%;
+  width: 15%;
 }

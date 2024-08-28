@@ -406,4 +406,65 @@ export class SppUtils {
   ): IExpenseTotal[] {
     return this.calculExToal(fixedExpense, (item) => Number(item.fePrice));
   }
+
+  // 분기별 데이터 누적을 위한 함수
+  static taxCal1(
+    sales: number,
+    purchases: number,
+    vat: number,
+    month: number,
+    sums: { sales: any; purchases: any; vat: any }
+  ) {
+    const quarter = Math.ceil(month / 3);
+    sums.sales[`q${quarter}`] += sales;
+    sums.purchases[`q${quarter}`] += purchases;
+    sums.vat[`q${quarter}`] += vat;
+  }
+
+  // 분기별 매출, 매입, 부가가치세
+  static taxCalCul(
+    solar: ISolarFromBack[],
+    sRec: ISRecFromBack[],
+    expense: IExpenseFromBack[],
+    fixedExpense: IFixedExpenseFromBack[]
+  ) {
+    let sums = {
+      sales: { q1: 0, q2: 0, q3: 0, q4: 0 },
+      purchases: { q1: 0, q2: 0, q3: 0, q4: 0 },
+      vat: { q1: 0, q2: 0, q3: 0, q4: 0 },
+    };
+
+    solar?.forEach((item: ISolarFromBack) => {
+      const supplyPrice = item.supplyPrice;
+      const vat = Math.floor(supplyPrice / 10);
+      this.taxCal1(supplyPrice + vat, 0, vat, item.month, sums);
+    });
+
+    sRec?.forEach((item: ISRecFromBack) => {
+      const total = Math.floor(item.sVolume * item.sPrice);
+      const vat = total / 10;
+      this.taxCal1(total + vat, 0, vat, item.month, sums);
+    });
+
+    expense?.forEach((item: IExpenseFromBack) => {
+      const price = Math.floor(item.ePrice);
+      const vat = price / 10;
+      this.taxCal1(0, price, -vat, item.month, sums);
+    });
+
+    fixedExpense?.forEach((item: IFixedExpenseFromBack) => {
+      const price = item.fePrice * 3;
+      const vat = price / 10;
+      sums.purchases.q1 += price;
+      sums.purchases.q2 += price;
+      sums.purchases.q3 += price;
+      sums.purchases.q4 += price;
+      sums.vat.q1 -= vat;
+      sums.vat.q2 -= vat;
+      sums.vat.q3 -= vat;
+      sums.vat.q4 -= vat;
+    });
+
+    return sums;
+  }
 }

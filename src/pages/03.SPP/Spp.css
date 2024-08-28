@@ -1,3 +1,4 @@
+/* number 화살표 제거 */
 /* Hide the arrows in Chrome, Safari, Edge, and Opera */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -60,10 +61,10 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* ========== 아래 ========== */
 .spp-expense {
-  width: 35%;
+  width: 30%;
 }
 .spp-fixedExpense {
-  width: 30%;
+  width: 35%;
 }
 .spp-tax {
   width: 35%;

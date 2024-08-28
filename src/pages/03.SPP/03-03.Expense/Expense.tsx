@@ -50,7 +50,9 @@ const Expense = () => {
             <div className="spp-ex-month">{month}</div>
             <div className="spp-ex-day">{day}</div>
             <div className="spp-ex-eName">{eName}</div>
-            <div className="spp-ex-ePrice">{ePrice}</div>
+            <div className="spp-ex-ePrice">
+              {Number(ePrice).toLocaleString()}
+            </div>
           </span>
         );
       })}
