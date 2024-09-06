@@ -26,4 +26,9 @@ export class Utils {
   static makeCreatedAt(createdAt: string) {
     return `작성일 ${new Date(createdAt).toLocaleString()}`;
   }
+
+  // date 합쳐진거 분리
+  static splitDate(date: string): number[] {
+    return date.split("-").map((part) => parseInt(part, 10));
+  }
 }

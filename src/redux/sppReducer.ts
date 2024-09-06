@@ -18,6 +18,7 @@ interface IReducerState {
   expense: IExpenseFromBack[];
   filteredExpense: IExpenseFromBack[];
   fixedExpense: IFixedExpenseFromBack[];
+  filteredFixedExpense: IFixedExpenseFromBack[];
   myInfo: IMyInfo;
 }
 
@@ -31,6 +32,7 @@ const initialState: IReducerState = {
   expense: [],
   filteredExpense: [],
   fixedExpense: [],
+  filteredFixedExpense: [],
   myInfo: {
     kWh: null,
     recWeight: null,
@@ -69,6 +71,12 @@ const sppSlice = createSlice({
     },
     setFixedExpense(state, action: PayloadAction<IFixedExpenseFromBack[]>) {
       state.fixedExpense = action.payload;
+    },
+    setFilteredFixedExpense(
+      state,
+      action: PayloadAction<IFixedExpenseFromBack[]>
+    ) {
+      state.filteredFixedExpense = action.payload;
     },
     setMyInfo(state, action: PayloadAction<IMyInfo>) {
       state.myInfo = action.payload;

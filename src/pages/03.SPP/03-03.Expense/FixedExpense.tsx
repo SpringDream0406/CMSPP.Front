@@ -7,9 +7,9 @@ import { Utils } from "../../../utils/utils";
 
 const FixedExpense = () => {
   const dispatch = useDispatch();
-  const fixedExpense = useSelector(
-    (state: RootState) => state.sppReducer.fixedExpense
-  ); // 고정 지출 데이터
+  const filteredFixedExpense = useSelector(
+    (state: RootState) => state.sppReducer.filteredFixedExpense
+  ); // 필터링된 고정 지출 데이터
 
   //
   // 아이템 타이틀
@@ -26,8 +26,18 @@ const FixedExpense = () => {
   // 아이템들
   const items = (
     <div className="spp-box-box1-items-box">
-      {fixedExpense?.map((fixedExpense, index) => {
-        const { feNumber, feName, fePrice, createdAt } = fixedExpense;
+      {filteredFixedExpense?.map((fixedExpense, index) => {
+        const {
+          feNumber,
+          startYear,
+          startMonth,
+          endYear,
+          endMonth,
+          feName,
+          fePrice,
+          createdAt,
+        } = fixedExpense;
+        const feDate = `${startYear}.${startMonth}~${endYear}.${endMonth}`;
         return (
           <span
             className="spp-box-box1-items"
@@ -45,7 +55,7 @@ const FixedExpense = () => {
             >
               ㅡ
             </button>
-            <div className="spp-fe-period">2022.02~2022.12</div>
+            <div className="spp-fe-period">{feDate}</div>
             <div className="spp-fe-feName">{feName}</div>
             <div className="spp-fe-fePrice">{fePrice.toLocaleString()}</div>
             <div className="spp-fe-fePrice-year">
@@ -58,7 +68,7 @@ const FixedExpense = () => {
   );
 
   // 합계&평균
-  const totals = SppUtils.fixedExpenseTotal(fixedExpense);
+  const totals = SppUtils.fixedExpenseTotal(filteredFixedExpense);
   const total = (
     <div className="spp-box-box2-total-box">
       <div className="spp-box-box2-total-title-box spp-box-box2-total-title-box-ex">
@@ -92,7 +102,7 @@ const FixedExpense = () => {
       <div className="spp-items-title">
         고정 지출
         <span className="spp-items-title-count">
-          {fixedExpense ? `${fixedExpense.length}건` : ""}
+          {filteredFixedExpense ? `${filteredFixedExpense.length}건` : ""}
         </span>
       </div>
       <div className="spp-box-box1">

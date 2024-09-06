@@ -99,6 +99,18 @@ export class SppUtils {
     return data?.filter((data: any) => data.year === selectedYear);
   }
 
+  // 고정지출 선택 년도 데이터 필터링
+  static filteringFixedExpenseData(
+    selectedYear: number | null,
+    fixedExpense: IFixedExpenseFromBack[]
+  ) {
+    if (!selectedYear) return fixedExpense;
+    return fixedExpense?.filter(
+      (data: IFixedExpenseFromBack) =>
+        data.startYear <= selectedYear && selectedYear <= data.endYear
+    );
+  }
+
   // iRec 데이터 생성
   static createIRec(
     solar: ISolarFromBack[],
@@ -206,6 +218,12 @@ export class SppUtils {
     fixedExpenseInput: IFixedExpenseInput,
     dispatch: AppDispatch
   ) {
+    const startYear = Utils.splitDate(fixedExpenseInput.startDate);
+    const endYear = Utils.splitDate(fixedExpenseInput.endDate);
+    if (startYear > endYear) {
+      alert("시작년도가 종료년도 보다 큽니다.");
+      return false;
+    }
     return await SppUtils.addDataToBack(
       () => sppApiService.addFixedExpense(fixedExpenseInput),
       dispatch,

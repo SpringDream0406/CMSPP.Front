@@ -15,6 +15,9 @@ const SppSelectYears = () => {
   const iRec = useSelector((state: RootState) => state.sppReducer.iRec); // iRec 데이터
   const sRec = useSelector((state: RootState) => state.sppReducer.sRec); // sRec 데이터
   const expense = useSelector((state: RootState) => state.sppReducer.expense); // expense 데이터
+  const fixedExpense = useSelector(
+    (state: RootState) => state.sppReducer.fixedExpense
+  ); // fixedExpense 데이터
   const myInfo = useSelector((state: RootState) => state.sppReducer.myInfo); // myInfo 데이터
 
   //
@@ -62,6 +65,15 @@ const SppSelectYears = () => {
       )
     );
   }, [dispatch, selectedYear, expense]);
+
+  // fixedExpense 데이터 선택된 년도로 필터링
+  useEffect(() => {
+    dispatch(
+      sppActions.setFilteredFixedExpense(
+        SppUtils.filteringFixedExpenseData(selectedYear, fixedExpense)
+      )
+    );
+  });
 
   //
   // 본문
