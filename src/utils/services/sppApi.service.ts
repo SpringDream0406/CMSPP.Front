@@ -18,8 +18,9 @@ export class SppApiService {
   // 내 발전소 데이터 가져오기
   async fetchSpp() {
     try {
-      const response = await backApiService.backGetWithAccessToken({
-        url: process.env.REACT_APP_BACK_FETCH_SPP_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "get",
+        url: `${process.env.REACT_APP_BACK_SPP}`,
       });
       return response;
     } catch (error) {
@@ -31,8 +32,9 @@ export class SppApiService {
   // 태양광 데이터 추가
   async addSolar(solarInput: ISolarInput) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_ADD_SOLAR_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "put",
+        url: `${process.env.REACT_APP_BACK_SPP}/solar`,
         data: solarInput,
       });
       return response;
@@ -47,8 +49,9 @@ export class SppApiService {
   // sRec 데이터 추가
   async addSRec(sRecInput: ISRecInput) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_ADD_SREC_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "put",
+        url: `${process.env.REACT_APP_BACK_SPP}/sRec`,
         data: sRecInput,
       });
       return response;
@@ -61,8 +64,9 @@ export class SppApiService {
   // expense 데이터 추가
   async addExpense(expenseInput: IExpenseInput) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_ADD_EXPENSE_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "put",
+        url: `${process.env.REACT_APP_BACK_SPP}/expense`,
         data: expenseInput,
       });
       return response;
@@ -75,8 +79,9 @@ export class SppApiService {
   // fixedExpense 데이터 추가
   async addFixedExpense(fixedExpenseInput: IFixedExpenseInput) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_ADD_FIXEDEXPENSE_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "put",
+        url: `${process.env.REACT_APP_BACK_SPP}/fixedExpense`,
         data: fixedExpenseInput,
       });
       return response;
@@ -89,8 +94,9 @@ export class SppApiService {
   // 태양광 데이터 삭제
   async deleteSolar(deleteOneSolar: ISppApiServiceDeleteOneSolar) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_DELETE_SOLAR_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "delete",
+        url: `${process.env.REACT_APP_BACK_SPP}/solar`,
         data: deleteOneSolar,
       });
       return response;
@@ -103,8 +109,9 @@ export class SppApiService {
   // sREc 데이터 삭제
   async deleteSRec(deleteOneSRec: ISppApiServiceDeleteOneSRec) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_DELETE_SREC_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "delete",
+        url: `${process.env.REACT_APP_BACK_SPP}/sRec`,
         data: deleteOneSRec,
       });
       return response;
@@ -117,8 +124,9 @@ export class SppApiService {
   // expense 데이터 삭제
   async deleteExpense(deleteOneExpense: ISppApiServiceDeleteOneExpense) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_DELETE_EXPENSE_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "delete",
+        url: `${process.env.REACT_APP_BACK_SPP}/expense`,
         data: deleteOneExpense,
       });
       return response;
@@ -133,8 +141,9 @@ export class SppApiService {
     deleteOneFixedExpense: ISppApiServiceDeleteOneFixedExpense
   ) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_DELETE_FIXEDEXPENSE_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "delete",
+        url: `${process.env.REACT_APP_BACK_SPP}/fixedExpense`,
         data: deleteOneFixedExpense,
       });
       return response;

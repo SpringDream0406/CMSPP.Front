@@ -1,7 +1,6 @@
 import { RefObject, useRef } from "react";
 import { SppUtils } from "../../../utils/spp.utils";
 import { useDispatch } from "react-redux";
-import { Utils } from "../../../utils/utils";
 
 const InputFixedExpense = () => {
   const dispatch = useDispatch();

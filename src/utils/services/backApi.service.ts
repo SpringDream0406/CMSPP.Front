@@ -1,20 +1,10 @@
-import axios, { AxiosRequestConfig, AxiosResponse, isAxiosError } from "axios";
+import axios, { AxiosResponse, isAxiosError } from "axios";
 import { UserUtils } from "../user.utils";
-
-interface IAxiosGet {
-  url: string;
-  config?: AxiosRequestConfig;
-}
-
-interface IAxiosGetWithAccessToken extends Omit<IAxiosGet, "config"> {}
-
-interface IAxiosPost {
-  url: string;
-  data?: any;
-  config?: AxiosRequestConfig;
-}
-
-interface IAxiosPostWithAccessToken extends Omit<IAxiosPost, "config"> {}
+import {
+  IAxiosBack,
+  IAxiosPost,
+  IBackWithAccessToken,
+} from "../../interfaces/api.interface";
 
 export class BackApiService {
   //
@@ -38,38 +28,59 @@ export class BackApiService {
     timeout: 5000,
   });
 
-  // 백엔드와 get 통신
-  async axiosBackGet({ url, config }: IAxiosGet): Promise<AxiosResponse<any>> {
+  // 백엔드와 통신 함수
+  async axiosBack({
+    method,
+    url,
+    config,
+    data,
+  }: IAxiosBack): Promise<AxiosResponse<any>> {
     try {
-      const response = await this.backAxios.get(url, config);
-      return response;
+      if (method === "get" || method === "delete") {
+        return await this.backAxios[method](url, config);
+      }
+      return await this.backAxios[method](url, data, config);
     } catch (error) {
       throw error;
     }
   }
 
-  // 백엔드와 post 통신
-  async axiosBackPost({
+  // 백엔드와 토큰 포함 통신 함수
+  async backWithAccessToken({
+    method,
     url,
     data,
-    config,
-  }: IAxiosPost): Promise<AxiosResponse<any>> {
+  }: IBackWithAccessToken): Promise<AxiosResponse<any>> {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
+      },
+    };
     try {
-      const response = await this.backAxios.post(url, data, config);
-      return response;
+      return await this.axiosBack({ method, url, config, data });
     } catch (error) {
+      if (isAxiosError(error) && error.response?.status === 401) {
+        try {
+          await this.getAccessToken();
+          config.headers.Authorization = `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`;
+          return await this.axiosBack({ method, url, config, data });
+        } catch (error) {
+          throw error;
+        }
+      }
       throw error;
     }
   }
 
   // 엑세스토큰 받아오는 통신
   async getAccessToken(): Promise<void> {
-    const url = "/getAccessToken";
+    const url = `/getAccessToken`;
     const config = {
       withCredentials: true, // 쿠키 포함해서 보내기
     };
     try {
-      const response = await this.axiosBackPost({ url, config });
+      const response = await this.axiosBack({ method: "get", url, config });
       UserUtils.setAccessTokenToLocalStorage(response.data);
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
@@ -78,75 +89,6 @@ export class BackApiService {
         return;
       }
       console.error(error);
-    }
-  }
-
-  // 엑세스토큰 헤더에 담은 get 통신
-  async backGetWithAccessToken({
-    url,
-  }: IAxiosGetWithAccessToken): Promise<AxiosResponse<any>> {
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
-      },
-    };
-    try {
-      const response = await this.axiosBackGet({ url, config });
-      // console.log(response);
-      return response;
-    } catch (error) {
-      if (isAxiosError(error) && error.response?.status === 401) {
-        try {
-          await this.getAccessToken();
-          config = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
-            },
-          };
-          const response = await this.axiosBackGet({ url, config });
-          return response;
-        } catch (error) {
-          throw error;
-        }
-      }
-      throw error;
-    }
-  }
-
-  // 엑세스토큰 헤더에 담은 post 통신
-  async backPostWithAccessToken({
-    url,
-    data,
-  }: IAxiosPostWithAccessToken): Promise<AxiosResponse<any>> {
-    let config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
-      },
-    };
-    try {
-      const response = await this.axiosBackPost({ url, data, config });
-      // console.log(response);
-      return response;
-    } catch (error) {
-      if (isAxiosError(error) && error.response?.status === 401) {
-        try {
-          await this.getAccessToken();
-          config = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${UserUtils.getAccessTokenFromLocalStorage()}`,
-            },
-          };
-          const response = await this.axiosBackPost({ url, data, config });
-          return response;
-        } catch (error) {
-          throw error;
-        }
-      }
-      throw error;
     }
   }
 

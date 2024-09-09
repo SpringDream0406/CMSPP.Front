@@ -218,10 +218,8 @@ export class SppUtils {
     fixedExpenseInput: IFixedExpenseInput,
     dispatch: AppDispatch
   ) {
-    const startYear = Utils.splitDate(fixedExpenseInput.startDate);
-    const endYear = Utils.splitDate(fixedExpenseInput.endDate);
-    if (startYear > endYear) {
-      alert("시작년도가 종료년도 보다 큽니다.");
+    if (fixedExpenseInput.startDate > fixedExpenseInput.endDate) {
+      alert("기간의 시작이 종료 보다 큽니다.");
       return false;
     }
     return await SppUtils.addDataToBack(

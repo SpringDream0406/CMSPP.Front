@@ -67,9 +67,8 @@ export class UserUtils {
   // myInfo 등록하기
   static async updateMyInfo(myInfo: IMyInfo, dispatch: AppDispatch) {
     const response = await userApiService.updateMyInfo(myInfo);
-    if (response?.status && response?.data) {
+    if (response?.status) {
       alert("내 정보를 업데이트 했습니다.");
-      dispatch(sppActions.setMyInfo({ ...response.data }));
     }
   }
 

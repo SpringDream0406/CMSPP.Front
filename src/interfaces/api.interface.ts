@@ -1,9 +1,25 @@
+import { AxiosRequestConfig } from "axios";
 import {
   IDeleteOneExpense,
   IDeleteOneFixedExpense,
   IDeleteOneSRec,
   IDeleteOneSolar,
 } from "./utils.interface";
+
+export interface IAxiosPost {
+  url: string;
+  data?: any;
+  config?: AxiosRequestConfig;
+}
+
+export interface IAxiosBack {
+  method: "get" | "post" | "put" | "delete";
+  url: string;
+  config: AxiosRequestConfig;
+  data?: any;
+}
+
+export interface IBackWithAccessToken extends Omit<IAxiosBack, "config"> {}
 
 export interface ISolarInput {
   date: string;

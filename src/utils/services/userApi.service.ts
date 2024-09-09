@@ -10,8 +10,9 @@ export class UserApiService {
   // 회원탈퇴
   async withdrawal(): Promise<void> {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_WITHDRAWAL!,
+      const response = await backApiService.backWithAccessToken({
+        method: "delete",
+        url: `withdrawal`,
       });
       if (response.status) {
         alert("회원탈퇴가 정상적으로 이루어졌습니다.");
@@ -26,13 +27,17 @@ export class UserApiService {
   // myInfo 업데이트
   async updateMyInfo(myInfo: IMyInfo) {
     try {
-      const response = await backApiService.backPostWithAccessToken({
-        url: process.env.REACT_APP_BACK_UPDATEMYINFO!,
+      const response = await backApiService.backWithAccessToken({
+        method: "put",
+        url: process.env.REACT_APP_BACK_USER!,
         data: myInfo,
       });
       return response;
     } catch (error) {
-      if (isAxiosError(error) && error.response?.data.message === "중복")
+      if (
+        isAxiosError(error) &&
+        error.response?.data.message === "사업자 번호 중복"
+      )
         return alert("등록된 사업자 번호 입니다.");
       console.error(error);
       alert("내 정보를 등록/업데이트 하는데 실패했습니다.");
@@ -42,8 +47,9 @@ export class UserApiService {
   // myInfo 가져오기
   async fetchMyInfo() {
     try {
-      const response = await backApiService.backGetWithAccessToken({
-        url: process.env.REACT_APP_BACK_FETCH_MYINFO_PATH!,
+      const response = await backApiService.backWithAccessToken({
+        method: "get",
+        url: process.env.REACT_APP_BACK_USER!,
       });
       return response;
     } catch (error) {
