@@ -5,10 +5,6 @@ import {
   IFixedExpenseInput,
   ISRecInput,
   ISolarInput,
-  ISppApiServiceDeleteOneExpense,
-  ISppApiServiceDeleteOneFixedExpense,
-  ISppApiServiceDeleteOneSRec,
-  ISppApiServiceDeleteOneSolar,
 } from "../../interfaces/api.interface";
 
 const backApiService = new BackApiService();
@@ -29,7 +25,7 @@ export class SppApiService {
     }
   }
 
-  // 태양광 데이터 추가
+  // solar 데이터 추가
   async addSolar(solarInput: ISolarInput) {
     try {
       const response = await backApiService.backWithAccessToken({
@@ -91,13 +87,12 @@ export class SppApiService {
     }
   }
 
-  // 태양광 데이터 삭제
-  async deleteSolar(deleteOneSolar: ISppApiServiceDeleteOneSolar) {
+  // solar 데이터 삭제
+  async deleteSolar(solarNumber: number) {
     try {
       const response = await backApiService.backWithAccessToken({
         method: "delete",
-        url: `${process.env.REACT_APP_BACK_SPP}/solar`,
-        data: deleteOneSolar,
+        url: `${process.env.REACT_APP_BACK_SPP}/solar/${solarNumber}`,
       });
       return response;
     } catch (error) {
@@ -107,12 +102,11 @@ export class SppApiService {
   }
 
   // sREc 데이터 삭제
-  async deleteSRec(deleteOneSRec: ISppApiServiceDeleteOneSRec) {
+  async deleteSRec(sRecNumber: number) {
     try {
       const response = await backApiService.backWithAccessToken({
         method: "delete",
-        url: `${process.env.REACT_APP_BACK_SPP}/sRec`,
-        data: deleteOneSRec,
+        url: `${process.env.REACT_APP_BACK_SPP}/sRec/${sRecNumber}`,
       });
       return response;
     } catch (error) {
@@ -122,12 +116,11 @@ export class SppApiService {
   }
 
   // expense 데이터 삭제
-  async deleteExpense(deleteOneExpense: ISppApiServiceDeleteOneExpense) {
+  async deleteExpense(eNumber: number) {
     try {
       const response = await backApiService.backWithAccessToken({
         method: "delete",
-        url: `${process.env.REACT_APP_BACK_SPP}/expense`,
-        data: deleteOneExpense,
+        url: `${process.env.REACT_APP_BACK_SPP}/expense/${eNumber}`,
       });
       return response;
     } catch (error) {
@@ -137,14 +130,11 @@ export class SppApiService {
   }
 
   // fixedExpense 데이터 삭제
-  async deleteFixedExpense(
-    deleteOneFixedExpense: ISppApiServiceDeleteOneFixedExpense
-  ) {
+  async deleteFixedExpense(feNumber: number) {
     try {
       const response = await backApiService.backWithAccessToken({
         method: "delete",
-        url: `${process.env.REACT_APP_BACK_SPP}/fixedExpense`,
-        data: deleteOneFixedExpense,
+        url: `${process.env.REACT_APP_BACK_SPP}/fixedExpense/${feNumber}`,
       });
       return response;
     } catch (error) {

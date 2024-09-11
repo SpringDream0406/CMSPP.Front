@@ -1,11 +1,4 @@
 import { AxiosRequestConfig } from "axios";
-import {
-  IDeleteOneExpense,
-  IDeleteOneFixedExpense,
-  IDeleteOneSRec,
-  IDeleteOneSolar,
-} from "./utils.interface";
-
 export interface IAxiosPost {
   url: string;
   data?: any;
@@ -97,15 +90,3 @@ export interface ISpp {
   businessNumber: number;
   address: string;
 }
-
-export interface ISppApiServiceDeleteOneSolar
-  extends Pick<IDeleteOneSolar, "solarNumber"> {}
-
-export interface ISppApiServiceDeleteOneSRec
-  extends Pick<IDeleteOneSRec, "sRecNumber"> {}
-
-export interface ISppApiServiceDeleteOneExpense
-  extends Pick<IDeleteOneExpense, "eNumber"> {}
-
-export interface ISppApiServiceDeleteOneFixedExpense
-  extends Pick<IDeleteOneFixedExpense, "feNumber"> {}

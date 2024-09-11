@@ -186,7 +186,7 @@ export class SppUtils {
     return false;
   }
 
-  // 태양광 데이터 추가
+  // solar 데이터 추가
   static async addSolar(solarInput: ISolarInput, dispatch: AppDispatch) {
     return await SppUtils.addDataToBack(
       () => sppApiService.addSolar(solarInput),
@@ -239,7 +239,7 @@ export class SppUtils {
     );
   }
 
-  // 태양광 데이터 한 개 삭제
+  // solar 데이터 한 개 삭제
   static async deleteOneSolar(
     deleteOneSolar: IDeleteOneSolar,
     dispatch: AppDispatch
@@ -249,9 +249,9 @@ export class SppUtils {
       ...deleteOneSolar,
     });
     if (confirmResult) {
-      const response = await sppApiService.deleteSolar({
-        solarNumber: deleteOneSolar.solarNumber,
-      });
+      const response = await sppApiService.deleteSolar(
+        deleteOneSolar.solarNumber
+      );
       if (response?.status && response?.data) {
         dispatch(sppActions.setSolar(response?.data));
       }
@@ -268,9 +268,7 @@ export class SppUtils {
       ...deleteOneSRec,
     });
     if (confirmResult) {
-      const response = await sppApiService.deleteSRec({
-        sRecNumber: deleteOneSRec.sRecNumber,
-      });
+      const response = await sppApiService.deleteSRec(deleteOneSRec.sRecNumber);
       if (response?.status && response?.data) {
         dispatch(sppActions.setSRec(response?.data));
       }
@@ -287,9 +285,9 @@ export class SppUtils {
       ...deleteOneExpense,
     });
     if (confirmResult) {
-      const response = await sppApiService.deleteExpense({
-        eNumber: deleteOneExpense.eNumber,
-      });
+      const response = await sppApiService.deleteExpense(
+        deleteOneExpense.eNumber
+      );
       if (response?.status && response?.data) {
         dispatch(sppActions.setExpense(response?.data));
       }
@@ -306,9 +304,9 @@ export class SppUtils {
       `${deleteOneFixedExpense.feName} ${deleteOneFixedExpense.fePrice}원, 고정 지출 데이터를 삭제하겠습니까?`
     );
     if (confirmResult) {
-      const response = await sppApiService.deleteFixedExpense({
-        feNumber: deleteOneFixedExpense.feNumber,
-      });
+      const response = await sppApiService.deleteFixedExpense(
+        deleteOneFixedExpense.feNumber
+      );
       if (response?.status && response?.data) {
         dispatch(sppActions.setFixedExpense(response?.data));
       }
