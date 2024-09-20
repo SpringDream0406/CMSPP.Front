@@ -15,7 +15,7 @@ const Solar = () => {
   const itemsTitle = (
     <div className="spp-box-box1-items-title">
       <div className="spp-solar-deleteBtn"></div>
-      <div className="spp-solar-year">년</div>
+      <div className="spp-solar-year">발전 년</div>
       <div className="spp-solar-month">월</div>
       <div className="spp-solar-generation">발전량</div>
       <div className="spp-solar-smp">SMP</div>
