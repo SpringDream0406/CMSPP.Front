@@ -49,8 +49,5 @@
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
     "react-scripts": "^5.0.1"
-  },
-  "resolutions": {
-    "nth-check": "2.0.1"
   }
 }
