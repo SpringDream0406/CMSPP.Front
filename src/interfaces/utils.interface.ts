@@ -4,7 +4,7 @@ import {
   IFixedExpenseFromBack,
   ISRecFromBack,
   ISRecInput,
-  ISolarFromBack,
+  ISolar,
   ISolarInput,
   ISpp,
 } from "./api.interface";
@@ -54,7 +54,7 @@ export interface IConfirmDelete {
 }
 
 export interface IDeleteOneSolar
-  extends Pick<ISolarFromBack, "solarNumber" | "date"> {}
+  extends Pick<ISolar, "solarNumber" | "generationDate"> {}
 
 export interface IDeleteOneSRec
   extends Pick<ISRecFromBack, "sRecNumber" | "date"> {}

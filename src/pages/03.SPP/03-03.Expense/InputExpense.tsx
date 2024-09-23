@@ -32,22 +32,29 @@ const InputExpense = () => {
   // 본문
   return (
     <div className="spp-box-box2-input-box">
-      <input className="spp-ex-input-date" type="date" ref={inputDateRef} />
-      <input
-        className="spp-ex-input-eName"
-        type="text"
-        placeholder="지출명"
-        ref={inputENameRef}
-      />
-      <input
-        className="spp-ex-input-ePrice"
-        type="number"
-        placeholder="지출액"
-        ref={inputEPriceRef}
-      />
-      <button className="spp-ex-input-btn" onClick={sendExpense}>
-        추가하기
-      </button>
+      <div className="spp-box-box2-input-box-titles">
+        <div className="spp-ex-input-date">- 지출 일</div>
+        <div className="spp-ex-input-eName">- 지출명</div>
+        <div className="spp-ex-input-ePrice">- 지출액</div>
+      </div>
+      <div className="spp-box-box2-input-box-inputs">
+        <input className="spp-ex-input-date" type="date" ref={inputDateRef} />
+        <input
+          className="spp-ex-input-eName"
+          type="text"
+          placeholder="지출명"
+          ref={inputENameRef}
+        />
+        <input
+          className="spp-ex-input-ePrice"
+          type="number"
+          placeholder="지출액"
+          ref={inputEPriceRef}
+        />
+        <button className="spp-ex-input-btn" onClick={sendExpense}>
+          추가하기
+        </button>
+      </div>
     </div>
   );
 };

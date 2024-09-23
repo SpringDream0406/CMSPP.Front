@@ -1,5 +1,5 @@
 /* ========== 태양광 ========== */
-/* items */
+/* itemsBox */
 .spp-solar-deleteBtn {
   width: 4%;
   font-size: 0.5rem;
@@ -8,25 +8,22 @@
   width: 13%;
 }
 .spp-solar-generation {
-  width: 10%;
+  width: 14%;
 }
 .spp-solar-smp {
   width: 10%;
 }
-.spp-solar-calcul {
-  width: 19%;
-}
 .spp-solar-supplyPrice {
-  width: 15%;
+  width: 20%;
 }
 .spp-solar-vat {
-  width: 14%;
+  width: 19%;
 }
 .spp-solar-total {
-  width: 15%;
+  width: 20%;
 }
 
-/* total-box */
+/* totalsBox */
 .spp-solar-total-text {
   width: 6%;
   font-weight: bold;
@@ -37,31 +34,28 @@
 .spp-solar-total-smp {
   width: 12%;
 }
-.spp-solar-total-calcul {
-  width: 20%;
-}
 .spp-solar-total-supplyPrice {
-  width: 15%;
+  width: 25%;
 }
 .spp-solar-total-vat {
   width: 15%;
 }
 .spp-solar-total-total {
-  width: 20%;
+  width: 30%;
 }
 
-/* input-box */
+/* inputsBox */
 .spp-solar-input-date {
-  width: 25%;
+  width: 20%;
 }
 .spp-solar-input-generation {
-  width: 15%;
+  width: 20%;
 }
 .spp-solar-input-smp {
-  width: 15%;
+  width: 20%;
 }
 .spp-solar-input-supplyPrice {
-  width: 20%;
+  width: 25%;
 }
 .spp-solar-input-btn {
   width: 15%;

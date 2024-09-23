@@ -4,13 +4,13 @@ import {
   IFixedExpenseFromBack,
   IMyInfo,
   ISRecFromBack,
-  ISolarFromBack,
+  ISolar,
 } from "../interfaces/api.interface";
 import { IIRec } from "../interfaces/utils.interface";
 
 interface IReducerState {
-  solar: ISolarFromBack[];
-  filteredSolar: ISolarFromBack[];
+  solar: ISolar[];
+  filteredSolar: ISolar[];
   iRec: IIRec[];
   filteredIRec: IIRec[];
   sRec: ISRecFromBack[];
@@ -45,10 +45,10 @@ const sppSlice = createSlice({
   name: "reducer",
   initialState: initialState,
   reducers: {
-    setSolar(state, action: PayloadAction<ISolarFromBack[]>) {
+    setSolar(state, action: PayloadAction<ISolar[]>) {
       state.solar = action.payload;
     },
-    setFilteredSolar(state, action: PayloadAction<ISolarFromBack[]>) {
+    setFilteredSolar(state, action: PayloadAction<ISolar[]>) {
       state.filteredSolar = action.payload;
     },
     setIRec(state, action: PayloadAction<IIRec[]>) {

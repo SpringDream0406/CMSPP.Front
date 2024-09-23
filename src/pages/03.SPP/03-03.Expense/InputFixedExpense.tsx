@@ -35,31 +35,39 @@ const InputFixedExpense = () => {
   // 본문
   return (
     <div className="spp-box-box2-input-box">
-      <input
-        className="spp-fe-input-startDate"
-        type="month"
-        ref={inputStartDateRef}
-      />
-      <input
-        className="spp-fe-input-endDate"
-        type="month"
-        ref={inputEndDateRef}
-      />
-      <input
-        className="spp-fe-input-feName"
-        type="text"
-        placeholder="지출명"
-        ref={inputFeNameRef}
-      />
-      <input
-        className="spp-fe-input-fePrice"
-        type="number"
-        placeholder="지출액"
-        ref={inputFePriceRef}
-      />
-      <button className="spp-fe-input-btn" onClick={sendFixedExpense}>
-        추가하기
-      </button>
+      <div className="spp-box-box2-input-box-titles">
+        <div className="spp-fe-input-startDate">- 시작 월</div>
+        <div className="spp-fe-input-endDate">- 종료 월</div>
+        <div className="spp-fe-input-feName">- 지출명</div>
+        <div className="spp-fe-input-fePrice">- 지출액</div>
+      </div>
+      <div className="spp-box-box2-input-box-inputs">
+        <input
+          className="spp-fe-input-startDate"
+          type="month"
+          ref={inputStartDateRef}
+        />
+        <input
+          className="spp-fe-input-endDate"
+          type="month"
+          ref={inputEndDateRef}
+        />
+        <input
+          className="spp-fe-input-feName"
+          type="text"
+          placeholder="지출명"
+          ref={inputFeNameRef}
+        />
+        <input
+          className="spp-fe-input-fePrice"
+          type="number"
+          placeholder="지출액"
+          ref={inputFePriceRef}
+        />
+        <button className="spp-fe-input-btn" onClick={sendFixedExpense}>
+          추가하기
+        </button>
+      </div>
     </div>
   );
 };

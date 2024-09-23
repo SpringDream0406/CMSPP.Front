@@ -32,22 +32,29 @@ const InputSRec = () => {
   // 본문
   return (
     <div className="spp-box-box2-input-box">
-      <input className="spp-sRec-input-date" type="date" ref={inputDateRef} />
-      <input
-        className="spp-sRec-input-sVolume"
-        type="number"
-        placeholder="판매량"
-        ref={inputSVolumeRef}
-      />
-      <input
-        className="spp-sRec-input-sPrice"
-        type="number"
-        placeholder="판매가"
-        ref={inputSPriceRef}
-      />
-      <button className="spp-sRec-input-btn" onClick={sendSRec}>
-        추가하기
-      </button>
+      <div className="spp-box-box2-input-box-titles">
+        <div className="spp-sRec-input-date"> - 판매 일</div>
+        <div className="spp-sRec-input-sVolume"> - 판매량</div>
+        <div className="spp-sRec-input-sPrice"> - 판매가</div>
+      </div>
+      <div className="spp-box-box2-input-box-inputs">
+        <input className="spp-sRec-input-date" type="date" ref={inputDateRef} />
+        <input
+          className="spp-sRec-input-sVolume"
+          type="number"
+          placeholder="판매량"
+          ref={inputSVolumeRef}
+        />
+        <input
+          className="spp-sRec-input-sPrice"
+          type="number"
+          placeholder="판매가"
+          ref={inputSPriceRef}
+        />
+        <button className="spp-sRec-input-btn" onClick={sendSRec}>
+          추가하기
+        </button>
+      </div>
     </div>
   );
 };

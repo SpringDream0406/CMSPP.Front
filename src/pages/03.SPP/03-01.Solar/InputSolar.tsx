@@ -35,28 +35,41 @@ const InputSolar = () => {
   // 본문
   return (
     <div className="spp-box-box2-input-box">
-      <input className="spp-solar-input-date" type="month" ref={inputdateRef} />
-      <input
-        className="spp-solar-input-generation"
-        type="number"
-        placeholder="발전량"
-        ref={inputGenerationRef}
-      />
-      <input
-        className="spp-solar-input-smp"
-        type="number"
-        placeholder="SMP"
-        ref={inputSMPRef}
-      />
-      <input
-        className="spp-solar-input-supplyPrice"
-        type="number"
-        placeholder="공급가액"
-        ref={inputSupplyPriceRef}
-      />
-      <button className="spp-solar-input-btn" onClick={sendSolar}>
-        추가하기
-      </button>
+      <div className="spp-box-box2-input-box-titles">
+        <div className="spp-solar-input-date">- 발전 월</div>
+        <div className="spp-solar-input-generation">- 발전량</div>
+        <div className="spp-solar-input-smp">- SMP</div>
+        <div className="spp-solar-input-supplyPrice">- 공급가액</div>
+        <div className="spp-solar-input-btn"></div>
+      </div>
+      <div className="spp-box-box2-input-box-inputs">
+        <input
+          className="spp-solar-input-date"
+          type="month"
+          ref={inputdateRef}
+        />
+        <input
+          className="spp-solar-input-generation"
+          type="number"
+          placeholder="발전량"
+          ref={inputGenerationRef}
+        />
+        <input
+          className="spp-solar-input-smp"
+          type="number"
+          placeholder="SMP"
+          ref={inputSMPRef}
+        />
+        <input
+          className="spp-solar-input-supplyPrice"
+          type="number"
+          placeholder="공급가액"
+          ref={inputSupplyPriceRef}
+        />
+        <button className="spp-solar-input-btn" onClick={sendSolar}>
+          추가하기
+        </button>
+      </div>
     </div>
   );
 };

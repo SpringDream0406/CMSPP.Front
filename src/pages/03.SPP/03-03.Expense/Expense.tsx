@@ -32,6 +32,9 @@ const Expense = () => {
             className="spp-box-box1-items"
             key={index}
             title={Utils.makeCreatedAt(createdAt)}
+            style={{
+              backgroundColor: Utils.quarterBackGroundColor(date),
+            }}
           >
             <button
               className="spp-ex-deleteBtn"

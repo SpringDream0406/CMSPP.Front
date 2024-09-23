@@ -41,4 +41,13 @@ export class Utils {
   static getMonth(date: string): number {
     return Number(date.slice(5, 7));
   }
+
+  // 분기별 배경색 넣기
+  static quarterBackGroundColor(date: string): string {
+    const month = this.getMonth(date);
+    if (month < 4) return "#f0fbfe";
+    if (month < 7) return "#f4fff5";
+    if (month < 10) return "#fff2f7";
+    return "#fef8ed";
+  }
 }

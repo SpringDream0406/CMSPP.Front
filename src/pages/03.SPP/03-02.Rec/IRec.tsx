@@ -9,6 +9,9 @@ const IRec = () => {
   const filteredIRec = useSelector(
     (state: RootState) => state.sppReducer.filteredIRec
   );
+  const recWeightData = useSelector(
+    (state: RootState) => state.sppReducer.myInfo.recWeight
+  );
 
   // 아이템 타이틀
   const itemsTitle = (
@@ -28,6 +31,9 @@ const IRec = () => {
             className="spp-box-box1-items"
             key={index}
             title={Utils.makeCreatedAt(iRec.createdAt)}
+            style={{
+              backgroundColor: Utils.quarterBackGroundColor(iRec.date),
+            }}
           >
             <div className="spp-iRec-issuance">
               {iRec.issuance.toLocaleString()}
@@ -71,6 +77,14 @@ const IRec = () => {
     </div>
   );
 
+  // REC 가중치
+  const recWeight = (
+    <div className="spp-iRec-recWeight-box">
+      <div className="spp-iRec-recWeight-text">REC 가중치</div>
+      <div className="spp-iRec-recWeight-recWeight">{recWeightData}</div>
+    </div>
+  );
+
   // 본문
   return (
     <div className="spp-iRec">
@@ -81,6 +95,7 @@ const IRec = () => {
       </div>
       <div className="spp-box-box2">
         {total}
+        {recWeight}
         <RestRec />
       </div>
     </div>

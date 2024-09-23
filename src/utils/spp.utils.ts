@@ -7,6 +7,7 @@ import {
   IMyInfo,
   ISRecFromBack,
   ISRecInput,
+  ISolar,
   ISolarFromBack,
   ISolarInput,
   ISpp,
@@ -69,7 +70,7 @@ export class SppUtils {
         );
       }
     }
-    dispatch(sppActions.setSolar(this.dataOrderBy(solar)));
+    dispatch(sppActions.setSolar(this.dataOrderBy(this.createSolar(solar))));
     dispatch(sppActions.setSRec(this.dataOrderBy(sRec)));
     dispatch(sppActions.setExpense(this.dataOrderBy(expense)));
     dispatch(sppActions.setFixedExpense(this.dataOrderBy(fixedExpense)));
@@ -113,16 +114,26 @@ export class SppUtils {
     );
   }
 
+  // 계산을 위한 solar 데이터 생성
+  static createSolar(solarFromBack: ISolarFromBack[]): ISolar[] {
+    return solarFromBack.map((item: ISolarFromBack) => {
+      let [year, month] = Utils.splitDate(item.date);
+      month += 1;
+      if (month > 12) {
+        month = 1;
+        year += 1;
+      }
+      const taxDate = `${year}-${String(month).padStart(2, "0")}`;
+      return { ...item, generationDate: item.date, date: taxDate };
+    });
+  }
+
   // iRec 데이터 생성
-  static createIRec(
-    solar: ISolarFromBack[],
-    myInfo: IMyInfo,
-    dispatch: AppDispatch
-  ) {
+  static createIRec(solar: ISolar[], myInfo: IMyInfo, dispatch: AppDispatch) {
     const { kWh, recWeight } = myInfo;
     let remain = 0;
 
-    const iRec: IIRec[] = solar.map((item: ISolarFromBack) => {
+    const iRec: IIRec[] = solar.map((item: ISolar) => {
       const { date, createdAt, generation } = item;
       const generationInKwh = (generation / 1000) * Number(recWeight)!;
 
@@ -188,12 +199,16 @@ export class SppUtils {
   }
 
   // solar 데이터 추가
-  static async addSolar(solarInput: ISolarInput, dispatch: AppDispatch) {
-    return await SppUtils.addDataToBack(
-      () => sppApiService.addSolar(solarInput),
-      dispatch,
-      sppActions.setSolar
-    );
+  static async addSolar(
+    solarInput: ISolarInput,
+    dispatch: AppDispatch
+  ): Promise<boolean> {
+    const response = await sppApiService.addSolar(solarInput);
+    if (response?.status && response?.data) {
+      dispatch(sppActions.setSolar(SppUtils.createSolar(response.data)));
+      return true;
+    }
+    return false;
   }
 
   // sRec 데이터 추가
@@ -243,14 +258,14 @@ export class SppUtils {
   ) {
     const confirmResult = this.confirmDelete({
       name: "태양광",
-      ...deleteOneSolar,
+      date: deleteOneSolar.generationDate,
     });
     if (confirmResult) {
       const response = await sppApiService.deleteSolar(
         deleteOneSolar.solarNumber
       );
       if (response?.status && response?.data) {
-        dispatch(sppActions.setSolar(response?.data));
+        dispatch(sppActions.setSolar(SppUtils.createSolar(response?.data)));
       }
     }
   }

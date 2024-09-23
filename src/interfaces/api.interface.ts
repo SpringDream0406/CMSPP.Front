@@ -26,6 +26,10 @@ export interface ISolarFromBack extends ISolarInput {
   createdAt: string;
 }
 
+export interface ISolar extends ISolarFromBack {
+  generationDate: string;
+}
+
 export interface ISRecInput {
   date: string;
   sVolume: number;

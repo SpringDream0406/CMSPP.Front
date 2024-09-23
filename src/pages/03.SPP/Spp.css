@@ -39,8 +39,8 @@ input[type="number"]::-webkit-inner-spin-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 10%;
-  font-size: 2rem;
+  height: 7%;
+  font-size: 1.7rem;
   font-weight: bold;
 }
 .spp-items-title-count {
@@ -87,7 +87,7 @@ input[type="number"]::-webkit-inner-spin-button {
   height: 70%;
 }
 .spp-box-box2 {
-  height: 20%;
+  height: 23%;
 }
 
 /* box-box1의 데이터들 타이들 */
@@ -126,7 +126,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* box-box2의 total box */
 .spp-box-box2-total-box {
-  height: 70%;
+  height: 60%;
   display: flex;
   flex-direction: column;
 }
@@ -151,9 +151,21 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* box-box2의 input box */
 .spp-box-box2-input-box {
-  height: 25%;
+  height: 40%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  color: rgb(92, 91, 91);
+}
+.spp-box-box2-input-box-titles {
+  height: 40%;
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.spp-box-box2-input-box-inputs {
+  height: 60%;
+  display: flex;
+  flex-direction: row;
 }
 
 /* ========== SppSelectYears ========== */

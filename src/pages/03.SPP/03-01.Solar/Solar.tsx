@@ -18,7 +18,6 @@ const Solar = () => {
       <div className="spp-solar-date">발전 년월</div>
       <div className="spp-solar-generation">발전량</div>
       <div className="spp-solar-smp">SMP</div>
-      <div className="spp-solar-calcul">발전량 x SMP</div>
       <div className="spp-solar-supplyPrice">공급가액</div>
       <div className="spp-solar-vat">vat</div>
       <div className="spp-solar-total">총액</div>
@@ -29,8 +28,15 @@ const Solar = () => {
   const items = (
     <div className="spp-box-box1-items-box">
       {filteredSolar?.map((solar, index) => {
-        const { solarNumber, date, generation, smp, supplyPrice, createdAt } =
-          solar;
+        const {
+          solarNumber,
+          generationDate,
+          date,
+          generation,
+          smp,
+          supplyPrice,
+          createdAt,
+        } = solar;
         const calcul = Math.floor(generation * solar.smp);
         const comparison = calcul === supplyPrice;
         const vat = Math.floor(supplyPrice / 10);
@@ -40,26 +46,26 @@ const Solar = () => {
             className="spp-box-box1-items"
             key={index}
             title={Utils.makeCreatedAt(createdAt)}
+            style={{
+              backgroundColor: Utils.quarterBackGroundColor(date),
+            }}
           >
             <button
               className="spp-solar-deleteBtn"
               onClick={() => {
-                SppUtils.deleteOneSolar({ solarNumber, date }, dispatch);
+                SppUtils.deleteOneSolar(
+                  { solarNumber, generationDate },
+                  dispatch
+                );
               }}
             >
               ㅡ
             </button>
-            <div className="spp-solar-date">{date}</div>
+            <div className="spp-solar-date">{generationDate}</div>
             <div className="spp-solar-generation">
               {generation.toLocaleString()}
             </div>
             <div className="spp-solar-smp">{smp.toLocaleString()}</div>
-            <div
-              className="spp-solar-calcul"
-              style={{ backgroundColor: comparison ? "" : "red" }}
-            >
-              {calcul.toLocaleString()}
-            </div>
             <div
               className="spp-solar-supplyPrice"
               style={{ backgroundColor: comparison ? "" : "red" }}
@@ -82,7 +88,6 @@ const Solar = () => {
         <span className="spp-solar-total-text"></span>
         <span className="spp-solar-total-generation">발전량</span>
         <span className="spp-solar-total-smp">SMP</span>
-        <span className="spp-solar-total-calcul">발전량 x SMP</span>
         <span className="spp-solar-total-supplyPrice">공급가액</span>
         <span className="spp-solar-total-vat">vat</span>
         <span className="spp-solar-total-total">총액</span>
@@ -101,12 +106,6 @@ const Solar = () => {
             title={data.smp.toLocaleString()}
           >
             {data.smp.toLocaleString()}
-          </span>
-          <span
-            className="spp-solar-total-calcul"
-            title={data.calcul.toLocaleString()}
-          >
-            {data.calcul.toLocaleString()}
           </span>
           <span
             className="spp-solar-total-supplyPrice"

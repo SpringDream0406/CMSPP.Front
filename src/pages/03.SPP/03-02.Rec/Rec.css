@@ -22,6 +22,36 @@
   width: 45%;
 }
 
+/* REC 가중치 */
+.spp-iRec-recWeight-box {
+  height: 15%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: rgb(92, 91, 91);
+}
+.spp-iRec-recWeight-recWeight {
+  margin-left: 1rem;
+}
+
+/* =========================== */
+/* ========= RestRec ========= */
+.spp-restRec-box {
+  height: 25%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.spp-restRec-calcul {
+  margin-left: 1rem;
+}
+
 /* ========================== */
 /* ========== SREC ========== */
 /* items */
@@ -71,34 +101,14 @@
 
 /* input-box */
 .spp-sRec-input-date {
-  width: 30%;
+  width: 25%;
 }
 .spp-sRec-input-sVolume {
-  width: 20%;
+  width: 25%;
 }
 .spp-sRec-input-sPrice {
-  width: 20%;
+  width: 30%;
 }
 .spp-sRec-input-btn {
   width: 20%;
-}
-
-/* =========================== */
-/* ========= RestRec ========= */
-.spp-restRec-box {
-  height: 25%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  background-color: lightgray;
-}
-.spp-restRec-text {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-.spp-restRec-calcul {
-  margin-left: 1rem;
-  font-size: 1.2rem;
-  font-weight: bold;
 }
