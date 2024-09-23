@@ -29,26 +29,20 @@
   width: 4%;
   font-size: 0.5rem;
 }
-.spp-sRec-year {
-  width: 8%;
-}
-.spp-sRec-month {
-  width: 5%;
-}
-.spp-sRec-day {
-  width: 5%;
+.spp-sRec-date {
+  width: 15%;
 }
 .spp-sRec-sVolume {
   width: 10%;
 }
 .spp-sRec-sPrice {
-  width: 13%;
+  width: 15%;
 }
 .spp-sRec-calcul {
   width: 20%;
 }
 .spp-sRec-vat {
-  width: 15%;
+  width: 18%;
 }
 .spp-sRec-total {
   width: 20%;

@@ -27,17 +27,9 @@ const FixedExpense = () => {
   const items = (
     <div className="spp-box-box1-items-box">
       {filteredFixedExpense?.map((fixedExpense, index) => {
-        const {
-          feNumber,
-          startYear,
-          startMonth,
-          endYear,
-          endMonth,
-          feName,
-          fePrice,
-          createdAt,
-        } = fixedExpense;
-        const feDate = `${startYear}.${startMonth}~${endYear}.${endMonth}`;
+        const { feNumber, startDate, endDate, feName, fePrice, createdAt } =
+          fixedExpense;
+        const feDate = `${startDate} ~ ${endDate}`;
         return (
           <span
             className="spp-box-box1-items"

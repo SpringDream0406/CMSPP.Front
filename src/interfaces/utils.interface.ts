@@ -15,8 +15,7 @@ export interface ISendDataRefInputs {
 }
 
 export interface IIRec {
-  year: number;
-  month: number;
+  date: string;
   issuance: number;
   fee: number;
   remain: number;
@@ -51,19 +50,17 @@ export interface IFilteringYears
 
 export interface IConfirmDelete {
   name: string;
-  year: number;
-  month: number;
-  day?: number;
+  date: string;
 }
 
 export interface IDeleteOneSolar
-  extends Pick<ISolarFromBack, "solarNumber" | "year" | "month"> {}
+  extends Pick<ISolarFromBack, "solarNumber" | "date"> {}
 
 export interface IDeleteOneSRec
-  extends Pick<ISRecFromBack, "sRecNumber" | "year" | "month" | "day"> {}
+  extends Pick<ISRecFromBack, "sRecNumber" | "date"> {}
 
 export interface IDeleteOneExpense
-  extends Pick<IExpenseFromBack, "eNumber" | "year" | "month" | "day"> {}
+  extends Pick<IExpenseFromBack, "eNumber" | "date"> {}
 
 export interface IDeleteOneFixedExpense
   extends Pick<IFixedExpenseFromBack, "feNumber" | "feName" | "fePrice"> {}

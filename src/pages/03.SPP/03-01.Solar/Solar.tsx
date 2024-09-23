@@ -15,8 +15,7 @@ const Solar = () => {
   const itemsTitle = (
     <div className="spp-box-box1-items-title">
       <div className="spp-solar-deleteBtn"></div>
-      <div className="spp-solar-year">발전 년</div>
-      <div className="spp-solar-month">월</div>
+      <div className="spp-solar-date">발전 년월</div>
       <div className="spp-solar-generation">발전량</div>
       <div className="spp-solar-smp">SMP</div>
       <div className="spp-solar-calcul">발전량 x SMP</div>
@@ -30,15 +29,8 @@ const Solar = () => {
   const items = (
     <div className="spp-box-box1-items-box">
       {filteredSolar?.map((solar, index) => {
-        const {
-          solarNumber,
-          year,
-          month,
-          generation,
-          smp,
-          supplyPrice,
-          createdAt,
-        } = solar;
+        const { solarNumber, date, generation, smp, supplyPrice, createdAt } =
+          solar;
         const calcul = Math.floor(generation * solar.smp);
         const comparison = calcul === supplyPrice;
         const vat = Math.floor(supplyPrice / 10);
@@ -52,13 +44,12 @@ const Solar = () => {
             <button
               className="spp-solar-deleteBtn"
               onClick={() => {
-                SppUtils.deleteOneSolar({ solarNumber, year, month }, dispatch);
+                SppUtils.deleteOneSolar({ solarNumber, date }, dispatch);
               }}
             >
               ㅡ
             </button>
-            <div className="spp-solar-year">{year}</div>
-            <div className="spp-solar-month">{month}</div>
+            <div className="spp-solar-date">{date}</div>
             <div className="spp-solar-generation">
               {generation.toLocaleString()}
             </div>

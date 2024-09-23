@@ -21,10 +21,8 @@ export interface ISolarInput {
   supplyPrice: number;
 }
 
-export interface ISolarFromBack extends Omit<ISolarInput, "date"> {
+export interface ISolarFromBack extends ISolarInput {
   solarNumber: number;
-  year: number;
-  month: number;
   createdAt: string;
 }
 
@@ -34,11 +32,8 @@ export interface ISRecInput {
   sPrice: number;
 }
 
-export interface ISRecFromBack extends Omit<ISRecInput, "date"> {
+export interface ISRecFromBack extends ISRecInput {
   sRecNumber: number;
-  year: number;
-  month: number;
-  day: number;
   createdAt: string;
 }
 
@@ -48,11 +43,8 @@ export interface IExpenseInput {
   ePrice: number;
 }
 
-export interface IExpenseFromBack extends Omit<IExpenseInput, "date"> {
+export interface IExpenseFromBack extends IExpenseInput {
   eNumber: number;
-  year: number;
-  month: number;
-  day: number;
   createdAt: string;
 }
 
@@ -63,13 +55,8 @@ export interface IFixedExpenseInput {
   fePrice: number;
 }
 
-export interface IFixedExpenseFromBack
-  extends Pick<IFixedExpenseInput, "feName" | "fePrice"> {
+export interface IFixedExpenseFromBack extends IFixedExpenseInput {
   feNumber: number;
-  startYear: number;
-  startMonth: number;
-  endYear: number;
-  endMonth: number;
   createdAt: string;
 }
 

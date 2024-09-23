@@ -16,9 +16,7 @@ const SRec = () => {
   const itemsTitle = (
     <div className="spp-box-box1-items-title">
       <div className="spp-sRec-deleteBtn"></div>
-      <div className="spp-sRec-year">년</div>
-      <div className="spp-sRec-month">월</div>
-      <div className="spp-sRec-day">일</div>
+      <div className="spp-sRec-date">날짜</div>
       <div className="spp-sRec-sVolume">판매량</div>
       <div className="spp-sRec-sPrice">판매가</div>
       <div className="spp-sRec-calcul">판매량 x 판매가</div>
@@ -31,8 +29,7 @@ const SRec = () => {
   const items = (
     <div className="spp-box-box1-items-box">
       {filteredSRec?.map((sRec, index) => {
-        const { sRecNumber, year, month, day, sVolume, sPrice, createdAt } =
-          sRec;
+        const { sRecNumber, date, sVolume, sPrice, createdAt } = sRec;
         const calcul = sVolume * sPrice;
         const vat = Math.floor(calcul / 10);
         const total = calcul + vat;
@@ -45,17 +42,12 @@ const SRec = () => {
             <button
               className="spp-sRec-deleteBtn"
               onClick={() =>
-                SppUtils.deleteOneSRec(
-                  { sRecNumber, year, month, day },
-                  dispatch
-                )
+                SppUtils.deleteOneSRec({ sRecNumber, date }, dispatch)
               }
             >
               ㅡ
             </button>
-            <div className="spp-sRec-year">{year}</div>
-            <div className="spp-sRec-month">{month}</div>
-            <div className="spp-sRec-day">{day}</div>
+            <div className="spp-sRec-date">{date}</div>
             <div className="spp-sRec-sVolume">{sVolume.toLocaleString()}</div>
             <div className="spp-sRec-sPrice">{sPrice.toLocaleString()}</div>
             <div className="spp-sRec-calcul">{calcul.toLocaleString()}</div>

@@ -44,6 +44,7 @@ export class SppUtils {
   // 내발전 데이터 뿌리기
   static async dispatchSpp(dispatch: AppDispatch, navigate: NavigateFunction) {
     const response = await this.fetchSpp();
+    console.log(response);
 
     const {
       solar,
@@ -78,25 +79,25 @@ export class SppUtils {
   // 데이터 순서 정렬
   static dataOrderBy(data: any) {
     return data.sort((a: any, b: any) => {
-      if (a.year !== b.year) return a.year - b.year;
-      if (a.month !== b.month) return a.month - b.month;
-      return (a.day ?? 0) - (b.day ?? 0);
+      return a.date.localeCompare(b.date);
     });
   }
 
   // 년도 필터링
   static filteringYears({ solar, sRec, expense }: IFilteringYears): number[] {
     const spp = [...solar, ...sRec, ...expense];
-    const years = [...new Set(spp.map((item) => item.year))].sort(
-      (a, b) => b - a
-    );
+    const years = [
+      ...new Set(spp.map((item) => Utils.getYear(item.date))),
+    ].sort((a, b) => b - a);
     return years;
   }
 
   // 선택년도로 데이터 필터링
   static filteringData(selectedYear: number | null, data: any) {
     if (!selectedYear) return data;
-    return data?.filter((data: any) => data.year === selectedYear);
+    return data?.filter(
+      (item: any) => Utils.getYear(item.date) === selectedYear
+    );
   }
 
   // 고정지출 선택 년도 데이터 필터링
@@ -107,7 +108,8 @@ export class SppUtils {
     if (!selectedYear) return fixedExpense;
     return fixedExpense?.filter(
       (data: IFixedExpenseFromBack) =>
-        data.startYear <= selectedYear && selectedYear <= data.endYear
+        Utils.getYear(data.startDate) <= selectedYear &&
+        selectedYear <= Utils.getYear(data.endDate)
     );
   }
 
@@ -121,7 +123,7 @@ export class SppUtils {
     let remain = 0;
 
     const iRec: IIRec[] = solar.map((item: ISolarFromBack) => {
-      const { year, month, createdAt, generation } = item;
+      const { date, createdAt, generation } = item;
       const generationInKwh = (generation / 1000) * Number(recWeight)!;
 
       remain += generationInKwh % 1;
@@ -139,8 +141,7 @@ export class SppUtils {
       fee = issuance * (kWh! < 100 ? 0 : 55);
 
       return {
-        year,
-        month,
+        date,
         issuance,
         fee,
         remain,
@@ -230,13 +231,9 @@ export class SppUtils {
   }
 
   // 삭제 확인 alert
-  static confirmDelete({ name, year, month, day }: IConfirmDelete) {
+  static confirmDelete({ name, date }: IConfirmDelete) {
     // eslint-disable-next-line no-restricted-globals
-    return confirm(
-      `${year}년 ${month}월 ${
-        day ? `${day}일` : ""
-      } ${name} 데이터를 삭제 하시겠습니까?`
-    );
+    return confirm(`${date} ${name} 데이터를 삭제 하시겠습니까?`);
   }
 
   // solar 데이터 한 개 삭제
@@ -451,19 +448,19 @@ export class SppUtils {
     solar?.forEach((item: ISolarFromBack) => {
       const supplyPrice = item.supplyPrice;
       const vat = Math.floor(supplyPrice / 10);
-      this.taxCal1(supplyPrice + vat, 0, vat, item.month, sums);
+      this.taxCal1(supplyPrice + vat, 0, vat, Utils.getMonth(item.date), sums);
     });
 
     sRec?.forEach((item: ISRecFromBack) => {
       const total = Math.floor(item.sVolume * item.sPrice);
       const vat = total / 10;
-      this.taxCal1(total + vat, 0, vat, item.month, sums);
+      this.taxCal1(total + vat, 0, vat, Utils.getMonth(item.date), sums);
     });
 
     expense?.forEach((item: IExpenseFromBack) => {
       const price = Math.floor(item.ePrice);
       const vat = price / 10;
-      this.taxCal1(0, price, -vat, item.month, sums);
+      this.taxCal1(0, price, -vat, Utils.getMonth(item.date), sums);
     });
 
     fixedExpense?.forEach((item: IFixedExpenseFromBack) => {

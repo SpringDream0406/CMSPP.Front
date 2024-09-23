@@ -16,9 +16,7 @@ const Expense = () => {
   const itemsTitle = (
     <div className="spp-box-box1-items-title spp-box-box1-items-title-ex">
       <div className="spp-ex-deleteBtn"></div>
-      <div className="spp-ex-year">년</div>
-      <div className="spp-ex-month">월</div>
-      <div className="spp-ex-day">일</div>
+      <div className="spp-ex-date">날짜</div>
       <div className="spp-ex-eName">지출명</div>
       <div className="spp-ex-ePrice">지출액</div>
     </div>
@@ -28,7 +26,7 @@ const Expense = () => {
   const items = (
     <div className="spp-box-box1-items-box">
       {filteredExpense?.map((expense, index) => {
-        const { eNumber, year, month, day, eName, ePrice, createdAt } = expense;
+        const { eNumber, date, eName, ePrice, createdAt } = expense;
         return (
           <span
             className="spp-box-box1-items"
@@ -38,17 +36,12 @@ const Expense = () => {
             <button
               className="spp-ex-deleteBtn"
               onClick={() =>
-                SppUtils.deleteOneExpense(
-                  { eNumber, year, month, day },
-                  dispatch
-                )
+                SppUtils.deleteOneExpense({ eNumber, date }, dispatch)
               }
             >
               ㅡ
             </button>
-            <div className="spp-ex-year">{year}</div>
-            <div className="spp-ex-month">{month}</div>
-            <div className="spp-ex-day">{day}</div>
+            <div className="spp-ex-date">{date}</div>
             <div className="spp-ex-eName">{eName}</div>
             <div className="spp-ex-ePrice">
               {Number(ePrice).toLocaleString()}

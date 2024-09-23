@@ -31,4 +31,14 @@ export class Utils {
   static splitDate(date: string): number[] {
     return date.split("-").map((part) => parseInt(part, 10));
   }
+
+  // 년 뽑기
+  static getYear(date: string): number {
+    return Number(date.slice(0, 4));
+  }
+
+  // 월 뽑기
+  static getMonth(date: string): number {
+    return Number(date.slice(5, 7));
+  }
 }
