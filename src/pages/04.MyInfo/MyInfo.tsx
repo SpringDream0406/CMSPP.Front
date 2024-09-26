@@ -28,8 +28,8 @@ const MyInfo = () => {
     ];
 
     // 빈값 체크
-    const isNotNull = Utils.sendDataCheckIsNotNull(inputs);
-    if (!isNotNull) return;
+    const isOk = Utils.sendDataCheck(inputs);
+    if (!isOk) return;
 
     // 각 상수에 값 할당
     const [kWh, recWeight, businessNumber] = inputs.map((input) => {

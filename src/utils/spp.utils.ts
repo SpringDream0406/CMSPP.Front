@@ -169,9 +169,9 @@ export class SppUtils {
     addFunction: (data: any, dispatch: AppDispatch) => Promise<boolean>,
     dispatch: AppDispatch
   ) {
-    // 빈값 체크
-    const isNotNull = Utils.sendDataCheckIsNotNull(inputs);
-    if (!isNotNull) return;
+    // 데이터 체크 (빈값, 0보다 작은지)
+    const isOk = Utils.sendDataCheck(inputs);
+    if (!isOk) return;
 
     // 입력 값을 배열로 추출
     const values = inputs.map((input) => input.ref.current!.value);

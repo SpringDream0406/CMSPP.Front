@@ -2,17 +2,27 @@ import { ISendDataRefInputs } from "../interfaces/utils.interface";
 
 export class Utils {
   //
-  // 데이터 보내기 빈값 체크
-  static sendDataCheckIsNotNull(inputs: ISendDataRefInputs[]): boolean {
-    let isNotNull = true;
+  // 데이터 보내기 체크
+  static sendDataCheck(inputs: ISendDataRefInputs[]): boolean {
+    let isOk = true;
     for (let input of inputs) {
+      // 빈값 체크
       if (!input.ref.current || !input.ref.current.value) {
         alert(`${input.name}을(를) 입력해주세요.`);
-        isNotNull = false;
+        isOk = false;
+        break;
+      }
+      // 숫자데이터 인지 체크
+      const numberValue = Number(input.ref.current.value);
+      if (isNaN(numberValue)) continue;
+      // 0 미만 체크
+      if (numberValue < 0) {
+        alert(`${input.name}이(가) 0 미만입니다.`);
+        isOk = false;
         break;
       }
     }
-    return isNotNull;
+    return isOk;
   }
 
   // refInput 값 초기화
