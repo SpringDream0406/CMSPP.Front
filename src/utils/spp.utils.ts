@@ -45,8 +45,6 @@ export class SppUtils {
   // 내발전 데이터 뿌리기
   static async dispatchSpp(dispatch: AppDispatch, navigate: NavigateFunction) {
     const response = await this.fetchSpp();
-    console.log(response);
-
     const {
       solar,
       sRec,
@@ -73,7 +71,11 @@ export class SppUtils {
     dispatch(sppActions.setSolar(this.dataOrderBy(this.createSolar(solar))));
     dispatch(sppActions.setSRec(this.dataOrderBy(sRec)));
     dispatch(sppActions.setExpense(this.dataOrderBy(expense)));
-    dispatch(sppActions.setFixedExpense(this.dataOrderBy(fixedExpense)));
+    dispatch(
+      sppActions.setFixedExpense(
+        this.fixedExpenseDataOrderByStartDate(fixedExpense)
+      )
+    );
     dispatch(sppActions.setMyInfo({ kWh, recWeight, businessNumber, address }));
   }
 
@@ -81,6 +83,13 @@ export class SppUtils {
   static dataOrderBy(data: any) {
     return data.sort((a: any, b: any) => {
       return a.date.localeCompare(b.date);
+    });
+  }
+
+  // fixedExpense 데이터 순서 정렬
+  static fixedExpenseDataOrderByStartDate(data: IFixedExpenseFromBack[]) {
+    return data.sort((a: IFixedExpenseFromBack, b: IFixedExpenseFromBack) => {
+      return a.startDate.localeCompare(b.startDate);
     });
   }
 
