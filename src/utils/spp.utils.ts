@@ -34,6 +34,7 @@ import { Utils } from "./utils";
 const sppApiService = new SppApiService();
 
 export class SppUtils {
+  // constructor(private readonly sppApiService: SppApiService){}
   //
   // 내발전소 데이터 가져오기
   static async fetchSpp(): Promise<ISpp> {
@@ -452,8 +453,11 @@ export class SppUtils {
   ) {
     const quarter = Math.ceil(month / 3);
     sums.sales[`q${quarter}`] += sales;
+    sums.sales["total"] += sales;
     sums.purchases[`q${quarter}`] += purchases;
+    sums.purchases["total"] += purchases;
     sums.vat[`q${quarter}`] += vat;
+    sums.vat["total"] += vat;
   }
 
   // 분기별 매출, 매입, 부가가치세
@@ -464,9 +468,9 @@ export class SppUtils {
     fixedExpense: IFixedExpenseFromBack[]
   ) {
     let sums = {
-      sales: { q1: 0, q2: 0, q3: 0, q4: 0 },
-      purchases: { q1: 0, q2: 0, q3: 0, q4: 0 },
-      vat: { q1: 0, q2: 0, q3: 0, q4: 0 },
+      sales: { q1: 0, q2: 0, q3: 0, q4: 0, total: 0 },
+      purchases: { q1: 0, q2: 0, q3: 0, q4: 0, total: 0 },
+      vat: { q1: 0, q2: 0, q3: 0, q4: 0, total: 0 },
     };
 
     solar?.forEach((item: ISolarFromBack) => {
@@ -477,27 +481,29 @@ export class SppUtils {
 
     sRec?.forEach((item: ISRecFromBack) => {
       const total = Math.floor(item.sVolume * item.sPrice);
-      const vat = total / 10;
+      const vat = Math.floor(total / 10);
       this.taxCal1(total + vat, 0, vat, Utils.getMonth(item.date), sums);
     });
 
     expense?.forEach((item: IExpenseFromBack) => {
       const price = Math.floor(item.ePrice);
-      const vat = price / 10;
+      const vat = Math.floor(price / 10);
       this.taxCal1(0, price, -vat, Utils.getMonth(item.date), sums);
     });
 
     fixedExpense?.forEach((item: IFixedExpenseFromBack) => {
       const price = item.fePrice * 3;
-      const vat = price / 10;
+      const vat = Math.floor(price / 10);
       sums.purchases.q1 += price;
       sums.purchases.q2 += price;
       sums.purchases.q3 += price;
       sums.purchases.q4 += price;
+      sums.purchases.total += price * 4;
       sums.vat.q1 -= vat;
       sums.vat.q2 -= vat;
       sums.vat.q3 -= vat;
       sums.vat.q4 -= vat;
+      sums.vat.total -= vat * 4;
     });
 
     return sums;

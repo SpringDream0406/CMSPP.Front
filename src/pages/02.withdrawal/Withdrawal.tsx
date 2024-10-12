@@ -26,10 +26,7 @@ const Withdrawal = () => {
       </div>
       <br />
       <br />
-      <div>
-        안내 사항을 모두 읽었으며, 동의하실 경우 아래에 "회원탈퇴" 를 입력 후,
-        확인 버튼을 눌러주세요.
-      </div>
+      <div>아래에 "회원탈퇴" 를 입력 후, 확인 버튼을 눌러주세요.</div>
       <div className="withdrawal-box">
         <input
           type="text"

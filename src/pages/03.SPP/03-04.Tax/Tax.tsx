@@ -42,6 +42,7 @@ const Tax = () => {
       <div className="spp-tax-box1-quarter">{value.q2.toLocaleString()}</div>
       <div className="spp-tax-box1-quarter">{value.q3.toLocaleString()}</div>
       <div className="spp-tax-box1-quarter">{value.q4.toLocaleString()}</div>
+      <div className="spp-tax-box1-quarter">{value.total.toLocaleString()}</div>
     </div>
   ));
 
@@ -67,6 +68,7 @@ const Tax = () => {
             <span>2기 확정</span>
             <span>(4분기)</span>
           </div>
+          <div className="spp-tax-box1-quarter">총합</div>
         </div>
         {taxCalCul}
       </div>

@@ -21,14 +21,14 @@
   flex-direction: row;
 }
 .spp-tax-box1-text {
-  width: 20%;
+  width: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
 }
 .spp-tax-box1-quarter {
-  width: 20%;
+  width: 17%;
   display: flex;
   flex-direction: column;
   justify-content: center;
