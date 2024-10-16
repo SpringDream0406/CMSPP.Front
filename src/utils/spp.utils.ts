@@ -39,6 +39,7 @@ export class SppUtils {
   // 내발전소 데이터 가져오기
   static async fetchSpp(): Promise<ISpp> {
     const response = await sppApiService.fetchSpp();
+    console.log(response);
     if (!response?.status && !response?.data) console.log("데이터 문제 발생");
     return response?.data;
   }
@@ -69,30 +70,26 @@ export class SppUtils {
         );
       }
     }
-    dispatch(sppActions.setSolar(this.dataOrderBy(this.createSolar(solar))));
-    dispatch(sppActions.setSRec(this.dataOrderBy(sRec)));
-    dispatch(sppActions.setExpense(this.dataOrderBy(expense)));
-    dispatch(
-      sppActions.setFixedExpense(
-        this.fixedExpenseDataOrderByStartDate(fixedExpense)
-      )
-    );
+    dispatch(sppActions.setSolar(this.createSolar(solar)));
+    dispatch(sppActions.setSRec(sRec));
+    dispatch(sppActions.setExpense(expense));
+    dispatch(sppActions.setFixedExpense(fixedExpense));
     dispatch(sppActions.setMyInfo({ kWh, recWeight, businessNumber, address }));
   }
 
   // 데이터 순서 정렬
-  static dataOrderBy(data: any) {
-    return data.sort((a: any, b: any) => {
-      return a.date.localeCompare(b.date);
-    });
-  }
+  // static dataOrderBy(data: any) {
+  //   return data.sort((a: any, b: any) => {
+  //     return a.date.localeCompare(b.date);
+  //   });
+  // }
 
   // fixedExpense 데이터 순서 정렬
-  static fixedExpenseDataOrderByStartDate(data: IFixedExpenseFromBack[]) {
-    return data.sort((a: IFixedExpenseFromBack, b: IFixedExpenseFromBack) => {
-      return a.startDate.localeCompare(b.startDate);
-    });
-  }
+  // static fixedExpenseDataOrderByStartDate(data: IFixedExpenseFromBack[]) {
+  //   return data.sort((a: IFixedExpenseFromBack, b: IFixedExpenseFromBack) => {
+  //     return a.startDate.localeCompare(b.startDate);
+  //   });
+  // }
 
   // 년도 필터링
   static filteringYears({ solar, sRec, expense }: IFilteringYears): number[] {
