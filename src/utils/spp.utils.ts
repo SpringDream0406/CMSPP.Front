@@ -144,7 +144,7 @@ export class SppUtils {
       const { date, createdAt, generation } = item;
       const generationInKwh = (generation / 1000) * Number(recWeight)!;
 
-      remain += generationInKwh % 1;
+      remain += generationInKwh % 1; // rec 발급에 부족한 소숫점 remain에 더하기
 
       let issuance;
       let fee;
@@ -392,12 +392,13 @@ export class SppUtils {
   }
 
   // sRec 데이터 평균, 총합
-  static sRecTotal(sRec: ISRecFromBack[]): ISRecTotal[] {
+  static sRecTotal(sRec: ISRecFromBack[], kWh: number): ISRecTotal[] {
     let sums = {
       sVolume: 0,
       sPrice: 0,
       calcul: 0,
       vat: 0,
+      fee: 0,
       total: 0,
     };
 
@@ -408,6 +409,7 @@ export class SppUtils {
       sums.sPrice += item.sPrice;
       sums.calcul += calcul;
       sums.vat += vat;
+      sums.fee += item.sVolume * (kWh < 100 ? 0 : 55);
       sums.total += calcul + vat;
     });
 

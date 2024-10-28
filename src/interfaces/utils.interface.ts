@@ -38,6 +38,7 @@ export interface ISRecTotal extends Omit<ISRecInput, "date"> {
   name: string;
   calcul: number;
   vat: number;
+  fee: number;
   total: number;
 }
 

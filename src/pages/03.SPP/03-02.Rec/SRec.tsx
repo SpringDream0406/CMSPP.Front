@@ -10,6 +10,7 @@ const SRec = () => {
   const filteredSRec = useSelector(
     (state: RootState) => state.sppReducer.filteredSRec
   ); // 선택된 년도의 REC 판매 데이터
+  const kWh = useSelector((state: RootState) => state.sppReducer.myInfo.kWh!);
 
   //
   // 아이템 타이틀
@@ -21,6 +22,7 @@ const SRec = () => {
       <div className="spp-sRec-sPrice">판매가</div>
       <div className="spp-sRec-calcul">판매량 x 판매가</div>
       <div className="spp-sRec-vat">vat</div>
+      <div className="spp-sRec-fee">수수료</div>
       <div className="spp-sRec-total">총 판매 금액</div>
     </div>
   );
@@ -32,6 +34,7 @@ const SRec = () => {
         const { sRecNumber, date, sVolume, sPrice, createdAt } = sRec;
         const calcul = sVolume * sPrice;
         const vat = Math.floor(calcul / 10);
+        const fee = sVolume * (kWh < 100 ? 0 : 55);
         const total = calcul + vat;
         return (
           <span
@@ -55,6 +58,7 @@ const SRec = () => {
             <div className="spp-sRec-sPrice">{sPrice.toLocaleString()}</div>
             <div className="spp-sRec-calcul">{calcul.toLocaleString()}</div>
             <div className="spp-sRec-vat">{vat.toLocaleString()}</div>
+            <div className="spp-sRec-fee">{fee.toLocaleString()}</div>
             <div className="spp-sRec-total">{total.toLocaleString()}</div>
           </span>
         );
@@ -63,7 +67,7 @@ const SRec = () => {
   );
 
   // 합계&평균
-  const totals = SppUtils.sRecTotal(filteredSRec);
+  const totals = SppUtils.sRecTotal(filteredSRec, kWh);
   const total = (
     <div className="spp-box-box2-total-box">
       <div className="spp-box-box2-total-title-box">
@@ -72,6 +76,7 @@ const SRec = () => {
         <span className="spp-sRec-total-sPrice">판매가</span>
         <span className="spp-sRec-total-calcul">판매량 x 판매가</span>
         <span className="spp-sRec-total-vat">vat</span>
+        <span className="spp-sRec-total-fee">수수료</span>
         <span className="spp-sRec-total-total">총 판매 금액</span>
       </div>
       {totals.map((data, index) => (
@@ -100,6 +105,12 @@ const SRec = () => {
             title={data.vat.toLocaleString()}
           >
             {data.vat.toLocaleString()}
+          </span>
+          <span
+            className="spp-sRec-total-fee"
+            title={data.fee.toLocaleString()}
+          >
+            {data.fee.toLocaleString()}
           </span>
           <span
             className="spp-sRec-total-total"
