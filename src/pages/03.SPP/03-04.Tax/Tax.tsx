@@ -7,6 +7,9 @@ const Tax = () => {
   const filteredSolar = useSelector(
     (state: RootState) => state.sppReducer.filteredSolar
   );
+  const filteredIRec = useSelector(
+    (state: RootState) => state.sppReducer.filteredIRec
+  );
   const filteredSRec = useSelector(
     (state: RootState) => state.sppReducer.filteredSRec
   );
@@ -16,13 +19,18 @@ const Tax = () => {
   const fixedExpense = useSelector(
     (state: RootState) => state.sppReducer.fixedExpense
   );
+  const kWh = useSelector((state: RootState) => state.sppReducer.myInfo.kWh!);
+
+  console.log(kWh);
 
   // 분기별 계산된 데이터
   const taxCalCuls = SppUtils.taxCalCul(
     filteredSolar,
+    filteredIRec,
     filteredSRec,
     filteredExpense,
-    fixedExpense
+    fixedExpense,
+    kWh
   );
 
   // 데이터 한글명

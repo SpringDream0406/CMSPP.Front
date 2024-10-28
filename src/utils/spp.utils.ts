@@ -446,7 +446,6 @@ export class SppUtils {
   static taxCal1(
     sales: number,
     purchases: number,
-    vat: number,
     month: number,
     sums: { sales: any; purchases: any; vat: any }
   ) {
@@ -455,16 +454,18 @@ export class SppUtils {
     sums.sales["total"] += sales;
     sums.purchases[`q${quarter}`] += purchases;
     sums.purchases["total"] += purchases;
-    sums.vat[`q${quarter}`] += vat;
-    sums.vat["total"] += vat;
+    sums.vat[`q${quarter}`] += (sales - purchases) / 10;
+    sums.vat["total"] += (sales - purchases) / 10;
   }
 
   // 분기별 매출, 매입, 부가가치세
   static taxCalCul(
     solar: ISolarFromBack[],
+    iRec: IIRec[],
     sRec: ISRecFromBack[],
     expense: IExpenseFromBack[],
-    fixedExpense: IFixedExpenseFromBack[]
+    fixedExpense: IFixedExpenseFromBack[],
+    kWh: number
   ) {
     let sums = {
       sales: { q1: 0, q2: 0, q3: 0, q4: 0, total: 0 },
@@ -475,19 +476,24 @@ export class SppUtils {
     solar?.forEach((item: ISolarFromBack) => {
       const supplyPrice = item.supplyPrice;
       const vat = Math.floor(supplyPrice / 10);
-      this.taxCal1(supplyPrice + vat, 0, vat, Utils.getMonth(item.date), sums);
+      this.taxCal1(supplyPrice + vat, 0, Utils.getMonth(item.date), sums);
+    });
+
+    iRec?.forEach((item: IIRec) => {
+      const recIssuanceFee = item.fee;
+      this.taxCal1(0, recIssuanceFee, Utils.getMonth(item.date), sums);
     });
 
     sRec?.forEach((item: ISRecFromBack) => {
       const total = Math.floor(item.sVolume * item.sPrice);
       const vat = Math.floor(total / 10);
-      this.taxCal1(total + vat, 0, vat, Utils.getMonth(item.date), sums);
+      const recSellingFee = item.sVolume * (kWh < 100 ? 0 : 55);
+      this.taxCal1(total + vat, recSellingFee, Utils.getMonth(item.date), sums);
     });
 
     expense?.forEach((item: IExpenseFromBack) => {
       const price = Math.floor(item.ePrice);
-      const vat = Math.floor(price / 10);
-      this.taxCal1(0, price, -vat, Utils.getMonth(item.date), sums);
+      this.taxCal1(0, price, Utils.getMonth(item.date), sums);
     });
 
     fixedExpense?.forEach((item: IFixedExpenseFromBack) => {
@@ -503,6 +509,10 @@ export class SppUtils {
       sums.vat.q3 -= vat;
       sums.vat.q4 -= vat;
       sums.vat.total -= vat * 4;
+    });
+
+    Object.entries(sums.vat).forEach(([key, value]) => {
+      sums.vat[key as keyof typeof sums.vat] = Math.floor(value);
     });
 
     return sums;
