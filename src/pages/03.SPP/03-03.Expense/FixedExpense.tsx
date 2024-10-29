@@ -27,7 +27,7 @@ const FixedExpense = () => {
   const items = (
     <div className="spp-box-box1-items-box">
       {filteredFixedExpense?.map((fixedExpense, index) => {
-        const { feNumber, startDate, endDate, feName, fePrice, createdAt } =
+        const { id, startDate, endDate, feName, fePrice, createdAt } =
           fixedExpense;
         const feDate = `${startDate} ~ ${endDate}`;
         return (
@@ -40,7 +40,7 @@ const FixedExpense = () => {
               className="spp-fe-deleteBtn"
               onClick={() =>
                 SppUtils.deleteOneFixedExpense(
-                  { feNumber, feName, fePrice },
+                  { id, feName, fePrice },
                   dispatch
                 )
               }

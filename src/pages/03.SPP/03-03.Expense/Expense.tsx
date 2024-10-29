@@ -26,7 +26,7 @@ const Expense = () => {
   const items = (
     <div className="spp-box-box1-items-box">
       {filteredExpense?.map((expense, index) => {
-        const { eNumber, date, eName, ePrice, createdAt } = expense;
+        const { id, date, eName, ePrice, createdAt } = expense;
         return (
           <span
             className="spp-box-box1-items"
@@ -38,9 +38,7 @@ const Expense = () => {
           >
             <button
               className="spp-ex-deleteBtn"
-              onClick={() =>
-                SppUtils.deleteOneExpense({ eNumber, date }, dispatch)
-              }
+              onClick={() => SppUtils.deleteOneExpense({ id, date }, dispatch)}
             >
               ㅡ
             </button>

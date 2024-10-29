@@ -55,13 +55,12 @@ export interface IConfirmDelete {
 }
 
 export interface IDeleteOneSolar
-  extends Pick<ISolar, "solarNumber" | "generationDate"> {}
+  extends Pick<ISolar, "id" | "generationDate"> {}
 
-export interface IDeleteOneSRec
-  extends Pick<ISRecFromBack, "sRecNumber" | "date"> {}
+export interface IDeleteOneSRec extends Pick<ISRecFromBack, "id" | "date"> {}
 
 export interface IDeleteOneExpense
-  extends Pick<IExpenseFromBack, "eNumber" | "date"> {}
+  extends Pick<IExpenseFromBack, "id" | "date"> {}
 
 export interface IDeleteOneFixedExpense
-  extends Pick<IFixedExpenseFromBack, "feNumber" | "feName" | "fePrice"> {}
+  extends Pick<IFixedExpenseFromBack, "id" | "feName" | "fePrice"> {}

@@ -31,7 +31,7 @@ const SRec = () => {
   const items = (
     <div className="spp-box-box1-items-box">
       {filteredSRec?.map((sRec, index) => {
-        const { sRecNumber, date, sVolume, sPrice, createdAt } = sRec;
+        const { id, date, sVolume, sPrice, createdAt } = sRec;
         const calcul = sVolume * sPrice;
         const vat = Math.floor(calcul / 10);
         const fee = sVolume * (kWh < 100 ? 0 : 55);
@@ -47,9 +47,7 @@ const SRec = () => {
           >
             <button
               className="spp-sRec-deleteBtn"
-              onClick={() =>
-                SppUtils.deleteOneSRec({ sRecNumber, date }, dispatch)
-              }
+              onClick={() => SppUtils.deleteOneSRec({ id, date }, dispatch)}
             >
               ㅡ
             </button>

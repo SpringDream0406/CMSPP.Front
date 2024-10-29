@@ -268,9 +268,7 @@ export class SppUtils {
       date: deleteOneSolar.generationDate,
     });
     if (confirmResult) {
-      const response = await sppApiService.deleteSolar(
-        deleteOneSolar.solarNumber
-      );
+      const response = await sppApiService.deleteSolar(deleteOneSolar.id);
       if (response?.status && response?.data) {
         dispatch(sppActions.setSolar(SppUtils.createSolar(response?.data)));
       }
@@ -287,7 +285,7 @@ export class SppUtils {
       ...deleteOneSRec,
     });
     if (confirmResult) {
-      const response = await sppApiService.deleteSRec(deleteOneSRec.sRecNumber);
+      const response = await sppApiService.deleteSRec(deleteOneSRec.id);
       if (response?.status && response?.data) {
         dispatch(sppActions.setSRec(response?.data));
       }
@@ -304,9 +302,7 @@ export class SppUtils {
       ...deleteOneExpense,
     });
     if (confirmResult) {
-      const response = await sppApiService.deleteExpense(
-        deleteOneExpense.eNumber
-      );
+      const response = await sppApiService.deleteExpense(deleteOneExpense.id);
       if (response?.status && response?.data) {
         dispatch(sppActions.setExpense(response?.data));
       }
@@ -324,7 +320,7 @@ export class SppUtils {
     );
     if (confirmResult) {
       const response = await sppApiService.deleteFixedExpense(
-        deleteOneFixedExpense.feNumber
+        deleteOneFixedExpense.id
       );
       if (response?.status && response?.data) {
         dispatch(sppActions.setFixedExpense(response?.data));

@@ -29,7 +29,7 @@ const Solar = () => {
     <div className="spp-box-box1-items-box">
       {filteredSolar?.map((solar, index) => {
         const {
-          solarNumber,
+          id,
           generationDate,
           date,
           generation,
@@ -53,10 +53,7 @@ const Solar = () => {
             <button
               className="spp-solar-deleteBtn"
               onClick={() => {
-                SppUtils.deleteOneSolar(
-                  { solarNumber, generationDate },
-                  dispatch
-                );
+                SppUtils.deleteOneSolar({ id, generationDate }, dispatch);
               }}
             >
               ㅡ

@@ -14,18 +14,18 @@ export interface IAxiosBack {
 
 export interface IBackWithAccessToken extends Omit<IAxiosBack, "config"> {}
 
+interface BaseSpp {
+  id: number;
+  createdAt: string;
+}
+
 export interface ISolarInput {
   date: string;
   generation: number;
   smp: number;
   supplyPrice: number;
 }
-
-export interface ISolarFromBack extends ISolarInput {
-  solarNumber: number;
-  createdAt: string;
-}
-
+export type ISolarFromBack = BaseSpp & ISolarInput;
 export interface ISolar extends ISolarFromBack {
   generationDate: string;
 }
@@ -35,22 +35,14 @@ export interface ISRecInput {
   sVolume: number;
   sPrice: number;
 }
-
-export interface ISRecFromBack extends ISRecInput {
-  sRecNumber: number;
-  createdAt: string;
-}
+export type ISRecFromBack = BaseSpp & ISRecInput;
 
 export interface IExpenseInput {
   date: string;
   eName: string;
   ePrice: number;
 }
-
-export interface IExpenseFromBack extends IExpenseInput {
-  eNumber: number;
-  createdAt: string;
-}
+export type IExpenseFromBack = BaseSpp & IExpenseInput;
 
 export interface IFixedExpenseInput {
   startDate: string;
@@ -58,11 +50,7 @@ export interface IFixedExpenseInput {
   feName: string;
   fePrice: number;
 }
-
-export interface IFixedExpenseFromBack extends IFixedExpenseInput {
-  feNumber: number;
-  createdAt: string;
-}
+export type IFixedExpenseFromBack = BaseSpp & IFixedExpenseInput;
 
 export interface IMyInfo {
   kWh: number | null;
