@@ -21,8 +21,6 @@ const Tax = () => {
   );
   const kWh = useSelector((state: RootState) => state.sppReducer.myInfo.kWh!);
 
-  console.log(kWh);
-
   // 분기별 계산된 데이터
   const taxCalCuls = SppUtils.taxCalCul(
     filteredSolar,
@@ -46,11 +44,11 @@ const Tax = () => {
       <div className="spp-tax-box1-text">
         {labels[key as keyof typeof labels]}
       </div>
-      <div className="spp-tax-box1-quarter">{value.q1.toLocaleString()}</div>
-      <div className="spp-tax-box1-quarter">{value.q2.toLocaleString()}</div>
-      <div className="spp-tax-box1-quarter">{value.q3.toLocaleString()}</div>
-      <div className="spp-tax-box1-quarter">{value.q4.toLocaleString()}</div>
-      <div className="spp-tax-box1-quarter">{value.total.toLocaleString()}</div>
+      {Object.entries(value).map(([key, value]) => (
+        <div className="spp-tax-box1-quarter" key={key}>
+          {Math.floor(value).toLocaleString()}
+        </div>
+      ))}
     </div>
   ));
 
