@@ -1,9 +1,11 @@
 import { NavigateFunction } from "react-router-dom";
 import {
+  BaseDate,
   IExpenseFromBack,
   IExpenseInput,
   IFixedExpenseFromBack,
   IFixedExpenseInput,
+  IIRec,
   IMyInfo,
   ISRecFromBack,
   ISRecInput,
@@ -20,7 +22,6 @@ import {
   IDeleteOneSolar,
   IExpenseTotal,
   IFilteringYears,
-  IIRec,
   IIRecTotal,
   ISRecTotal,
   ISolarTotal,
@@ -105,11 +106,12 @@ export class SppUtils {
   }
 
   // 선택년도로 데이터 필터링
-  static filteringData(selectedYear: number | null, data: any) {
+  static filteringData<T extends BaseDate>(
+    selectedYear: number | null,
+    data: T[]
+  ): T[] {
     if (!selectedYear) return data;
-    return data?.filter(
-      (item: any) => Utils.getYear(item.date) === selectedYear
-    );
+    return data?.filter((item) => Utils.getYear(item.date) === selectedYear);
   }
 
   // 고정지출 선택 년도 데이터 필터링
@@ -119,9 +121,9 @@ export class SppUtils {
   ) {
     if (!selectedYear) return fixedExpense;
     return fixedExpense?.filter(
-      (data: IFixedExpenseFromBack) =>
-        Utils.getYear(data.startDate) <= selectedYear &&
-        selectedYear <= Utils.getYear(data.endDate)
+      (item) =>
+        Utils.getYear(item.startDate) <= selectedYear &&
+        selectedYear <= Utils.getYear(item.endDate)
     );
   }
 

@@ -19,8 +19,11 @@ interface BaseSpp {
   createdAt: string;
 }
 
-export interface ISolarInput {
+export interface BaseDate {
   date: string;
+}
+
+export interface ISolarInput extends BaseDate {
   generation: number;
   smp: number;
   supplyPrice: number;
@@ -30,15 +33,20 @@ export interface ISolar extends ISolarFromBack {
   generationDate: string;
 }
 
-export interface ISRecInput {
-  date: string;
+export interface IIRec extends BaseDate {
+  issuance: number;
+  fee: number;
+  remain: number;
+  createdAt: string;
+}
+
+export interface ISRecInput extends BaseDate {
   sVolume: number;
   sPrice: number;
 }
 export type ISRecFromBack = BaseSpp & ISRecInput;
 
-export interface IExpenseInput {
-  date: string;
+export interface IExpenseInput extends BaseDate {
   eName: string;
   ePrice: number;
 }

@@ -2,6 +2,7 @@ import { RefObject } from "react";
 import {
   IExpenseFromBack,
   IFixedExpenseFromBack,
+  IIRec,
   ISRecFromBack,
   ISRecInput,
   ISolar,
@@ -12,14 +13,6 @@ import {
 export interface ISendDataRefInputs {
   ref: RefObject<HTMLInputElement>;
   name: string;
-}
-
-export interface IIRec {
-  date: string;
-  issuance: number;
-  fee: number;
-  remain: number;
-  createdAt: string;
 }
 
 export interface ISolarTotal extends Omit<ISolarInput, "yearAndMonth"> {
