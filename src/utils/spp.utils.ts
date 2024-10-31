@@ -1,6 +1,5 @@
 import { NavigateFunction } from "react-router-dom";
 import {
-  BaseDate,
   IExpenseFromBack,
   IExpenseInput,
   IFixedExpenseFromBack,
@@ -25,6 +24,7 @@ import {
   IIRecTotal,
   ISRecTotal,
   ISolarTotal,
+  TGFilteringData,
 } from "../interfaces/utils.interface";
 import { sppActions } from "../redux/sppReducer";
 import { AppDispatch } from "../redux/store";
@@ -106,7 +106,7 @@ export class SppUtils {
   }
 
   // 선택년도로 데이터 필터링
-  static filteringData<T extends BaseDate>(
+  static filteringData<T extends TGFilteringData>(
     selectedYear: number | null,
     data: T[]
   ): T[] {

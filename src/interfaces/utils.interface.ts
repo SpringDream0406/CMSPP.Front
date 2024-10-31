@@ -57,3 +57,5 @@ export interface IDeleteOneExpense
 
 export interface IDeleteOneFixedExpense
   extends Pick<IFixedExpenseFromBack, "id" | "feName" | "fePrice"> {}
+
+export type TGFilteringData = ISolar | IIRec | ISRecFromBack | IExpenseFromBack;

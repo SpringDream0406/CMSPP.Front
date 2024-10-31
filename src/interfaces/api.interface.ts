@@ -14,16 +14,14 @@ export interface IAxiosBack {
 
 export interface IBackWithAccessToken extends Omit<IAxiosBack, "config"> {}
 
+//
 interface BaseSpp {
   id: number;
   createdAt: string;
 }
 
-export interface BaseDate {
+export interface ISolarInput {
   date: string;
-}
-
-export interface ISolarInput extends BaseDate {
   generation: number;
   smp: number;
   supplyPrice: number;
@@ -33,20 +31,23 @@ export interface ISolar extends ISolarFromBack {
   generationDate: string;
 }
 
-export interface IIRec extends BaseDate {
+export interface IIRec {
+  date: string;
   issuance: number;
   fee: number;
   remain: number;
   createdAt: string;
 }
 
-export interface ISRecInput extends BaseDate {
+export interface ISRecInput {
+  date: string;
   sVolume: number;
   sPrice: number;
 }
 export type ISRecFromBack = BaseSpp & ISRecInput;
 
-export interface IExpenseInput extends BaseDate {
+export interface IExpenseInput {
+  date: string;
   eName: string;
   ePrice: number;
 }
