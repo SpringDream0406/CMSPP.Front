@@ -14,7 +14,9 @@ export class Utils {
       }
       // 숫자데이터 인지 체크
       const numberValue = Number(input.ref.current.value);
-      if (isNaN(numberValue)) continue;
+      if (isNaN(numberValue)) {
+        continue;
+      }
       // 0 미만 체크
       if (numberValue < 0) {
         alert(`${input.name}이(가) 0 미만입니다.`);
@@ -28,7 +30,9 @@ export class Utils {
   // refInput 값 초기화
   static clearInputs(inputs: ISendDataRefInputs[]) {
     inputs.forEach((input) => {
-      if (input.ref && input.ref.current) input.ref.current.value = "";
+      if (input.ref && input.ref.current) {
+        input.ref.current.value = "";
+      }
     });
   }
 
@@ -55,9 +59,15 @@ export class Utils {
   // 분기별 배경색 넣기
   static quarterBackGroundColor(date: string): string {
     const month = this.getMonth(date);
-    if (month < 4) return "#f0fbfe";
-    if (month < 7) return "#f4fff5";
-    if (month < 10) return "#fff2f7";
+    if (month < 4) {
+      return "#f0fbfe";
+    }
+    if (month < 7) {
+      return "#f4fff5";
+    }
+    if (month < 10) {
+      return "#fff2f7";
+    }
     return "#fef8ed";
   }
 }

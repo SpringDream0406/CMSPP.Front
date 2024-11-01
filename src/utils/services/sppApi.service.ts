@@ -35,8 +35,9 @@ export class SppApiService {
       });
       return response;
     } catch (error) {
-      if (isAxiosError(error) && error.response?.data.message === "중복")
+      if (isAxiosError(error) && error.response?.data.message === "중복") {
         return alert("이미 입력된 년-월 내용이 있습니다.");
+      }
       console.error(error);
       alert("태양광 데이터 추가에 실패했습니다.");
     }

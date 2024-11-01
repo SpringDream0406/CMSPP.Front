@@ -37,8 +37,9 @@ export class UserApiService {
       if (
         isAxiosError(error) &&
         error.response?.data.message === "사업자 번호 중복"
-      )
+      ) {
         return alert("등록된 사업자 번호 입니다.");
+      }
       console.error(error);
       alert("내 정보를 등록/업데이트 하는데 실패했습니다.");
     }

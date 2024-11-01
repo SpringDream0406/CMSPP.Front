@@ -2,11 +2,11 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {
   IExpenseFromBack,
   IFixedExpenseFromBack,
+  IIRec,
   IMyInfo,
   ISRecFromBack,
   ISolar,
 } from "../interfaces/api.interface";
-import { IIRec } from "../interfaces/utils.interface";
 
 interface IReducerState {
   solar: ISolar[];

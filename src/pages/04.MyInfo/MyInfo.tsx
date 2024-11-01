@@ -29,7 +29,9 @@ const MyInfo = () => {
 
     // 빈값 체크
     const isOk = Utils.sendDataCheck(inputs);
-    if (!isOk) return;
+    if (!isOk) {
+      return;
+    }
 
     // 각 상수에 값 할당
     const [kWh, recWeight, businessNumber] = inputs.map((input) => {
@@ -38,7 +40,9 @@ const MyInfo = () => {
 
     // 사업자 등록번호 체크
     const result = await UserUtils.checkBusinessNumber(businessNumber);
-    if (!result) return;
+    if (!result) {
+      return;
+    }
 
     const myInfo = {
       kWh,

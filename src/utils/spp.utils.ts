@@ -45,7 +45,9 @@ export class SppUtils {
     console.log(`dataSize: ${dataSize}Btye`);
     console.log(new Date());
 
-    if (!response?.status && !response?.data) console.log("데이터 문제 발생");
+    if (!response?.status && !response?.data) {
+      console.log("데이터 문제 발생");
+    }
     return response?.data;
   }
 
@@ -110,7 +112,9 @@ export class SppUtils {
     selectedYear: number | null,
     data: T[]
   ): T[] {
-    if (!selectedYear) return data;
+    if (!selectedYear) {
+      return data;
+    }
     return data?.filter((item) => Utils.getYear(item.date) === selectedYear);
   }
 
@@ -119,7 +123,9 @@ export class SppUtils {
     selectedYear: number | null,
     fixedExpense: IFixedExpenseFromBack[]
   ) {
-    if (!selectedYear) return fixedExpense;
+    if (!selectedYear) {
+      return fixedExpense;
+    }
     return fixedExpense?.filter(
       (item) =>
         Utils.getYear(item.startDate) <= selectedYear &&
@@ -184,7 +190,9 @@ export class SppUtils {
   ) {
     // 데이터 체크 (빈값, 0보다 작은지)
     const isOk = Utils.sendDataCheck(inputs);
-    if (!isOk) return;
+    if (!isOk) {
+      return;
+    }
 
     // 입력 값을 배열로 추출
     const values = inputs.map((input) => input.ref.current!.value);
@@ -194,7 +202,9 @@ export class SppUtils {
 
     // 서버로 데이터 전송
     const isAdded = await addFunction(data, dispatch);
-    if (isAdded) Utils.clearInputs(inputs);
+    if (isAdded) {
+      Utils.clearInputs(inputs);
+    }
   }
 
   // 데이터 추가 함수

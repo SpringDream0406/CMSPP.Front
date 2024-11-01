@@ -87,7 +87,9 @@ export class UserUtils {
   // 사업자 등록번호 검증조회
   static async checkBusinessNumber(businessNumber: number): Promise<Boolean> {
     const response = await backApiService.checkBusinessNumber(businessNumber);
-    if (!response?.status || !(response?.data.data.length > 0)) return false;
+    if (!response?.status || !(response?.data.data.length > 0)) {
+      return false;
+    }
     const result = response.data.data[0].tax_type;
     if (result === "국세청에 등록되지 않은 사업자등록번호입니다.") {
       alert(result);

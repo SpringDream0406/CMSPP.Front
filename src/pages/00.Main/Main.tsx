@@ -21,7 +21,9 @@ const Main = () => {
         <NavLink
           to={items.to}
           onClick={() => {
-            if (items.onClick) items.onClick();
+            if (items.onClick) {
+              items.onClick();
+            }
           }}
           className={"main-actions-bts"}
           key={items.name}
