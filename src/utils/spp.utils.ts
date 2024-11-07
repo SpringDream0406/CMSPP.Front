@@ -67,14 +67,15 @@ export class SppUtils {
     if (!kWh || !recWeight) {
       // eslint-disable-next-line no-restricted-globals
       const confirmResult = confirm(
-        "내발전소 정보가 없습니다. 등록하시겠습니까?"
+        "발전 설비(kWh)나 REC 가중치가 없습니다. 등록하시겠습니까?"
       );
       if (confirmResult) {
         return navigate("/myInfo");
       } else {
-        return alert(
-          "정확한 계산을 위하여 내 발전소 정보가 없으면 이용하실 수 없습니다."
+        alert(
+          "정확한 계산을 위하여 발전 설비(kWh)와 REC 가중치의 정보가 없으면 이용하실 수 없습니다."
         );
+        return navigate("/");
       }
     }
     dispatch(sppActions.setSolar(this.createSolar(solar)));
