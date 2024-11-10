@@ -29,7 +29,7 @@ export class SppApiService {
   async addSolar(solarInput: ISolarInput) {
     try {
       const response = await backApiService.backWithAccessToken({
-        method: "put",
+        method: "post",
         url: `${process.env.REACT_APP_BACK_SPP}/solar`,
         data: solarInput,
       });
@@ -47,7 +47,7 @@ export class SppApiService {
   async addSRec(sRecInput: ISRecInput) {
     try {
       const response = await backApiService.backWithAccessToken({
-        method: "put",
+        method: "post",
         url: `${process.env.REACT_APP_BACK_SPP}/sRec`,
         data: sRecInput,
       });
@@ -62,7 +62,7 @@ export class SppApiService {
   async addExpense(expenseInput: IExpenseInput) {
     try {
       const response = await backApiService.backWithAccessToken({
-        method: "put",
+        method: "post",
         url: `${process.env.REACT_APP_BACK_SPP}/expense`,
         data: expenseInput,
       });
@@ -77,7 +77,7 @@ export class SppApiService {
   async addFixedExpense(fixedExpenseInput: IFixedExpenseInput) {
     try {
       const response = await backApiService.backWithAccessToken({
-        method: "put",
+        method: "post",
         url: `${process.env.REACT_APP_BACK_SPP}/fixedExpense`,
         data: fixedExpenseInput,
       });

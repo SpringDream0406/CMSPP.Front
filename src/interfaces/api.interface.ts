@@ -6,7 +6,7 @@ export interface IAxiosPost {
 }
 
 export interface IAxiosBack {
-  method: "get" | "post" | "put" | "delete";
+  method: "get" | "post" | "put" | "patch" | "delete";
   url: string;
   config: AxiosRequestConfig;
   data?: any;
