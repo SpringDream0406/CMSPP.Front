@@ -12,7 +12,7 @@ export class UserApiService {
     try {
       const response = await backApiService.backWithAccessToken({
         method: "delete",
-        url: `withdrawal`,
+        url: process.env.REACT_APP_BACK_USER!,
       });
       if (response.status) {
         alert("회원탈퇴가 정상적으로 이루어졌습니다.");
