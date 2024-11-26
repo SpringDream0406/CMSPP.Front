@@ -7,9 +7,8 @@ const Signup = () => {
   const signupIcons = signupIconsData.map((icons) => {
     const handleSignup = async () => {
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${process.env.REACT_APP_BACK_URL}/signup/${icons}`,
-          {},
           {
             withCredentials: true, // 쿠키 포함해서 보내기
           }
