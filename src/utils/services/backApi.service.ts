@@ -39,7 +39,10 @@ export class BackApiService {
       if (method === "get" || method === "delete") {
         return await this.backAxios[method](url, config);
       }
-      return await this.backAxios[method](url, data, config);
+      const response = await this.backAxios[method](url, data, config);
+      console.log(response);
+
+      return response;
     } catch (error) {
       throw error;
     }
