@@ -1,23 +1,12 @@
-import axios from "axios";
 import "./SignUp.css";
 
 const Signup = () => {
   const signupIconsData = ["google", "kakao", "naver"];
 
   const signupIcons = signupIconsData.map((icons) => {
-    const handleSignup = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_BACK_URL}/signup/${icons}`,
-          {
-            withCredentials: true, // 쿠키 포함해서 보내기
-          }
-        );
-        // 성공적인 응답 처리 (예: 로그인 성공 후 페이지 리디렉션)
-        console.log(response.data);
-      } catch (error) {
-        console.error("Signup failed:", error);
-      }
+    const handleSignup = () => {
+      // 리디렉션으로 인증 요청을 보냄
+      window.location.href = `${process.env.REACT_APP_BACK_URL}/signup/${icons}`;
     };
 
     return (
