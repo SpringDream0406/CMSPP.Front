@@ -7,6 +7,27 @@ const backApiService = new BackApiService();
 
 export class UserApiService {
   //
+
+  // 회원가입/로그인
+  async signup(provider: string, code: string) {
+    try {
+      const url = `/test`;
+      const config = {
+        withCredentials: true,
+      };
+      const data = { code };
+      const response = await backApiService.axiosBack({
+        method: "post",
+        url,
+        config,
+        data,
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   // 회원탈퇴
   async withdrawal(): Promise<void> {
     try {
