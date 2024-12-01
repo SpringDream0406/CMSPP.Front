@@ -54,7 +54,7 @@ export class UserUtils {
 
   // 회원가입/로그인
   static async signup(provider: string, code: string) {
-    const response = await userApiService.signup(provider, code);
+    await userApiService.signup(provider, code);
   }
 
   // 로그아웃 처리

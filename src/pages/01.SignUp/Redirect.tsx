@@ -16,7 +16,7 @@ const Redirect = () => {
       console.log(response);
     };
     test();
-  }, [location.search, navigate]);
+  }, [location.search, navigate, provider]);
 
   // 본문
   return <div>로그인 처리 중입니다...</div>;
