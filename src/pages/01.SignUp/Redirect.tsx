@@ -14,6 +14,7 @@ const Redirect = () => {
 
       const response = await UserUtils.signup(provider!, code!);
       console.log(response);
+      navigate("/");
     };
     test();
   }, [location.search, navigate, provider]);
