@@ -52,11 +52,6 @@ export class UserUtils {
     }
   }
 
-  // 회원가입/로그인
-  static async signup(provider: string, code: string) {
-    await userApiService.signup(provider, code);
-  }
-
   // 로그아웃 처리
   static logOut(): void {
     this.removeRefreshToken();
