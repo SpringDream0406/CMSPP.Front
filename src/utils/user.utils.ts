@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import { Dispatch, SetStateAction } from "react";
 import { BackApiService } from "./services/backApi.service";
 import { UserApiService } from "./services/userApi.service";
@@ -32,21 +31,41 @@ export class UserUtils {
     localStorage.removeItem("accessToken");
   }
 
-  // 리프레시토큰 쿠키 있나 체크
-  static checkRefreshToken(): string | undefined {
-    return Cookies.get("refreshToken");
+  // 로컬스토리지에 refreshTokenExpires 저장하기
+  static setRefreshTokenExpires(): void {
+    localStorage.setItem(
+      "refreshTokenExpires",
+      // `${Date.now() + 1000 * 60 * 60 * 23}` // 23 시간 (1시간 여유), 밀리초
+      `${Date.now() + 1000 * 60}` // 1분 (Test 용)
+    );
   }
 
-  // 리프레시토큰 삭제
-  static removeRefreshToken(): void {
-    Cookies.remove("refreshToken");
+  // 로컬스토리지에 refreshTokenExpires 삭제
+  static removeRefreshTokenExpirese(): void {
+    localStorage.removeItem("refreshTokenExpires");
   }
 
-  // 리프레시토큰 쿠키 있으면 엑세스토큰 받아다가 localStorage에 저장, 로그인상태로 변경
+  // 리프레시토큰 expires 체크
+  static checkRefreshTokenExpires(): boolean | void {
+    const savedTime = localStorage.getItem("refreshTokenExpires");
+    if (savedTime) {
+      const refreshTokenExpires = Number(savedTime);
+      const now = Date.now();
+
+      console.log("r", refreshTokenExpires);
+      console.log(now);
+
+      if (refreshTokenExpires > now) {
+        return true;
+      }
+    }
+  }
+
+  // 리프레시토큰 expires 유효하면 엑세스토큰 받아다가 localStorage에 저장, 로그인상태로 변경
   static async saveAccessToken(
     setLogined: Dispatch<SetStateAction<boolean>>
   ): Promise<void> {
-    if (this.checkRefreshToken()) {
+    if (this.checkRefreshTokenExpires()) {
       await backApiService.getAccessToken();
       setLogined(this.checkAccessTokenFromLocalStorage());
     }
@@ -54,9 +73,9 @@ export class UserUtils {
 
   // 로그아웃 처리
   static logOut(): void {
-    this.removeRefreshToken();
+    this.removeRefreshTokenExpirese();
     this.removeAccessTokenFromLocalStorage();
-    window.location.href = "/";
+    window.location.href = `${process.env.REACT_APP_BACK_URL}/logout`;
   }
 
   // 회원탈퇴
