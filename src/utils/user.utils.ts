@@ -33,10 +33,12 @@ export class UserUtils {
 
   // 로컬스토리지에 cookieExpires 저장하기
   static setCookieExpires(): void {
+    const isPord = process.env.REACT_APP_ENV === "prod";
     localStorage.setItem(
       "cookieExpires",
-      // `${Date.now() + 1000 * 60 * 60 * 23}` // 23 시간 (1시간 여유), 밀리초
-      `${Date.now() + 1000 * 60}` // 1분 (Test 용)
+      isPord
+        ? `${Date.now() + 1000 * 60 * 60 * 23}` // 23 시간 (1시간 여유), 밀리초
+        : `${Date.now() + 1000 * 60}` // 1분 (Test 용)
     );
   }
 
