@@ -35,7 +35,7 @@ const SRec = () => {
         const calcul = sVolume * sPrice;
         const vat = Math.floor(calcul / 10);
         const fee = sVolume * (kWh < 100 ? 0 : 55);
-        const total = calcul + vat;
+        const total = calcul + vat - fee;
         return (
           <span
             className="spp-box-box1-items"

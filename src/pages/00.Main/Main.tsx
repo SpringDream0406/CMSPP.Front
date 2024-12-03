@@ -8,7 +8,7 @@ const Main = () => {
   const [logined, setLogined] = useState<boolean>(false); // 로그인 상태에 따라 버튼들 바뀜
   const { pathname } = useLocation(); // 현재 경로로 타이틀 변경
 
-  // 리프레시토큰 있으면 엑세스토큰 받아다가 localStorage에 저장 = 로그인
+  // 리프레시토큰 있으면 엑세스토큰 받아다가 localStorage에 저장, 로그인
   useEffect(() => {
     UserUtils.saveAccessToken(setLogined);
   }, []);

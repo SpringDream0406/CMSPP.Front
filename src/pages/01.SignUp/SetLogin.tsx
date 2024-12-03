@@ -3,7 +3,7 @@ import { UserUtils } from "../../utils/user.utils";
 
 const SetLogin = () => {
   useEffect(() => {
-    UserUtils.setRefreshTokenExpires();
+    UserUtils.setCookieExpires();
     window.location.href = "/";
   });
 

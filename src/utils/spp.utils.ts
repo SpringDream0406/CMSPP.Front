@@ -40,10 +40,10 @@ export class SppUtils {
   // 내발전소 데이터 가져오기
   static async fetchSpp(): Promise<ISpp> {
     const response = await sppApiService.fetchSpp();
-    const dataSize = new TextEncoder().encode(JSON.stringify(response)).length;
-    console.log(response);
-    console.log(`dataSize: ${dataSize}Btye`);
-    console.log(new Date());
+    // const dataSize = new TextEncoder().encode(JSON.stringify(response)).length;
+    // console.log(response);
+    // console.log(`dataSize: ${dataSize}Btye`);
+    // console.log(new Date());
 
     if (!response?.status && !response?.data) {
       console.log("데이터 문제 발생");

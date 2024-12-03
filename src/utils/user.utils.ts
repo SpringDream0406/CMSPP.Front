@@ -31,33 +31,25 @@ export class UserUtils {
     localStorage.removeItem("accessToken");
   }
 
-  // 로컬스토리지에 refreshTokenExpires 저장하기
-  static setRefreshTokenExpires(): void {
+  // 로컬스토리지에 cookieExpires 저장하기
+  static setCookieExpires(): void {
     localStorage.setItem(
-      "refreshTokenExpires",
+      "cookieExpires",
       // `${Date.now() + 1000 * 60 * 60 * 23}` // 23 시간 (1시간 여유), 밀리초
       `${Date.now() + 1000 * 60}` // 1분 (Test 용)
     );
   }
 
-  // 로컬스토리지에 refreshTokenExpires 삭제
-  static removeRefreshTokenExpirese(): void {
-    localStorage.removeItem("refreshTokenExpires");
+  // 로컬스토리지에 cookieExpires 삭제
+  static removeCookieExpirese(): void {
+    localStorage.removeItem("cookieExpires");
   }
 
   // 리프레시토큰 expires 체크
-  static checkRefreshTokenExpires(): boolean | void {
-    const savedTime = localStorage.getItem("refreshTokenExpires");
-    if (savedTime) {
-      const refreshTokenExpires = Number(savedTime);
-      const now = Date.now();
-
-      console.log("r", refreshTokenExpires);
-      console.log(now);
-
-      if (refreshTokenExpires > now) {
-        return true;
-      }
+  static checkCookieExpires(): boolean | void {
+    const cookieExpires = Number(localStorage.getItem("cookieExpires"));
+    if (cookieExpires && cookieExpires > Date.now()) {
+      return true;
     }
   }
 
@@ -65,7 +57,7 @@ export class UserUtils {
   static async saveAccessToken(
     setLogined: Dispatch<SetStateAction<boolean>>
   ): Promise<void> {
-    if (this.checkRefreshTokenExpires()) {
+    if (this.checkCookieExpires()) {
       await backApiService.getAccessToken();
       setLogined(this.checkAccessTokenFromLocalStorage());
     }
@@ -73,7 +65,7 @@ export class UserUtils {
 
   // 로그아웃 처리
   static logOut(): void {
-    this.removeRefreshTokenExpirese();
+    this.removeCookieExpirese();
     this.removeAccessTokenFromLocalStorage();
     window.location.href = `${process.env.REACT_APP_BACK_URL}/logout`;
   }

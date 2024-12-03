@@ -40,7 +40,7 @@ export class BackApiService {
         return await this.backAxios[method](url, config);
       }
       const response = await this.backAxios[method](url, data, config);
-      console.log(response);
+      // console.log(response);
 
       return response;
     } catch (error) {
