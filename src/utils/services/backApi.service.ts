@@ -78,7 +78,7 @@ export class BackApiService {
 
   // 엑세스토큰 받아오는 통신
   async getAccessToken(): Promise<void> {
-    const url = `/getAccessToken`;
+    const url = `${process.env.REACT_APP_BACK_AUTH}/getAccessToken`;
     const config = {
       withCredentials: true, // 쿠키 포함해서 보내기
     };

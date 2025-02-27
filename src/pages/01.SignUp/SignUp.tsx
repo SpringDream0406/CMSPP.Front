@@ -6,7 +6,9 @@ const Signup = () => {
   const signupIcons = signupIconsData.map((icons) => {
     return (
       <div className="signup-icons-box" key={icons}>
-        <Link to={`${process.env.REACT_APP_BACK_URL}/signup/${icons}`}>
+        <Link
+          to={`${process.env.REACT_APP_BACK_URL}${process.env.REACT_APP_BACK_AUTH}/signup/${icons}`}
+        >
           <img
             src={`/images/icons/${icons}.png`}
             alt={icons}

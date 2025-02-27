@@ -69,7 +69,7 @@ export class UserUtils {
   static logOut(): void {
     this.removeCookieExpirese();
     this.removeAccessTokenFromLocalStorage();
-    window.location.href = `${process.env.REACT_APP_BACK_URL}/logout`;
+    window.location.href = `${process.env.REACT_APP_BACK_URL}${process.env.REACT_APP_BACK_AUTH}/logout`;
   }
 
   // 회원탈퇴
